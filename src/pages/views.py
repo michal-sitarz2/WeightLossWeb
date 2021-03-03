@@ -3,4 +3,4 @@ from django.shortcuts import render
 
 
 def homepage_view(*args, **kwargs):
-    return HttpResponse("<h1>Hello World. This is the second commit from Todor ahahah</h1>")
+    return HttpResponse("<h1>Hello World!!</h1>")
