@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <h2>BMI Calculator</h2>
+    </div>
+
+    <div>
+        <form method="get" action="/bmi">
+            <label>Weight(kg) </label>
+            <input name="weight"><br><br>
+            <label>Height(m) </label>
+            <input name="height"><br><br>
+            <input type="submit" placeholder="Submit">
+        </form>
+
+        <p>
+
+        {% if bmi == -2 %}
+            Please enter your details to calculate your BMI.
+        {% elif bmi == -1 %}
+            Please enter correct inputs. This includes using positive numbers and checking whether kilograms and meters were used.
+        {% else %}
+            Your BMI is {{ bmi }}.
+        {% endif %}
+        </p>
+
+    </div>
+{% endblock %}
