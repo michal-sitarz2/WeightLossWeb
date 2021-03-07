@@ -5,25 +5,50 @@
         <h2>BMI Calculator</h2>
     </div>
 
-    <div>
+    <button onclick="switchBMIType('metric_bmi', 'imperial_bmi')">Metric</button>
+    <button onclick="switchBMIType('imperial_bmi', 'metric_bmi')">Imperial</button><br><br>
+
+    <div id="metric_bmi_form" style="display: block;">
         <form method="get" action="/bmi">
-            <label>Weight(kg) </label>
-            <input name="weight"><br><br>
-            <label>Height(m) </label>
-            <input name="height"><br><br>
-            <input type="submit" placeholder="Submit">
+                <label>Weight(kg) </label>
+                <input name="weight_metric" value={{weight_metric}}><br><br>
+                <label>Height(m) </label>
+                <input name="height_metric" value={{height_metric}}><br>
+            <p><a href="/bmi">Reset</a></p>
+            <input type="submit" value="Calculate">
         </form>
-
-        <p>
-
-        {% if bmi == -2 %}
-            Please enter your details to calculate your BMI.
-        {% elif bmi == -1 %}
-            Please enter correct inputs. This includes using positive numbers and checking whether kilograms and meters were used.
-        {% else %}
-            Your BMI is {{ bmi }}.
-        {% endif %}
-        </p>
-
     </div>
+    <div id="imperial_bmi_form" style="display: none;">
+        <form method="get" action="/bmi">
+            <label>Weight(stones) </label>
+            <input name="weight_imperial" value={{weight_imperial}}><br><br>
+            <label>Height(ft) </label>
+            <input name="height_imperial" value={{height_imperial}}><br>
+            <p><a href="/bmi">Reset</a></p>
+
+        </form>
+    </div>
+
+
+    <p>
+    {% if bmi == -2 %}
+        Please enter your details to calculate your BMI.
+    {% elif bmi == -1 %}
+        Please enter correct inputs. This includes using positive numbers and checking whether kilograms and meters were used.
+    {% else %}
+        <strong>BMI</strong>: {{ bmi }}
+    {% endif %}
+    </p>
+
+    {% if range %}
+        <p>You are in the <strong> {{ range }} </strong> range.</p>
+        <h3>BMI range</h3>
+        <p>
+            BMI < 18.5 = Underweight<br>
+            BMI in range 18.5 - 25 = Healthy Weight<br>
+            BMI in range 25 - 30 = Overweight<br>
+            BMI in range 30 - 40 = Obese<br>
+            BMI > 40 = Extremely Obese
+        </p>
+    {% endif %}
 {% endblock %}

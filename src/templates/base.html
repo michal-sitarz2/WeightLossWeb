@@ -1,7 +1,11 @@
-<!doctype html>
+{% load static %}
+
 <html>
     <head>
         <title>Weight Loss Website</title>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+        <script src="{% static '/js/main.js' %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     </head>
     <body>
         {% include 'navbar.html' %}
