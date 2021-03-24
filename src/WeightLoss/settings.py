@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     # Own
     'pages',
     'account',
+    'recipes',
+    'progress',
 
     'django.contrib.admin',
     'django.contrib.auth',
