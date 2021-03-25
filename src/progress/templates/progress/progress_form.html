@@ -2,17 +2,19 @@
 
 {% block content %}
 
-<h2>Login</h2>
-{% if login_form.non_field_errors %}
-    <div style="color:red;">
-        <p>{{login_form.non_field_errors}}</p>
-    </div>
-{% endif %}
+
+<!---
+ADD here a table of bmi ranges, allows users to know
+what BMI they might want to aim for!
+-->
+
+
+<h2>Personal Information</h2>
 <form method="post">{% csrf_token %}
-    {% for field in login_form %}
+    {% for field in progress_form %}
         <p>
-            {{field.label_tag}}
-            {{field}}
+            {{ field.label_tag }}
+            {{ field }}
 
             {% if field.help_text %}
                 <small style="color: grey;">{{field.help_text}}</small>
@@ -24,7 +26,7 @@
         </p>
 
     {% endfor %}
-    <button type="submit">Log in</button>
+    <button type="submit">Register</button>
 </form>
 
 {% endblock content %}

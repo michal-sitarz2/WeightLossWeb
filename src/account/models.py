@@ -4,18 +4,12 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, email, username, weight, height, weight_goal, bmi, password=None):
+    def create_user(self, email, username, password=None):
         self.verify_blank(email=email, username=username)
-
-        #### Calculate the BMI Here?
 
         user = self.model(
             email=self.normalize_email(email),
             username=username,
-            weight=weight,
-            height=height,
-            weight_goal=weight_goal,
-            bmi=bmi,
         )
 
         user.set_password(password)
@@ -48,14 +42,6 @@ class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
     username = models.CharField(max_length=30, unique=True)
 
-    # Weight in Kilograms
-    weight = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(400)], default=0)
-    # Height in meters
-    height = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(3)], default=0)
-    # BMI for the user
-    bmi = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(50)], default=0)
-    # Goal for the user to reach
-    weight_goal = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(400)], default=0)
 
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
@@ -64,8 +50,8 @@ class Account(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     objects = MyAccountManager()
 

@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from pages.views import homepage_view, bmi_calculator_view
 from account.views import registration_view, logout_view, login_view
+from progress.views import progress_form_view
 
 urlpatterns = [
     path('', homepage_view, name="home"),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', registration_view, name="register"),
     path('logout/', logout_view, name="logout"),
-    path('login/', login_view, name='login')
+    path('login/', login_view, name='login'),
+    path('registration_progress/', progress_form_view, name='progress_form'),
 ]
