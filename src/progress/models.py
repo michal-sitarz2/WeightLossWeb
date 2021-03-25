@@ -5,6 +5,9 @@ import datetime
 from account.models import Account
 from pages.scripts.bmi_calculate import calculate_BMI
 
+###### Raise error if the height is smaller than current
+
+
 class Progress(models.Model):
     # One-to-one relationship with the Users Account
     user = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
@@ -37,8 +40,6 @@ class Progress(models.Model):
 
     # Method to update the current weight and height, based on user input
     def update_current_set(self, height, weight):
-
-###### Raise error if the height is smaller than current
 
         self.current_weight = weight
         self.current_height = height
