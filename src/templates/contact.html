@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+{% block content %}
+
+
+<div class="container">
+    <h1 class="text-center mb-3">Contact Form</h1>
+    <form role="form" action="" method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="first_name">First name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="last_name">Last name</label>
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="username">Username</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">@</span>
+                    </div>
+                    <input type="text" class="form-control" id="username" name="username"
+                        placeholder="Username" aria-describedby="inputGroupPrepend3" required>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md-form mb-3">
+            <!-- <span><i class="fas fa-envelope"></i></span> -->
+            <label name="email">Email</label>
+            <input id="email" name="email" class="form-control">
+            {% for error in form.email.errors %}
+                <p class="danger">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </div>
+        <div class="md-form mb-3">
+            <!-- <span><i class="fas fa-envelope"></i></span> -->
+            <label name="message">Message</label>
+            <textarea placeholder="Type your message here.." id="message" name="message" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+                <label class="form-check-label" for="invalidCheck3">
+                    Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+    <p class="contact-info">After clicking the submit button the email will be printed in the console.</p>
+</div>
+
+{% endblock %}
