@@ -1,0 +1,13 @@
+/* This css is devided into sections 
+    1. Home page
+    2. BMI page
+    3. Contact page
+
+*/ 
+
+/* 3. Contact page */
+
+.contact-info {
+    font-size: 20px;
+    color: green;
+}

@@ -1,33 +1,6 @@
-<!-- <nav>
-    <ul>
-        {% if request.user.is_authenticated %}
-            {% if request.user.progress %}
-                <li><a href="#">Dashboard - Recipes</a></li>
-            {% endif %}
-        {% endif %}
-        <li><a href="/">Home</a></li>
-        <li><a href="/bmi">BMI Calculator</a></li>
-        <li>About - Obesity</li>
-        <li>Contact</li>
-    </ul>
-
-    {% if request.user.progress %}
-    {% else %}
-        {% if request.user.is_authenticated %}
-            <p><a href="registration_progress">Please Enter Personal Info</a></p>
-        {% endif %}
-    {% endif %}
-
-            {% if request.user.is_authenticated %}
-            <p>Hello, {{request.user.username}} | <a href="{% url 'logout' %}">Log Out</a></p>
-        {% else %}
-            <p><a href="{% url 'register' %} ">Register</a> | <a href="{% url 'login' %}">Login</a></p>
-        {% endif %}
-
-</nav> -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="/">The Nutritionist</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -45,7 +18,7 @@
                 <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" href="/contact">Contact</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"

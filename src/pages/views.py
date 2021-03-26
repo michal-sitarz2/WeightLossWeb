@@ -2,10 +2,63 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from .scripts.bmi_calculate import calculate_BMI
+# These are for the contact page
+from pages.forms import ContactForm
+from django.core.mail import EmailMessage
+from django.shortcuts import redirect
+from django.template.loader import get_template
 
 
 def homepage_view(request, *args, **kwargs):
     return render(request, "homepage.html", {})
+
+def contact_view(request, *args, **kwargs):
+    form_class = ContactForm
+
+    # the logic behind the contact form
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            first_name = request.POST.get(
+                'first_name'
+            , '')
+            last_name = request.POST.get(
+                'last_name'
+            , '')
+            username = request.POST.get(
+                'username'
+            , '')
+            email = request.POST.get(
+                'email'
+            , '')
+            form_message = request.POST.get('message', '')
+
+            # Email the profile with the
+            # contact information
+            template = get_template('contact_template.txt')
+            context = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'username': username,
+                'email': email,
+                'form_message': form_message,
+            }
+            message = template.render(context)
+
+            email = EmailMessage(
+                "New contact form submission",
+                message,
+                "The Nutritionist" +'',
+                ['youremail@gmail.com'],
+                headers = {'Reply-To': email }
+            )
+            email.send()
+            return redirect('contact')
+
+    return render(request, "contact.html", {
+        'form': form_class
+    })
 
 
 def bmi_calculator_view(request, *args, **kwargs):
