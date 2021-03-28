@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.forms import ModelForm
-import datetime
+from django.utils import timezone
 from account.models import Account
 from pages.scripts.bmi_calculate import calculate_BMI
 
@@ -25,7 +25,7 @@ class Progress(models.Model):
     # Current Weight
     current_weight = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(400)], default=0)
     # Details last updated
-    last_updated = models.DateTimeField(auto_now_add=True, blank=False)
+    last_updated = models.DateTimeField(auto_now_add=True, blank=True)
 
 
     # Method to set the current weight and height to intial weight and height
@@ -40,12 +40,13 @@ class Progress(models.Model):
 
     # Method to update the current weight and height, based on user input
     def update_current_set(self, height, weight):
-
         self.current_weight = weight
         self.current_height = height
 
         self.update_bmi()
-        self.last_updated = datetime.datetime.now()
+        self.last_updated = timezone.now()
 
     def __str__(self):
-        return self.user.username
+        return self.user.username + "\nStarting Weight: " + str(self.starting_weight) + "\nCurrent Weight: " \
+               + str(self.current_weight) + "\nLast Updated: " + str(self.last_updated.date()) + " " + str(self.last_updated.hour)\
+               + ":" + str(self.last_updated.minute)

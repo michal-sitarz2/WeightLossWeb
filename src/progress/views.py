@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from .forms import InitialProgressForm
-
+from django.views.generic import UpdateView
+from .models import Progress
 
 def progress_form_view(request):
     context = {}
@@ -31,5 +32,22 @@ def progress_form_view(request):
             context['progress_form'] = form
 
     return render(request, 'progress/progress_form.html', context)
+
+class UpdateProgressView(UpdateView):
+    model = Progress
+    template_name = 'progress/progress_edit.html'
+    fields = ['current_weight', 'current_height']
+
+    def form_valid(self, form):
+        weight = form.cleaned_data["current_weight"]
+        height = form.cleaned_data["current_height"]
+
+        self.object.update_current_set(height, weight)
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return "/"
+
 
 

@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from progress.models import Progress
 
 from .scripts.bmi_calculate import calculate_BMI
 # These are for the contact page
@@ -10,7 +11,9 @@ from django.template.loader import get_template
 
 
 def homepage_view(request, *args, **kwargs):
-    return render(request, "homepage.html", {})
+    context = {}
+    context['progress_list'] = Progress.objects.all()
+    return render(request, "homepage.html", context)
 
 def contact_view(request, *args, **kwargs):
     form_class = ContactForm
