@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'recipes',
     'progress',
     'posts',
+    'meals',
+    'diets',
 
     'django.contrib.admin',
     'django.contrib.auth',

@@ -3,7 +3,8 @@ from django.contrib import admin
 from .models import Recipe
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'servings', 'protein', 'carbs', 'fats')
-    search_fields = ('title',)
+    list_display = ('name', 'protein', 'carbs', 'fats', 'vegetarian', 'vegan',
+                    'gluten_free', 'halaal', 'shellfish_free', 'lactose_free')
+    search_fields = ('name',)
 
 admin.site.register(Recipe, RecipeAdmin)
