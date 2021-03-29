@@ -4,8 +4,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, email, username, password=None):
-        self.verify_blank(email=email, username=username)
+    def create_user(self, email, username, password):
+        self.verify_blank(email=email, username=username, password=password)
 
         user = self.model(
             email=self.normalize_email(email),
@@ -17,7 +17,7 @@ class MyAccountManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, username, password):
-        self.verify_blank(email, username)
+        self.verify_blank(email, username, password)
         user = self.model(
             email=self.normalize_email(email),
             username=username,
@@ -31,17 +31,18 @@ class MyAccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def verify_blank(self, email, username):
+    def verify_blank(self, email, username, password):
         if not email:
             raise ValueError('Users must have an email address')
         if not username:
             raise ValueError('Users must have a username')
+        if not password:
+            raise ValueError('Users must have a password')
 
 
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    username = models.CharField(max_length=30, unique=True)
-
+    username = models.CharField(max_length=30, unique=True, blank=False)
 
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)

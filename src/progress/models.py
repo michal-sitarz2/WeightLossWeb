@@ -30,6 +30,11 @@ class Progress(models.Model):
 
     # Method to set the current weight and height to intial weight and height
     def initial_current_set(self):
+        if not self.starting_height:
+            raise ValueError
+        if not self.starting_weight:
+            raise ValueError
+
         self.current_weight = self.starting_weight
         self.current_height = self.starting_height
         self.update_bmi()
@@ -41,7 +46,10 @@ class Progress(models.Model):
     # Method to update the current weight and height, based on user input
     def update_current_set(self, height, weight):
         self.current_weight = weight
-        self.current_height = height
+
+        # If the new height is smaller than the current height don't change it
+        if height >= self.current_height:
+            self.current_height = height
 
         self.update_bmi()
         self.last_updated = timezone.now()
