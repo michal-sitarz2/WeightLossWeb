@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <br>
+    <h2>Welcome {{request.user.username}}!</h2>
+    <br>
+
+    {% if request.user.diet %}
+        <h3>Recipes</h3>
+    {% else %}
+        <p>To get started, please fill in your preferences to generate recipes.</p>
+        <p><a href="#">Add Preferences</a></p>
+    {% endif %}
+
+    <hr>
+    <p><strong>(Not how the dashboard will look like, just to see progress)</strong></p>
+    <br>
+    <h4>Starting Information:</h4>
+    <p>
+        Starting Height: {{request.user.progress.starting_height}}<br>
+        Starting Weight: {{request.user.progress.starting_weight}}<br>
+    </p>
+    <h4>Current Progress (as of {{request.user.progress.last_updated}}):</h4>
+    <p>
+        Current Height: {{request.user.progress.current_height}}<br>
+        Current Weight: {{request.user.progress.current_weight}}<br>
+        Current BMI: {{request.user.progress.current_bmi}}<br>
+        <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
+    </p>
+
+    <p><a href="{% url 'update_progress' request.user.progress.pk %}">Update Progress</a></p>
+{% endblock content %}

@@ -7,6 +7,7 @@ from .models import Account
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=60, help_text='Required. Add valid email address')
+    username = forms.CharField(min_length=5, max_length=30)
 
     class Meta:
         model = Account

@@ -1,6 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.views.generic import DetailView
 from .forms import RegistrationForm, AccountAuthenticationForm
+from .models import Account
+
+class DashboardView(DetailView):
+    model = Account
+    template_name = 'account/dashboard.html'
+
 
 def registration_view(request):
     context = {}
@@ -32,9 +39,7 @@ def login_view(request):
 
     user = request.user
     if user.is_authenticated:
-
-        ### Redirect to dashboard
-        return redirect('home')
+        return redirect('user_dashboard')
 
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
@@ -45,11 +50,7 @@ def login_view(request):
 
             if user:
                 login(request, user)
-
-                ### Redirect to Dashboard when logging in
-
-                return redirect("home")
-
+                return redirect('user_dashboard', user.pk)
     else:
         form = AccountAuthenticationForm()
 

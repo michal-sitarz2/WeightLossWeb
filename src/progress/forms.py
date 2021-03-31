@@ -25,10 +25,3 @@ class InitialProgressForm(forms.ModelForm):
         progress.save()
 
         return progress
-
-
-
-
-
-
-#### Form for updating the Progress (i.e. setting new weight...)

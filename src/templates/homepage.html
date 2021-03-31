@@ -5,17 +5,4 @@
     <h1 class="text-center">Hello World</h1>
 </div>
 
-<h3>List of Progresses</h3>
-<p>(Just to check whether the Update form for them works)</p>
-<ul>
-{% for progress in progress_list %}
-    <li>
-        {{ progress }}
-        <br>
-        <a href="{% url 'update_progress' progress.pk %}">(Update Progress)</a>
-    </li>
-{% endfor %}
-</ul>
-
-
 {% endblock %}

@@ -21,9 +21,7 @@ def progress_form_view(request):
 
             if (form.is_valid()):
                 form.save()
-
-### REDIRECT TO DASHBOARD
-                return redirect('home')
+                return redirect('user_dashboard', user.pk)
             else:
                 context['progress_form'] = form
 
@@ -47,7 +45,7 @@ class UpdateProgressView(UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return "/"
+        return "/account/dashboard/{}".format(self.object.user.pk)
 
 
 

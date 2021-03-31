@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from pages.views import homepage_view, bmi_calculator_view, contact_view
-from account.views import registration_view, logout_view, login_view
+from account.views import registration_view, logout_view, login_view, DashboardView
 from progress.views import progress_form_view, UpdateProgressView
 
 urlpatterns = [
@@ -29,5 +29,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('registration_progress/', progress_form_view, name='progress_form'),
     path('contact/', contact_view, name="contact"),
-    path('progress/edit/<int:pk>', UpdateProgressView.as_view(), name="update_progress")
+    path('progress/edit/<int:pk>', UpdateProgressView.as_view(), name="update_progress"),
+    path('account/dashboard/<int:pk>', DashboardView.as_view(), name='user_dashboard'),
+
 ]
