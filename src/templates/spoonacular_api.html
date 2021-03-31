@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+{% block content %}
+
+<div class="container">
+    <h1>Hey this is the page from where we'll search through the Spoonacular API</h1>
+
+    <div class="mt-5 bg-success text-center">From here there are several Spoonacular features</div>
+
+    <!-- <div>
+        <h2 style="padding-top: 3%;">
+            It's time for cooking! What do you have in the fridge? <br>
+            <small class="text-muted"> Let's warm up with a joke: {{ joke }} </small>
+        </h2>
+        <br><br>
+        <form action="/recipes">
+            <div class="input-group mb-3" style="max-width: 50%;">
+                <input type="text" class="form-control" placeholder="Apple, flour, sugar" aria-label="Ingridients"
+                    aria-describedby="button-addon2" name="ingridients">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                </div>
+            </div>
+        </form>
+    </div> -->
+    <h3>This is a joke generator</h3>
+    <h5>Random joke - {{ joke }}</h5>
+    <p class="mt-3" style="color: red;">Reload the page every time you want new jokes</p>
+    <h3 class="mt-5"> This is a recipe generator</h3>
+    <h5>Random recipe - {{ recipes }}</h5>
+</div>
+
+{% endblock %}
