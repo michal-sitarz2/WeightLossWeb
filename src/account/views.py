@@ -4,10 +4,17 @@ from django.views.generic import DetailView
 from .forms import RegistrationForm, AccountAuthenticationForm
 from .models import Account
 
-class DashboardView(DetailView):
-    model = Account
-    template_name = 'account/dashboard.html'
+# class DashboardView(DetailView):
+#     model = Account
+#     template_name = ''
 
+def dashboard_view(request, pk):
+    context = {}
+    try:
+        if request.user.progress:
+            return render(request, 'account/dashboard.html', context)
+    except Exception as e:
+        return redirect('progress_form')
 
 def registration_view(request):
     context = {}
@@ -36,10 +43,12 @@ def logout_view(request):
 
 def login_view(request):
     context = {}
-
     user = request.user
     if user.is_authenticated:
-        return redirect('user_dashboard')
+        if user.is_admin:
+            return redirect('/admin')
+        else:
+            return redirect('user_dashboard', user.pk)
 
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
@@ -50,7 +59,10 @@ def login_view(request):
 
             if user:
                 login(request, user)
-                return redirect('user_dashboard', user.pk)
+                if user.is_admin:
+                    return redirect('/admin')
+                else:
+                    return redirect('user_dashboard', user.pk)
     else:
         form = AccountAuthenticationForm()
 
