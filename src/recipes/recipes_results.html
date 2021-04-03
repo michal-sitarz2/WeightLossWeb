@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Recipes finder {% endblock %}
+{% block body %}
+  <ul class="list-unstyled">
+      {% for recipe in recipes %}
+          <li class="media">
+              <img src="{{recipe['image']}}" >
+              <div class="media-body">
+                  <h5 class="mt-0 mb-1"><a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a></h5>
+                      preparation time {{recipe['preparationMinutes']}} <br>
+                      cooking time {{recipe['cookingMinutes']}}  <br>
+                      Number of likes {{recipe['aggregateLikes']}}  <br>
+                      Number of matched ingredients {{recipe['usedIngredientCount']}} <br>
+                      Number of mismatched ingredients {{recipe['missedIngredientCount']}}  <br>
+                       {{recipe['likes']}}  <br>
+                  {% endif %}
+              </div>
+          </li> <br>
+      {% endfor %}
+  </ul>
+</div >
+{% endblock %}
