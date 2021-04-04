@@ -20,7 +20,7 @@ def search_page():
 if __name__ == '__main__':
   app.run()
 
-  @app.route('/recipes')
+@app.route('/recipes')
 def get_recipes():
   if (str(request.args['ingridients']).strip() != ""):
       # List recipes if ingredients are found

@@ -18,7 +18,7 @@ from django.urls import path
 from pages.views import homepage_view, bmi_calculator_view, contact_view
 from account.views import registration_view, logout_view, login_view, dashboard_view
 from progress.views import progress_form_view, UpdateProgressView
-from recipes.views import spoonacular_api_view
+from recipes.views import spoonacular_api_view, spoonacular_api_search_view
 
 urlpatterns = [
     path('', homepage_view, name="home"),
@@ -33,4 +33,5 @@ urlpatterns = [
     path('progress/edit/<int:pk>', UpdateProgressView.as_view(), name="update_progress"),
     path('account/dashboard/<int:pk>', dashboard_view, name='user_dashboard'),
     path('search/', spoonacular_api_view, name="search"),
+    path('find_recipe/', spoonacular_api_search_view, name="find_recipe")
 ]
