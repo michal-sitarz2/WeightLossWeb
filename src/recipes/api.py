@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
 @app.route('/recipes')
 def get_recipes():
-  if (str(request.args['ingridients']).strip() != ""):
+  if (str(request.args['ingredients']).strip() != ""):
       # List recipes if ingredients are found
       querystring = {"number":"9","ranking":"1","ignorePantry":"false","ingredients":request.args['ingridients']}
       response = requests.request("GET", url + find, headers=headers, params=querystring).json()
