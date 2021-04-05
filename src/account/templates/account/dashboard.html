@@ -9,8 +9,14 @@
         <h3>Recipes</h3>
     {% else %}
         <p>To get started, please fill in your preferences to generate recipes.</p>
-        <p><a href="#">Add Preferences</a></p>
+        <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Add Preferences</a></p>
     {% endif %}
+
+    {% if request.session.preferences %}
+       <p><a href="{%url 'view_recipe_preferences' request.user.pk %}">View Recipes based on preferences</a></p>
+    {% endif %}
+
+
 
     <hr>
     <p><strong>(Not how the dashboard will look like, just to see progress)</strong></p>

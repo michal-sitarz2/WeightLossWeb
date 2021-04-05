@@ -4,9 +4,6 @@ from django.views.generic import DetailView
 from .forms import RegistrationForm, AccountAuthenticationForm
 from .models import Account
 
-# class DashboardView(DetailView):
-#     model = Account
-#     template_name = ''
 
 def dashboard_view(request, pk):
     context = {}

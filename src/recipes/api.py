@@ -33,4 +33,4 @@ def get_recipes():
       response = requests.request("GET", url + randomFind, headers=headers, params=querystring).json()
       print(response)
       return render_template('recipes_results.html', recipes=response['recipes'])
-      
+
