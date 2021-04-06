@@ -2,7 +2,44 @@
 
 {% block content %}
 
-<h1>Recipe</h1>
-<p>{{ response.text }}</p>
+<h1>Results for - {{ search_query }}</h1>
+<!-- <p> {{ response.text }}</p> -->
+<hr>
+{% for recipe in content %}
+<div class="row">
+    <div class="col-4">
+        <img src="{{ recipe.image }}" alt="image">
+    </div>
+    <div class="col-8">
+        <div class="text-center">
+            <p style="color: orange; font-size: 25px">{{ recipe.title }}</p>
+            <div class="row">
+                <div class="col-6">
+                    <p>Preparation time - {{ recipe.readyInMinutes }}</p>
+                </div>
+                <div class="col-6">
+                    <p>Number of servings - {{ recipe.servings }}</p>
+                </div>
+            </div>
+            
+        </div>
+        <a href="{{ recipe.sourceUrl }}">link for the recipe</a>
+        <!-- The ingredients list is not working for now -->
+        <p> This are the ingredients for this recipe</p>
+        <ul>
+
+            <!-- {% for i in recipe %}
+            <li>{{ i.ingredients }}</li>
+            {% endfor %} -->
+            <li>blabla</li>
+            <li>blabla</li>
+
+        </ul>
+        <p class="text-center" style="font-size: 20px">Summary</p>
+        <div>{{ recipe.summary|safe }}</div> 
+    </div>
+</div>
+<hr>
+{% endfor %}
 
 {% endblock %}
