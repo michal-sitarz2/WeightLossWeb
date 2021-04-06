@@ -5,22 +5,28 @@
     <h2>Welcome {{request.user.username}}!</h2>
     <br>
 
-    {% if request.user.diet %}
-        <h3>Recipes</h3>
-    {% else %}
+    {% if not request.user.diet %}
         <p>To get started, please fill in your preferences to generate recipes.</p>
         <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Add Preferences</a></p>
-    {% endif %}
-
-    {% if request.session.preferences %}
-       <p><a href="{%url 'view_recipe_preferences' request.user.pk %}">View Recipes based on preferences</a></p>
+    {% else %}
+        <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Edit Preferences</a></p>
+        <p><a href="{%url 'view_recipe_preferences' request.user.pk %}">View Recipes based on preferences</a></p>
     {% endif %}
 
 
 
     <hr>
-    <p><strong>(Not how the dashboard will look like, just to see progress)</strong></p>
+    <p><strong>(Not how the dashboard will look like, just to see the database)</strong></p>
     <br>
+
+    {% if request.user.diet %}
+        <h4>Dietary Preferences</h4>
+        <p> Excluded Cuisines: {{ request.user.diet.exclude_cuisines }}
+        <br> Excluded Ingredients: {{ request.user.diet.exclude_ingredients }}
+        <br> Diet Types: {{ request.user.diet.diets }}
+        <br> Intolerances: {{ request.user.diet.intolerances }}</p>
+    {% endif %}
+
     <h4>Starting Information:</h4>
     <p>
         Starting Height: {{request.user.progress.starting_height}}<br>

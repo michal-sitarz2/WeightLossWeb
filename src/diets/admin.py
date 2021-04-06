@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import Diet
 
-# Register your models here.
+
+class DietAdmin(admin.ModelAdmin):
+    list_display = ('user', 'start_date')
+    search_fields = ('user__username', 'start_date')
+
+admin.site.register(Diet,DietAdmin)

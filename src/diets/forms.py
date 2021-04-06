@@ -1,9 +1,4 @@
-
-<<<<<<< Updated upstream
-class SearchRecipeForm(forms.Form):
-    # This is for a search input to look through the API 
-
-    search_query = forms.CharField(help_text="Search something like: Chicken with rice")
+from django import forms
 
 class PreferencesForm(forms.Form):
     '''
@@ -65,7 +60,3 @@ class PreferencesForm(forms.Form):
     #             cuisines_arr.append(exclude_cuisines.lower())
 
     #     return cuisines_arr
-=======
->>>>>>> Stashed changes
-
-

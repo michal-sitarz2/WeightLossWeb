@@ -27,12 +27,19 @@ class Diet(models.Model):
     # Some simple tags to allow us to sort the meals for user preference.
     # We might need more or we might want to reduce the number of tags.
 
-    vegetarian = models.BooleanField(default=False)
-    vegan = models.BooleanField(default=False)
-    gluten_free = models.BooleanField(default=False)
-    halaal = models.BooleanField(default=False)
-    shellfish_free = models.BooleanField(default=False)
-    lactose_free = models.BooleanField(default=False)
+    ### vegetarian = models.BooleanField(default=False)
+    ### vegan = models.BooleanField(default=False)
+    ### gluten_free = models.BooleanField(default=False)
+    ### halaal = models.BooleanField(default=False)
+    ### shellfish_free = models.BooleanField(default=False)
+    ### lactose_free = models.BooleanField(default=False)
+
+    # Save the below fields as string values, which can be passed on as a query string to the API
+    # The validation of whether they can be used can be performed in the form (e.g. it has to be comma separated list)
+    exclude_cuisines = models.CharField(max_length=100, blank=True)
+    exclude_ingredients = models.CharField(max_length=100, blank=True)
+    diets = models.CharField(max_length=100, blank=True)
+    intolerances = models.CharField(max_length=100, blank=True)
     
     
     def __str__(self):
