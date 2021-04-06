@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import PreferencesForm
 from .forms import SearchRecipeForm
 import requests
 import json
-
-
 
 # The following two methods are for a search imput that looks through the API and list recepies based on a search. 
 # The Goal is to make it look better!

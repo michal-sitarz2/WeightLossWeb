@@ -18,11 +18,9 @@ from django.urls import path
 from pages.views import homepage_view, bmi_calculator_view, contact_view
 from account.views import registration_view, logout_view, login_view, dashboard_view
 from progress.views import progress_form_view, UpdateProgressView
-<<<<<<< Updated upstream
-from recipes.views import set_preferences_form, view_recipe_preferences_view, spoonacular_api_search_view, spoonacular_api_search_form
-=======
+from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form
 from diets.views import set_preferences_form, view_recipe_preferences_view
->>>>>>> Stashed changes
+
 
 urlpatterns = [
     path('', homepage_view, name="home"),
