@@ -1,18 +1,26 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from progress.models import Progress
+import requests
 
 from .scripts.bmi_calculate import calculate_BMI
 # These are for the contact page
 from pages.forms import ContactForm
 from django.core.mail import EmailMessage
-from django.shortcuts import redirect
 from django.template.loader import get_template
+
+# def api_view(request):
+#     context = {}
+#     querystring = {'q': 'obesity','apiKey': 'a7064ee7edae4d928c4e9e5a8691acc3'}
+#     response = requests.request("GET", "https://newsapi.org/v2/everything", params=querystring)
+#
+#     context['response'] = response
+#
+#     return render(request,,context)
 
 
 def homepage_view(request, *args, **kwargs):
     context = {}
-    context['progress_list'] = Progress.objects.all()
     return render(request, "homepage.html", context)
 
 def contact_view(request, *args, **kwargs):

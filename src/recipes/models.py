@@ -8,6 +8,7 @@ class Recipe(models.Model):
     # What kind of meal this is. (Breakfast, Lunch, Dinner)
     meal_type = models.CharField(max_length=100)
 
+
     # Nutrition info
     energy = models.FloatField(validators=[MinValueValidator(0)])
     protein = models.FloatField(validators=[MinValueValidator(0)])
