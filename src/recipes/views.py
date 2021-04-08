@@ -16,7 +16,7 @@ def spoonacular_api_search_form(request):
     else:
         form = SearchRecipeForm()
 
-    return render(request, 'recipes/spoonacular_search_form.html', {'form': form})
+    return render(request, 'spoonacular_search_form.html', {'form': form})
 
 def spoonacular_api_search_view(request):
 
@@ -32,13 +32,15 @@ def spoonacular_api_search_view(request):
     querystring = {"query": search_query, 'addRecipeInformation': True, 'number': 10, 'apiKey': '64dadb7cfd724991b7ea9987c4685790'}
     response = requests.request("GET", url + complexSearch, params=querystring)
     content = json.loads(response.text)
+    # recipe = content['results']
 
     context['response'] = response
     context['search_query'] = search_query
     context['content'] = content['results']
+    # context['ingredients'] = recipe['ingredients']
     # context['ingredients'] = content['results']['ingredients']
     # for r in content['results']:
 
     #     context['ingredientName'] = r['ingredients'].get('name')
 
-    return render(request, "recipes/spoonacular_search_view.html", context)
+    return render(request, "spoonacular_search_view.html", context)
