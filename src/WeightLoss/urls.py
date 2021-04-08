@@ -20,6 +20,7 @@ from account.views import registration_view, logout_view, login_view, dashboard_
 from progress.views import progress_form_view, UpdateProgressView
 from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form
 from diets.views import set_preferences_form, view_recipe_preferences_view
+from meals.views import choose_meals_view
 
 
 urlpatterns = [
@@ -37,5 +38,6 @@ urlpatterns = [
     path('search/', spoonacular_api_search_form, name="search"),
     path('search/result', spoonacular_api_search_view, name="search_result"),
     path('account/dashboard/<int:pk>/set_preferences', set_preferences_form, name="set_dietary_preferences"),
-    path('account/dashboard/<int:pk>/view_recipe_preferences', view_recipe_preferences_view, name="view_recipe_preferences")
+    path('account/dashboard/<int:pk>/view_recipe_preferences', view_recipe_preferences_view, name="view_recipe_preferences"),
+    path('account/dashboard/<int:pk>/view_recipe_recommendations', choose_meals_view, name="view_recipe_recommendations"),
 ]

@@ -10,7 +10,7 @@
         <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Add Preferences</a></p>
     {% else %}
         <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Edit Preferences</a></p>
-        <p><a href="{%url 'view_recipe_preferences' request.user.pk %}">View Recipes based on preferences</a></p>
+        <p><a href="{%url 'view_recipe_recommendations' request.user.pk %}">View Recipes based on preferences</a></p>
     {% endif %}
 
 

@@ -11,15 +11,16 @@ def set_preferences_form(request, pk):
         form = PreferencesForm(request.POST)
         if form.is_valid():
             # request.session['preferences'] = form.cleaned_data
-            ex_cu = form.cleaned_data['exclude_cuisines']
-            ex_ing = form.cleaned_data['exclude_ingredients']
-            diets = form.cleaned_data['diet']
-            intolerances = form.cleaned_data['intolerance']
+            ex_cu = form.cleaned_data['exclude_cuisines'].lower()
+            ex_ing = form.cleaned_data['exclude_ingredients'].lower()
+            diets = form.cleaned_data['diet'].lower()
+            intolerances = form.cleaned_data['intolerance'].lower()
             try:
                 diet = Diet.objects.get(user=request.user)
                 diet.exclude_cuisines = ex_cu
                 diet.diets = diets
                 diet.intolerances = intolerances
+                diet.exclude_ingredients = ex_ing
             except Exception as e:
                 diet = Diet(user=request.user, total_energy=0, total_protein=0, total_carbs=0, total_fats=0,
                             exclude_cuisines=ex_cu,
@@ -62,15 +63,6 @@ def view_recipe_preferences_view(request, pk):
 
     context['recipe_information'] = data['results'][0]
     recipe = data['results'][0]
-
-    # # Title
-    # print(recipe['title'])
-    # # Image Link
-    # print(recipe['image'])
-    # # Servings
-    # print(recipe['servings'])
-    # # Recipe ID
-    # print(recipe['id'])
 
     # Calories
     context['calories'] = recipe['nutrition']['nutrients'][0]

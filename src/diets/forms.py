@@ -31,17 +31,17 @@ class PreferencesForm(forms.Form):
     healthScore
     '''
 
-    exclude_cuisines = forms.CharField(help_text="Comma-Separated List of cuisines to exclude (African, American, "
+    exclude_cuisines = forms.CharField(required=False, help_text="Comma-Separated List of cuisines to exclude (African, American, "
                                                  "British, Cajun, Caribbean, Chinese,"
                                                  " Eastern European, European, French, German, Greek, Indian, "
                                                  " Irish, Italian, Japanese, Jewish, Korean, Latin American, "
                                                  " Mediterranean, Mexican, Middle Eastern, Nordic, Southern, "
                                                  " Spanish, Thai, Vietnamese)")
-    diet = forms.CharField(help_text="Comma-Separated List of Intolerances (Gluten Free, Ketogenic, Vegeterian, "
+    diet = forms.CharField(required=False, help_text="Comma-Separated List of Intolerances (Gluten Free, Ketogenic, Vegeterian, "
                                      "Lacto-vegetarian, Vegan, Ovo-vegetarian, Pescetarian, Paleo, Primal, Whole30)")
-    intolerance = forms.CharField(help_text= "Comma-Separated List of Intolerances (Dairy, Egg, Gluten, Grain, Peanut, "
+    intolerance = forms.CharField(required=False, help_text= "Comma-Separated List of Intolerances (Dairy, Egg, Gluten, Grain, Peanut, "
                                              " Seafood, Sesame, Shellfish, Soy, Sulfite, Tree Nut, Wheat)")
-    exclude_ingredients = forms.CharField(help_text="Comma-Separated List of Ingredients to Exclude")
+    exclude_ingredients = forms.CharField(required=False, help_text="Comma-Separated List of Ingredients to Exclude")
 
     ### A method to check if the given values are acceptable
     # def clean(self):
