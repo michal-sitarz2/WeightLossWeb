@@ -1,35 +1,11 @@
 from django import forms
+from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
 
 class PreferencesForm(forms.Form):
-    '''
-    User-set information
-    excludeCuisine (comma separated)
-    => African, American, British, Cajun, Caribbean, Chinese,
-    Eastern European, European, French, German, Greek, Indian,
-    Irish, Italian, Japanese, Jewish, Korean, Latin American,
-    Mediterranean, Mexican, Middle Eastern, Nordic, Southern,
-    Spanish, Thai, Vietnamese
 
-    diet (diet for which the recipes must be suitable) =>
-    => gluten free, ketogenic, vegeterian, lacto-vegetarian, vegan, ovo-vegetarian,...
-    pescetarian, Paleo, primal, whole30.
-
-    intolerances (comma separated list of intolerances) =>
-    dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish,...
-    soy, sulfite, tree nut, wheat.
-
-    excludeIngredients (comma-separated list of ingredients or types) e.g. eggs
-
-    Useful Functions
-    type (meal type) =>
-    main course, side dish, dessert, appetizer, salad, bread, breakfast,...
-    soup, beverage, sauce, marinade, fingerfood, snack, drink
-
-    addRecipeNutrition => True
-
-    For filtering: minCarbs, maxCarbs, minProtein, maxProtein, minCalories, maxCalories, minFat, maxFat
-    healthScore
-    '''
+    daily_calorie_intake = forms.FloatField(required=True, validators=[MinValueValidator(0)],
+                                            help_text='Please provide approximate daily calorie intake')
 
     exclude_cuisines = forms.CharField(required=False, help_text="Comma-Separated List of cuisines to exclude (African, American, "
                                                  "British, Cajun, Caribbean, Chinese,"
@@ -43,20 +19,58 @@ class PreferencesForm(forms.Form):
                                              " Seafood, Sesame, Shellfish, Soy, Sulfite, Tree Nut, Wheat)")
     exclude_ingredients = forms.CharField(required=False, help_text="Comma-Separated List of Ingredients to Exclude")
 
-    ### A method to check if the given values are acceptable
-    # def clean(self):
-    #     data = self.cleaned_data
-    #     exclude_cuisines = data["exclude_cuisines"]
-    #
-    #     # diet = cleaned_data.get("diet")
-    #     # intolerance = cleaned_data.get("intolerance")
-    #     # exclude_ingredients = cleaned_data.get("exclude_ingredients")
-    #
-    #     cuisines_arr = []
-    #     if len(exclude_cuisines) != 0:
-    #         if ',' in exclude_cuisines:
-    #             cuisines_arr = exclude_cuisines.lower().split(",")
-    #         else:
-    #             cuisines_arr.append(exclude_cuisines.lower())
+    # Using the clean method to validate whether all of the fields inputted are matching the available ones
+    def clean(self):
+        data = self.cleaned_data
+        exclude_cuisines = data["exclude_cuisines"]
+        diet = data['diet']
+        intolerance = data['intolerance']
+        exclude_ingredients = data['exclude_ingredients']
 
-    #     return cuisines_arr
+        validated_data = {}
+
+        exclude_cuisines = self.separate_by_commas(exclude_cuisines)
+        diet = self.separate_by_commas(diet)
+        intolerance = self.separate_by_commas(intolerance)
+        exclude_ingredients = self.separate_by_commas(exclude_ingredients)
+
+        available_cuisines = ['african', 'american', 'british', 'cajun', 'caribbean', 'chinese', 'eastern european',
+                              'european', 'french', 'german', 'greek', 'indian', 'irish', 'italian', 'japanese',
+                              'jewish', 'korean', 'latin american', 'mediterranean', 'mexican', 'middle eastern',
+                              'nordic', 'southern', 'spanish', 'thai', 'vietnamese']
+
+        for cuisine in exclude_cuisines:
+            if cuisine not in available_cuisines:
+                self.add_error('exclude_cuisines', 'Please check if values match with the provided values.')
+                break
+
+        available_diets = ['gluten free', 'ketogenic', 'vegeterian', 'lacto-vegeterian', 'vegan',
+                           'ovo-vegetarian', 'pescetarian', 'paleo', 'primal', 'whole30']
+        for d in diet:
+            if d not in available_diets:
+                self.add_error('diet', 'Please check if values match with the provided values.')
+                break
+
+        available_intolerances = ['dairy', 'egg', 'gluten', 'grain', 'peanut', 'seafood', 'sesame', 'shellfish',
+                                  'soy', 'sulfite', 'tree nut', 'wheat']
+
+        for i in intolerance:
+            if i not in available_intolerances:
+                self.add_error('intolerance', 'Please check if values match with the provided values.')
+                break
+
+        return data
+
+
+    def separate_by_commas(self, data):
+        values = []
+        if len(data) != 0:
+            if ',' in data:
+               values = data.lower().split(",")
+            else:
+                values.append(data.lower())
+
+        for i in range(len(values)):
+            values[i] = values[i].strip()
+
+        return values

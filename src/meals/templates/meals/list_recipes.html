@@ -4,6 +4,7 @@
 <br>
 <h1>Recipes</h1>
 <br>
+<h3>Main Courses</h3>
 <table class="table">
     <thead>
         <tr>
@@ -24,23 +25,89 @@
         </tr>
     </thead>
     <tbody>
-    {% for key, recipe in recipes.items %}
+    {% for key, recipe in main_courses.items %}
         <tr>
             <th scope="row">{{ key }}</th>
             {% for info in recipe %}
                 <td>{{ info }}</td>
             {% endfor %}
 
-            <!--
-            We could possibly add a pop up so that the user
-            chooses the day that he/she wants to have the recipe
-            on, or automatically 'append' to the next empty slots
-            -->
+            <td><a href="#">Add Recipe</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+
+<h3>Breakfasts</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Recipe No.</th>
+            <th scope="col">Title</th>
+            <th scope="col">ID</th>
+            <th scope="col">Health Score</th>
+            <th scope="col">Servings</th>
+            <th scope="col">Calories</th>
+            <th scope="col">Fats</th>
+            <th scope="col">Sat. Fats</th>
+            <th scope="col">Carbs</th>
+            <th scope="col">Sugar</th>
+            <th scope="col">Protein</th>
+            <th scope="col">Image</th>
+            <th scope="col">Ingredients</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for key, recipe in breakfast.items %}
+        <tr>
+            <th scope="row">{{ key }}</th>
+            {% for info in recipe %}
+                <td>{{ info }}</td>
+            {% endfor %}
+
             <td><a href="#">Add Recipe</a></td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Recipe No.</th>
+            <th scope="col">Title</th>
+            <th scope="col">ID</th>
+            <th scope="col">Health Score</th>
+            <th scope="col">Servings</th>
+            <th scope="col">Servings</th>
+            <th scope="col">Calories</th>
+            <th scope="col">Fats</th>
+            <th scope="col">Sat. Fats</th>
+            <th scope="col">Carbs</th>
+            <th scope="col">Sugar</th>
+            <th scope="col">Protein</th>
+            <th scope="col">Image</th>
+            <th scope="col">Source URL</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Ingredients</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for key, recipe in snack.items %}
+        <tr>
+            <th scope="row">{{ key }}</th>
+            {% for info in recipe %}
+                <td>{{ info }}</td>
+            {% endfor %}
+
+            <td><a href="#">Add Recipe</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

@@ -9,6 +9,11 @@
         {{ field.label_tag }}
         {{ field }}
 
+        {% for error in field.errors %}
+            <p style="color: red;">{{error}}</p>
+        {% endfor %}
+
+
         {% if field.help_text %}
             <p class="help"><em>{{ field.help_text|safe }}</em></p>
         {% endif %}

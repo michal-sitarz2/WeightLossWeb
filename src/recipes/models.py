@@ -20,6 +20,12 @@ class Recipe(models.Model):
     # Servings
     servings = models.IntegerField(validators=[MinValueValidator(0)], default=1)
 
+    # Summary
+    summary = models.TextField(blank=True)
+
+    # Source link
+    source_link = models.CharField(max_length=200, blank=True)
+
     # Nutrition info
     #energy = models.FloatField(validators=[MinValueValidator(0)])
     protein = models.FloatField(validators=[MinValueValidator(0)], blank=False)

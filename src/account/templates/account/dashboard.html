@@ -13,8 +13,6 @@
         <p><a href="{%url 'view_recipe_recommendations' request.user.pk %}">View Recipes based on preferences</a></p>
     {% endif %}
 
-
-
     <hr>
     <p><strong>(Not how the dashboard will look like, just to see the database)</strong></p>
     <br>
@@ -24,7 +22,9 @@
         <p> Excluded Cuisines: {{ request.user.diet.exclude_cuisines }}
         <br> Excluded Ingredients: {{ request.user.diet.exclude_ingredients }}
         <br> Diet Types: {{ request.user.diet.diets }}
-        <br> Intolerances: {{ request.user.diet.intolerances }}</p>
+        <br> Intolerances: {{ request.user.diet.intolerances }}
+        <br> Daily calories before starting the program: {{ request.user.diet.daily_calories }} calories</p>
+
     {% endif %}
 
     <h4>Starting Information:</h4>

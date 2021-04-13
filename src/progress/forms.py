@@ -13,6 +13,10 @@ class InitialProgressForm(forms.ModelForm):
     class Meta:
         model = Progress
         fields = ('starting_weight', 'starting_height', 'target_bmi')
+        help_texts = {
+            'starting_weight': ('(Kg)'),
+            'starting_height': ('(meters)'),
+        }
 
     def save(self, commit=True):
         progress = Progress()
