@@ -47,7 +47,7 @@ class Recipe(models.Model):
     # lactose_free = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.name
+        return "{} ({})".format(self.name, self.meal_type)
 
     #
     # # Lets us check if the meal meets the dietary requirements

@@ -47,4 +47,4 @@ class Diet(models.Model):
 
     
     def __str__(self):
-        return self.user.username + '\nDiet Start Date: ' + str(self.start_date)
+        return self.user.username
