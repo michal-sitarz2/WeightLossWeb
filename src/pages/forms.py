@@ -6,7 +6,6 @@ def is_anagram(x, y):
 class ContactForm(forms.Form):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
-    username = forms.CharField(required=True)
     email = forms.EmailField(required=True)
     message = forms.CharField(
         required=True,

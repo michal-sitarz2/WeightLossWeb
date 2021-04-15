@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from progress.models import Progress
 import requests
+import json
 
 from .scripts.bmi_calculate import calculate_BMI
 # These are for the contact page
@@ -25,20 +27,27 @@ def homepage_view(request, *args, **kwargs):
 
 def contact_view(request, *args, **kwargs):
     form_class = ContactForm
-
+    
     # the logic behind the contact form
     if request.method == 'POST':
         form = form_class(data=request.POST)
 
         if form.is_valid():
+            # Recaptcha Validation 
+            captcha_token = request.POST.get("g-recaptcha-response")
+            cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            cap_secret = "6Leg4qoaAAAAAKCpXo-sNiMNdtAQPd1_x0ytDXxo"
+            cap_data = {"secret": cap_secret, "response": captcha_token}
+
+            cap_server_response = requests.post(url=cap_url, data=cap_data)
+            cap_json = json.loads(cap_server_response.text)
+            # End Recaptch Validation
+
             first_name = request.POST.get(
                 'first_name'
             , '')
             last_name = request.POST.get(
                 'last_name'
-            , '')
-            username = request.POST.get(
-                'username'
             , '')
             email = request.POST.get(
                 'email'
@@ -51,7 +60,6 @@ def contact_view(request, *args, **kwargs):
             context = {
                 'first_name': first_name,
                 'last_name': last_name,
-                'username': username,
                 'email': email,
                 'form_message': form_message,
             }
@@ -64,9 +72,13 @@ def contact_view(request, *args, **kwargs):
                 ['youremail@gmail.com'],
                 headers = {'Reply-To': email }
             )
-            email.send()
-            return redirect('contact')
-
+            if cap_json['success']:
+                email.send()
+                messages.success(request, 'Message send successfully - look at your console', extra_tags='alert-success')
+                return redirect('contact')
+            else:
+                messages.error(request, 'Please make sure to tick the captcha box before submitting', extra_tags='alert-danger')
+                return redirect('contact')
     return render(request, "contact.html", {
         'form': form_class
     })
