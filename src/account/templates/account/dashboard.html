@@ -2,7 +2,7 @@
 {% block content %}
 
     <br>
-    <h2>Welcome {{request.user.username}}!</h2>
+    <h2>Welcome {{ request.user.username }}!</h2>
     <br>
 
     {% if not request.user.diet %}
@@ -12,6 +12,21 @@
         <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Edit Preferences</a></p>
         <p><a href="{%url 'view_recipe_recommendations' request.user.pk %}">View Recipes based on preferences</a></p>
     {% endif %}
+
+
+
+    <h4>Current Progress</h4>
+    <br>
+    <span>
+        <div class="progress" style="height:40px; width:40%; margin-left:30px;">
+            <div class="progress-bar" style="width:{{progress_percentage}}%">
+                {{progress_percentage}}%
+            </div>
+        </div>
+        <p style="margin-left:30px;"><a href="{%url 'update_progress' request.user.pk %}">Add Progress</a></p>
+    </span>
+    <br>
+
 
     <hr>
     <p><strong>(Not how the dashboard will look like, just to see the database)</strong></p>

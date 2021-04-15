@@ -2,11 +2,22 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.views.generic import DetailView
 from .forms import RegistrationForm, AccountAuthenticationForm
-from .models import Account
+from pages.scripts.bmi_calculate import calculate_BMI
 
 
 def dashboard_view(request, pk):
     context = {}
+
+    user_progress = request.user.progress
+    target = user_progress.target_bmi
+    current = user_progress.current_bmi
+    starting = calculate_BMI(user_progress.starting_weight, user_progress.starting_height)
+
+
+
+    progress = (100 - ((starting - current)/(starting - target) * 100))
+
+    context['progress_percentage'] = int(progress)
     try:
         if request.user.progress:
             return render(request, 'account/dashboard.html', context)
