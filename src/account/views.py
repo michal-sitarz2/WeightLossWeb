@@ -17,6 +17,11 @@ def dashboard_view(request, pk):
 
     progress = (100 - ((starting - current)/(starting - target) * 100))
 
+    if(progress <= 0):
+        progress = 0
+    if(progress >= 100):
+        progress = 100
+
     context['progress_percentage'] = int(progress)
     try:
         if request.user.progress:

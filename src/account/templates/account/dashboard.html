@@ -17,15 +17,25 @@
 
     <h4>Current Progress</h4>
     <br>
-    <span>
-        <div class="progress" style="height:40px; width:40%; margin-left:30px;">
-            <div class="progress-bar" style="width:{{progress_percentage}}%">
-                {{progress_percentage}}%
+    <p style="margin-left:30px;">
+        Current BMI: {{request.user.progress.current_bmi}}<br>
+        <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
+    </p>
+    {% if progress_percentage == 0 %}
+        <h1 style="color:red; margin-left:10px;">CONGRATULATIONS!</h1>
+        <p style="margin-left:10px;><strong>You have reached your goal!</strong></p>
+
+    {% else %}
+        <span>
+            <div class="progress" style="height:40px; width:40%; margin-left:30px;">
+                <div class="progress-bar" style="width:{{progress_percentage}}%">
+                    {{progress_percentage}}%
+                </div>
             </div>
-        </div>
-        <p style="margin-left:30px;"><a href="{%url 'update_progress' request.user.pk %}">Add Progress</a></p>
-    </span>
-    <br>
+        </span>
+    {% endif %}
+
+    <p style="margin-left:30px;"><a href="{%url 'update_progress' request.user.pk %}">Add Progress</a></p>
 
 
     <hr>
@@ -42,18 +52,4 @@
 
     {% endif %}
 
-    <h4>Starting Information:</h4>
-    <p>
-        Starting Height: {{request.user.progress.starting_height}}<br>
-        Starting Weight: {{request.user.progress.starting_weight}}<br>
-    </p>
-    <h4>Current Progress (as of {{request.user.progress.last_updated}}):</h4>
-    <p>
-        Current Height: {{request.user.progress.current_height}}<br>
-        Current Weight: {{request.user.progress.current_weight}}<br>
-        Current BMI: {{request.user.progress.current_bmi}}<br>
-        <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
-    </p>
-
-    <p><a href="{% url 'update_progress' request.user.progress.pk %}">Update Progress</a></p>
 {% endblock content %}
