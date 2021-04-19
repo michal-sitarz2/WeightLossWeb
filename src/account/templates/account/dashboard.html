@@ -37,18 +37,15 @@
 
     <p style="margin-left:30px;"><a href="{%url 'update_progress' request.user.pk %}">Add Progress</a></p>
 
-
     <hr>
-    <p><strong>(Not how the dashboard will look like, just to see the database)</strong></p>
-    <br>
 
     {% if request.user.diet %}
         <h4>Dietary Preferences</h4>
-        <p> Excluded Cuisines: {{ request.user.diet.exclude_cuisines }}
-        <br> Excluded Ingredients: {{ request.user.diet.exclude_ingredients }}
-        <br> Diet Types: {{ request.user.diet.diets }}
-        <br> Intolerances: {{ request.user.diet.intolerances }}
-        <br> Daily calories before starting the program: {{ request.user.diet.daily_calories }} calories</p>
+        <p> <strong>Excluded Cuisines</strong>: {{ request.user.diet.exclude_cuisines }}
+        <br> <strong>Excluded Ingredients</strong>: {{ request.user.diet.exclude_ingredients }}
+        <br> <strong>Diet Types</strong>: {{ request.user.diet.diets }}
+        <br> <strong>Intolerances</strong>: {{ request.user.diet.intolerances }}
+        <br> <strong>Daily calories before starting the program: {{ request.user.diet.daily_calories }} calories</p>
 
     {% endif %}
 

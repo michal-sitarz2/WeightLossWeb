@@ -4,6 +4,18 @@ from .forms import SearchRecipeForm
 import requests
 import json
 
+from .models import Recipe
+
+
+# View a recipe
+def view_recipe(request, recipe_id):
+    context = {}
+
+    recipe = Recipe.objects.filter(id=recipe_id)
+    context['recipe'] = recipe[0]
+
+    return render(request, 'recipes/view_recipe.html', context)
+
 # The following two methods are for a search imput that looks through the API and list recepies based on a search. 
 # The Goal is to make it look better!
 

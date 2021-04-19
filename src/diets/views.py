@@ -9,6 +9,7 @@ from meals.models import Meal
 from datetime import date, datetime, timedelta
 import datetime
 
+
 # Create your views here.
 def set_preferences_form(request, pk):
     if request.method == 'POST':
@@ -203,6 +204,9 @@ def get_recipe_information(data, limit):
         if(i == limit):
             break
 
+        print(recipe)
+        print(recipe['id'])
+        break
         recipes.append([])
         recipes[i].append(recipe['title'])
         recipes[i].append(recipe['id'])

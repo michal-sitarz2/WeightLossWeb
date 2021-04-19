@@ -18,9 +18,9 @@ from django.urls import path
 from pages.views import homepage_view, bmi_calculator_view, contact_view
 from account.views import registration_view, logout_view, login_view, dashboard_view
 from progress.views import progress_form_view, UpdateProgressView
-from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form
+from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form, view_recipe
 from diets.views import set_preferences_form
-from meals.views import choose_meals_view
+from meals.views import choose_meals_view, delete_meal
 
 
 urlpatterns = [
@@ -39,4 +39,6 @@ urlpatterns = [
     path('search/result', spoonacular_api_search_view, name="search_result"),
     path('account/dashboard/<int:pk>/set_preferences', set_preferences_form, name="set_dietary_preferences"),
     path('account/dashboard/<int:pk>/view_recipe_recommendations', choose_meals_view, name="view_recipe_recommendations"),
+    path('recipe/<int:recipe_id>', view_recipe, name='recipe_view'),
+    path('meal/delete/<int:recipe_id>/<int:day>/<int:month>/<int:year>', delete_meal, name='delete_meal')
 ]

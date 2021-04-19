@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br>
+
+<h3> {{ recipe.name }} (ID: {{recipe.recipe_id}}) </h3>
+<img src="{{ recipe.image_link }}">
+<p><a href="{{ recipe.source_link }}">Full Recipe</a></p>
+<p>Servings: {{ recipe.servings }}</p>
+
+<p>
+    <strong>About the Recipe</strong><br>
+    {{ recipe.summary|safe }}
+</p>
+
+<p>
+    <strong>Nutrition (per serving):</strong><br>
+    Calories: {{ recipe.calories }} kcal <br>
+    Fats: {{ recipe.fats }} g <br>
+    Saturated Fats: {{ recipe.saturated_fats }} g <br>
+    Carbohydrates: {{ recipe.carbs }} g <br>
+    Sugars: {{ recipe.sugars }} g <br>
+    Protein: {{ recipe.protein }} g <br>
+</p>
+
+<p>
+    <strong>Ingredients (for {{recipe.servings}} servings):</strong><br>
+    {{ recipe.ingredients }}
+</p>
+
+{% endblock %}
