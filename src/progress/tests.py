@@ -5,12 +5,7 @@ from .models import Progress
 from account.models import Account
 from pages.scripts.bmi_calculate import calculate_BMI
 
-
 class ProgressTestCase(unittest.TestCase):
-    ## Add the progress and user creation in there
-    def setUp(self):
-        pass
-
     # Progress requires intial_current_set() to be called so that the BMI is calculated
     # (progress cannot be saved without BMI)
     def test_invalid_progress(self):
