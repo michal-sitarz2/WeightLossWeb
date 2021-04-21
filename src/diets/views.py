@@ -10,7 +10,6 @@ from datetime import date, datetime, timedelta
 import datetime
 
 
-# Create your views here.
 def set_preferences_form(request, pk):
     if request.method == 'POST':
         form = PreferencesForm(request.POST)
@@ -40,7 +39,7 @@ def set_preferences_form(request, pk):
             diet.save()
 
 
-            ### Calls a method that creates meals for the user
+            # Calls a method that creates meals for the user
             create_meals(request)
 
             return redirect('/account/dashboard/{}'.format(pk))
@@ -52,7 +51,7 @@ def set_preferences_form(request, pk):
 
 
 def create_meals(request):
-    # If user already has Meals allocated
+    # If user has no meals allocated
     if not Meal.objects.filter(diet=request.user.diet):
         context = {}
 
@@ -204,9 +203,6 @@ def get_recipe_information(data, limit):
         if(i == limit):
             break
 
-        print(recipe)
-        print(recipe['id'])
-        break
         recipes.append([])
         recipes[i].append(recipe['title'])
         recipes[i].append(recipe['id'])

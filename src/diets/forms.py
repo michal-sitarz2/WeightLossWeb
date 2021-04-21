@@ -25,14 +25,10 @@ class PreferencesForm(forms.Form):
         exclude_cuisines = data["exclude_cuisines"]
         diet = data['diet']
         intolerance = data['intolerance']
-        exclude_ingredients = data['exclude_ingredients']
-
-        validated_data = {}
 
         exclude_cuisines = self.separate_by_commas(exclude_cuisines)
         diet = self.separate_by_commas(diet)
         intolerance = self.separate_by_commas(intolerance)
-        exclude_ingredients = self.separate_by_commas(exclude_ingredients)
 
         available_cuisines = ['african', 'american', 'british', 'cajun', 'caribbean', 'chinese', 'eastern european',
                               'european', 'french', 'german', 'greek', 'indian', 'irish', 'italian', 'japanese',

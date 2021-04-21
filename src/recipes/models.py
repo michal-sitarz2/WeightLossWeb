@@ -3,12 +3,14 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Recipe(models.Model):
     # The meal name
-    name = models.CharField(max_length=100, blank=False)
+    name = models.CharField(max_length=100, blank=False,) #unique=True)
 
     # ID given by spoonacular
     recipe_id = models.IntegerField(validators=[MinValueValidator(0)], unique=True, blank=False)
 
-    # What kind of meal this is. (Breakfast, Lunch, Dinner)
+    # What kind of meal this is. (Breakfast, Lunch, Snack, Dinner)
+    # TODO
+    #### Enumeration?
     meal_type = models.CharField(max_length=100, blank=False)
 
     # Image URL

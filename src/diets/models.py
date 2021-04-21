@@ -16,7 +16,7 @@ class Diet(models.Model):
     diets = models.CharField(max_length=100, blank=True)
     intolerances = models.CharField(max_length=100, blank=True)
 
-    daily_calories = models.FloatField(blank=False, default=1200, validators=[MinValueValidator(0)])
+    daily_calories = models.FloatField(blank=False, validators=[MinValueValidator(0)])
 
 
     # '''

@@ -4,7 +4,7 @@ from recipes.models import Recipe
 
 class Meal(models.Model):
     # The date that the meal is expected to be eaten on.
-    meal_date = models.DateTimeField()
+    meal_date = models.DateTimeField(blank=False)
     
     # Many to one relationship with the Diet and Recipe tables
 
@@ -15,4 +15,11 @@ class Meal(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
     def __str__(self):
-        return "\nRecipe: " + str(self.recipe) + "\nDiet: " + str(self.diet) + "\nMeal Date: " + str(self.meal_date.date())
+        return "Recipe: {}\nDiet: {}\nMeal Date: {}".format(self.recipe, self.diet, self.meal_date.date())
+
+
+    # TODO:
+    #   function which will verify if the date is in the future, + test
+
+    def verify_date_not_past(self):
+        pass

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Meal
 from recipes.models import Recipe
 from collections import OrderedDict
@@ -7,10 +8,8 @@ from datetime import datetime, timedelta
 from collections import OrderedDict
 
 
-
 # Method used to delete meal from the database and make a new meal with the same recipe in two weeks
 def delete_meal(request, recipe_id, day, month, year):
-
     # Recomposing the date with the components passed in the url
     # Used because there can be more than one recipe with the same date
     date = datetime(day=day, month=month, year=year)
@@ -18,7 +17,7 @@ def delete_meal(request, recipe_id, day, month, year):
     # Using try-catch block to check if valid meals are being deleted
     try:
         # Filtering all the meals with the id, and then getting the one selected based on the date
-        meal = Meal.objects.filter(recipe=recipe_id).get(meal_date=date)
+        meal = Meal.objects.filter(diet=request.user.diet).filter(recipe=recipe_id).get(meal_date=date.date())
 
         # Deleting the meal from the database
         meal.delete()
@@ -30,10 +29,16 @@ def delete_meal(request, recipe_id, day, month, year):
         recipe_meal = recipe.meal_type
 
         # Filtering the last recipe from that meal type saved in the database
-        last_meal = Meal.objects.order_by('meal_date').filter(diet=request.user.diet).filter(
+        last_meal = Meal.objects.filter(diet=request.user.diet).order_by('meal_date').filter(diet=request.user.diet).filter(
             recipe__meal_type=recipe_meal)
-        # Getting the date from the last meal saved
-        last_meal = last_meal[len(last_meal) - 1].meal_date
+
+        # Checking if there are more meals other than the one that was just deleted
+        if(len(last_meal) != 0):
+            # Getting the date from the last meal saved
+            last_meal = last_meal[len(last_meal) - 1].meal_date
+        # Otherwise setting the date for the next meal to be the day after the deleted meal
+        else:
+            last_meal = date.date()
 
         # Calculating the next day we want to save the meal on
         next_date = last_meal + timedelta(days=1)
@@ -43,12 +48,16 @@ def delete_meal(request, recipe_id, day, month, year):
         meal.save()
 
     # In case something has been done wrong (e.g. a meal which doesn't exist is attempted to be deleted)
-    except Exception:
+    except Exception as e:
+        print(e)
+        # Sets an error that will be displayed on the dashboard(saying that the meal was not deleted successfully)
+        messages.error(request, "The meal couldn't be checked off.")
         # Redirects the user back to the dashboard
         return redirect('user_dashboard', pk=request.user.pk)
 
-        ### THROW ERROR MESSAGE
-
+    # Displaying success message on the template indicating that the meal was successfully deleted
+    messages.success(request, "The meal was successfully completed!")
+    # Refreshing the page and showing the recipe recommendations
     return redirect('view_recipe_recommendations', pk=request.user.pk)
 
 # View to show recipes recommended for the user
@@ -68,7 +77,6 @@ def choose_meals_view(request, pk):
     lunch = {}
     dinner = {}
     snack = {}
-
 
     # Sorting the meals into their respecitve dictionaries based on meal type
     for meal in meals:
