@@ -3,8 +3,6 @@ from django.db.utils import IntegrityError
 
 from django.test import Client
 
-from django.contrib.auth import logout
-
 import unittest
 from django.test import RequestFactory
 from .models import Account

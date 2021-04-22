@@ -288,23 +288,28 @@ class MealsViewTests(unittest.TestCase):
         url = '/account/dashboard/{}/view_recipe_recommendations'.format(self.account.pk)
         response = self.client.get(url)
 
-    
+        # Making the client delete a meal with recipe id that does not exist
         url = '/meal/delete/{}/{}/{}/{}'.format(self.recipe.id - 1, self.meal.meal_date.day, self.meal.meal_date.month,
                                                 self.meal.meal_date.year)
         response = self.client.get(url, follow=True)
 
+        # Checking that the user got redirected to the dashboard
         self.assertEqual(response.redirect_chain[0][0], "/account/dashboard/{}".format(self.account.id))
         self.assertEqual(response.redirect_chain[0][1], 302)
 
+        # Checking that the message is correctly send when redirecting, saying that the meal was not deleted correctly
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), "The meal couldn't be checked off.")
 
 
+    # Testing method for filling days with meals
     def test_filling_days_for_meals(self):
+        # Setting random dates
         date = datetime.datetime.today()
         date2 = datetime.datetime.today() + datetime.timedelta(days=1)
 
+        # Making two dictionaries (which could stand for one being lunches, other one dinners)
         dict_meals1 = {}
         dict_meals2 = {}
         # Meals for one meal type (e.g. lunch)
@@ -313,6 +318,7 @@ class MealsViewTests(unittest.TestCase):
         meal2 = Meal(diet=self.diet, meal_date=date2, recipe=self.recipe)
         meal2.save()
 
+        # Creating a recipe for a new meal
         recipe2 = Recipe(name='Recipe Name3', recipe_id=1230412223323121213, meal_type='Dinner',
                          image_link="videoUrl", ingredients='Ingredient list', servings=2,
                          summary="Summary of the Recipe", source_link="sourceUrl", protein=30,
@@ -333,51 +339,61 @@ class MealsViewTests(unittest.TestCase):
         dict_meals2[date] = meal3
         dict_meals2[date2] = meal4
 
+        # Starting with empty days
         days = {}
 
-
+        # Filling the days with meals from the first and then second dictionary
         days = fill_days(days, dict_meals1)
         days = fill_days(days, dict_meals2)
 
+        # Verifying that there are 2 different meals for the first date
         self.assertEqual(len(days[date]), 2)
+        # Checking that the two recipes have different meal types
         self.assertEqual(days[date][0].recipe.meal_type, "Lunch")
         self.assertEqual(days[date][1].recipe.meal_type, "Dinner")
 
-
+        # Verifying that there are 2 different meals for the second date
         self.assertEqual(len(days[date2]), 2)
+        # Checking that the two recipes have different meal types
         self.assertEqual(days[date2][0].recipe.meal_type, "Lunch")
         self.assertEqual(days[date2][1].recipe.meal_type, "Dinner")
 
+        # Cleaning the meals and recipes created for this test
         meal1.delete()
         meal2.delete()
         meal3.delete()
         meal4.delete()
         recipe2.delete()
 
-
+    # Testing whether the user will get redirected from meal plan if they are not logged in
     def test_show_meals_not_authenticated(self):
+        # Without logging in, trying to access the meal plan for the user
         url = '/account/dashboard/{}/view_recipe_recommendations'.format(self.account.pk)
 
+        # Getting the response, and spcifying that all the redirectes should be followed
         response = self.client.get(url, follow=True)
 
+        # Getting the chain of redirects, and the first and only one should be redirect to the home page
         self.assertEqual(response.redirect_chain[0][0], '/')
         self.assertEqual(response.redirect_chain[0][1], 302)
 
-
+    # Testing displaying the meal plan
     def test_show_meals(self):
+        # Specifying dates for new meals
         date = datetime.datetime.today()
-        date2 = datetime.datetime.today() + datetime.timedelta(days=1)
+        date2 = datetime.datetime.today() + datetime.timedelta(days=2)
 
+        # Creating new meals and saving them into the database
         meal1 = Meal(diet=self.diet, meal_date=date, recipe=self.recipe)
         meal1.save()
         meal2 = Meal(diet=self.diet, meal_date=date2, recipe=self.recipe)
         meal2.save()
 
+        # Making a new recipe to have bigger variety of meals in the database
         recipe2 = Recipe(name='Recipe Name3', recipe_id=1230412223323121213, meal_type='Dinner',
                          image_link="videoUrl", ingredients='Ingredient list', servings=2,
                          summary="Summary of the Recipe", source_link="sourceUrl", protein=30,
                          carbs=30, fats=30, calories=2000, saturated_fats=10, sugars=2)
-
         recipe2.save()
 
         # Meals for a second meal type (e.g. dinner)
@@ -386,15 +402,24 @@ class MealsViewTests(unittest.TestCase):
         meal4 = Meal(diet=self.diet, meal_date=date2, recipe=recipe2)
         meal4.save()
 
+        # Logging the client into the website
         response = self.client.post("/login/", {'username': 'username1', 'password': 'password1'})
 
+        # Accessing the meals recommended for the user
         url = '/account/dashboard/{}/view_recipe_recommendations'.format(self.account.pk)
         response = self.client.get(url, follow=True)
 
+        # Checking that there are 3 different dates (2 local, one from the setup)
+        # This proves that the user has 3 different days with recipes
         self.assertEqual(len(dict(response.context['days']).keys()), 3)
 
+        # Checking that the first recipe is the oldest one (today's date)
         self.assertEqual(list(dict(response.context['days']).keys())[0].date(), datetime.datetime.today().date())
 
+        # Checking that the last recipe is the newest date (showing the three recipes are ordered by date)
+        self.assertEqual(list(dict(response.context['days']).keys())[2].date(), date2.date())
+
+        # Cleaning up the database from meals and new recipes
         meal1.delete()
         meal2.delete()
         meal3.delete()

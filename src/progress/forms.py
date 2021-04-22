@@ -23,7 +23,7 @@ class InitialProgressForm(forms.ModelForm):
         progress.user = self.account
         progress.starting_weight = self.cleaned_data.get('starting_weight')
         progress.starting_height = self.cleaned_data.get('starting_height')
-        progress.target_bmi  = self.cleaned_data.get('target_bmi')
+        progress.target_bmi = self.cleaned_data.get('target_bmi')
 
         progress.initial_current_set()
         progress.save()
