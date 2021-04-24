@@ -9,22 +9,50 @@
 /* 3. Contact page */
 /* ================================================================= */
 .contact-info {
-    font-size: 20px;
-    color: green;
+    font-size: 27px;
 }
 
-/* Just tests */
+.info-col {
+    margin-right: 30px;
+}
 
-.test-button {
-    background-color: purple;
+.title-contact-1 {
+    font-size: 47px;
+    color: #81b481;
+    margin-bottom: 0;
+}
+
+.title-contact-2 {
+    font-size: 47px;
+    color: #81b481;
+    margin: 0;
+    padding-top: 0;
+}
+
+.title-contact-3 {
+    font-size: 47px;
+    color: #57ac57;
+    margin: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+}
+
+.title-contact-4 {
+    font-size: 47px;
+    color: #208b20;
+    margin: 0;
+    padding-top: 0;
+}
+
+.btn-contact {
+    background-color: rgb(8, 150, 8);
     color: white;
-    margin-top: 100px;
 }
 
-.register-title {
-    color: red;
+.btn-contact:hover {
+    background-color: rgb(3, 104, 3);
+    color: white;
 }
-
 /* 4. Login page */
 /* ================================================================= */
 
@@ -34,8 +62,8 @@
 }
 
 .body-login {
-    background: #00ff88;
-    background: linear-gradient(to right, #00ff88, #0cf8bd);
+    background: #9ee1b6;
+    background: linear-gradient(to right, #9ee1b6, #87d0a3);
     height: 900px;
 }
 
@@ -140,10 +168,10 @@
 
 .btn-login {
     color: white;
-    background-color: rgb(26, 180, 26);
+    background-color: #1faa1f;
 }
 
 .btn-login:hover {
     color: white;
-    background-color: #00ff88;
+    background-color: #36c536;
 }
