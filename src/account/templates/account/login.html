@@ -27,41 +27,39 @@
 </form>
 
 <div class="bg-success"></div> -->
-<div class="body-login">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-xl-9 mx-auto">
-                <div class="card card-signin flex-row my-5">
-                    <div class="card-img-left d-none d-md-flex">
-                        <!-- Background image for card set in CSS! -->
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-center">LogIn</h5>
-                        <form class="form-signin" method="post">{% csrf_token %}
-                            <div class="form-label-group">
-                                <input type="text" id="username" name="username" class="form-control"
-                                    placeholder="Username" required autofocus>
-                                <label for="username">Username</label>
-                            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+            <div class="card card-signin flex-row my-5">
+                <div class="card-img-left d-none d-md-flex">
+                    <!-- Background image for card set in CSS! -->
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center">LogIn</h5>
+                    <form class="form-signin" method="post">{% csrf_token %}
+                        <div class="form-label-group">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                                required autofocus>
+                            <label for="username">Username</label>
+                        </div>
 
-                            <div class="form-label-group">
-                                <input type="password" id="password" name="password" class="form-control"
-                                    placeholder="Password" required>
-                                <label for="password">Password</label>
+                        <div class="form-label-group">
+                            <input type="password" id="password" name="password" class="form-control"
+                                placeholder="Password" required>
+                            <label for="password">Password</label>
 
-                            </div>
-                            {% if login_form.non_field_errors %}
-                            <div style="color:red;">
-                                <p>{{login_form.non_field_errors}}</p>
-                            </div>
-                            {% endif %}
+                        </div>
+                        {% if login_form.non_field_errors %}
+                        <div style="color:red;">
+                            <p>{{login_form.non_field_errors}}</p>
+                        </div>
+                        {% endif %}
 
-                            <button class="btn btn-lg btn-login btn-block text-uppercase" type="submit">Login</button>
-                            <hr class="my-4">
-                            <a class="btn btn-lg btn-danger btn-block text-uppercase" href="/register">Create
-                                Account</a>
-                        </form>
-                    </div>
+                        <button class="btn btn-lg btn-login btn-block text-uppercase" type="submit">Login</button>
+                        <hr class="my-4">
+                        <a class="btn btn-lg btn-danger btn-block text-uppercase" href="/register">Create
+                            Account</a>
+                    </form>
                 </div>
             </div>
         </div>

@@ -6,69 +6,72 @@
 
 
 <div class="container">
+    <div class="card mt-3" style="width: 100%;">
+        <div class="card-body">
+            <hr style="border-top: 2px solid green;">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <p class="title-contact-1">Get In</p>
+                    <p class="title-contact-2">Touch</p>
+                    <p class="title-contact-3">and Get</p>
+                    <p class="title-contact-4">In Shape</p>
+                </div>
+                <div class="col-md-8">
+                    <div class="info-col">
+                        <p class="contact-info mt-5">Please feel free to call or email for general questions</p>
+                        <br>
+                        <p class="mb-3">info@mysite.com</p>
 
-    <hr style="border-top: 2px solid green;">
-    <div class="row mb-3">
-        <div class="col-md-4">
-            <p class="title-contact-1">Get In</p>
-            <p class="title-contact-2">Touch</p>
-            <p class="title-contact-3">and Get</p>
-            <p class="title-contact-4">In Shape</p>
-        </div>
-        <div class="col-md-8">
-            <div class="info-col">
-                <p class="contact-info mt-5">Please feel free to call or email for general questions</p>
-                <br>
-                <p class="mb-3">info@mysite.com</p>
-
-                <p>tel: 123-345-567</p>
-                <p>fax: 123-345-567</p>
+                        <p>tel: 123-345-567</p>
+                        <p>fax: 123-345-567</p>
+                    </div>
+                </div>
             </div>
+            <hr style="border-top: 2px solid green;">
+
+
+            <form role="form" action="" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="first_name">First name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name"
+                            placeholder="First name" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="last_name">Last name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name"
+                            required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                </div>
+                <div class="md-form mb-3">
+                    <!-- <span><i class="fas fa-envelope"></i></span> -->
+                    <label name="email">Email</label>
+                    <input id="email" name="email" class="form-control">
+                    {% for error in form.email.errors %}
+                    <p class="danger">
+                        {{ error }}
+                    </p>
+                    {% endfor %}
+                </div>
+                <div class="md-form mb-3">
+                    <!-- <span><i class="fas fa-envelope"></i></span> -->
+                    <label name="message">Message</label>
+                    <textarea placeholder="Type your message here.." id="message" name="message"
+                        class="form-control"></textarea>
+                </div>
+                <div class="g-recaptcha" data-sitekey="6Leg4qoaAAAAAIE5QefvXKi801KzcOvE3LawtZWz"></div>
+
+                <button class="btn mt-3 btn-contact" type="submit">Submit form</button>
+            </form>
         </div>
     </div>
-    <hr style="border-top: 2px solid green;">
-
-
-    <form role="form" action="" method="POST">
-        {% csrf_token %}
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                <label for="first_name">First name</label>
-                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First name"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="last_name">Last name</label>
-                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name"
-                    required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-        </div>
-        <div class="md-form mb-3">
-            <!-- <span><i class="fas fa-envelope"></i></span> -->
-            <label name="email">Email</label>
-            <input id="email" name="email" class="form-control">
-            {% for error in form.email.errors %}
-            <p class="danger">
-                {{ error }}
-            </p>
-            {% endfor %}
-        </div>
-        <div class="md-form mb-3">
-            <!-- <span><i class="fas fa-envelope"></i></span> -->
-            <label name="message">Message</label>
-            <textarea placeholder="Type your message here.." id="message" name="message"
-                class="form-control"></textarea>
-        </div>
-        <div class="g-recaptcha" data-sitekey="6Leg4qoaAAAAAIE5QefvXKi801KzcOvE3LawtZWz"></div>
-
-        <button class="btn mt-3 btn-contact" type="submit">Submit form</button>
-    </form>
 </div>
 
 {% endblock %}

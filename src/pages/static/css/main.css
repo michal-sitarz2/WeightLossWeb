@@ -6,6 +6,22 @@
 
 */
 
+/* ALL PAGES */
+body {
+    background: #9ee1b6;
+    background: linear-gradient(to right, #9ee1b6, #87d0a3);
+}
+
+
+/* 1. Home page */
+/* ================================================================= */
+
+.about-text {
+   
+
+}
+
+
 /* 3. Contact page */
 /* ================================================================= */
 .contact-info {
