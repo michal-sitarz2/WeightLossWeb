@@ -46,8 +46,7 @@
                     onclick="confirmDelete({{recipe.recipe_id}},{{key.date.day}},{{key.date.month}},{{key.date.year}})"
                     style="font-size:135%; text-decoration: none; color:black;">&#9634;</a>
                 <strong>{{recipe.recipe.meal_type.capitalize}}:</strong>
-                <a href="{% url 'recipe_view' recipe.recipe_id %}"> {{ recipe.recipe.name }}
-                    {{ recipe.recipe_id }}</a><br>
+                <a href="{% url 'recipe_view' recipe.recipe_id %}"> {{ recipe.recipe.name }}</a><br>
                 {% endfor %}
             </p> <br>
             {% endfor %}

@@ -9,12 +9,12 @@ from collections import OrderedDict
 
 
 # Method used to delete meal from the database and make a new meal with the same recipe in two weeks
-def delete_meal(request, recipe_id, day, month, year):
+def delete_meal(request, recipe_id, day, month, year, completed=True):
     # Recomposing the date with the components passed in the url
     # Used because there can be more than one recipe with the same date
     date = datetime(day=day, month=month, year=year)
 
-    # Using try-catch block to check if valid meals are being deleted
+    # Using try-catch block to check if valid '...(remaining elements truncated)...meals are being deleted
     try:
         # Filtering all the meals with the id, and then getting the one selected based on the date
         meal = Meal.objects.filter(diet=request.user.diet).filter(recipe=recipe_id).get(meal_date=date.date())
@@ -50,15 +50,16 @@ def delete_meal(request, recipe_id, day, month, year):
     # In case something has been done wrong (e.g. a meal which doesn't exist is attempted to be deleted)
     except Exception as e:
         print(e)
+
         # Sets an error that will be displayed on the dashboard(saying that the meal was not deleted successfully)
         messages.error(request, "The meal couldn't be checked off.")
         # Redirects the user back to the dashboard
         return redirect('user_dashboard', pk=request.user.pk)
-
-    # Displaying success message on the template indicating that the meal was successfully deleted
-    messages.success(request, "The meal was successfully completed!")
-    # Refreshing the page and showing the recipe recommendations
-    return redirect('view_recipe_recommendations', pk=request.user.pk)
+    if (completed):
+        # Displaying success message on the template indicating that the meal was successfully deleted
+        messages.success(request, "The meal was successfully completed!")
+        # Refreshing the page and showing the recipe recommendations
+        return redirect('view_recipe_recommendations', pk=request.user.pk)
 
 # View to show recipes recommended for the user
 def choose_meals_view(request, pk):
@@ -71,6 +72,15 @@ def choose_meals_view(request, pk):
 
     # Getting all the meals for the specific user (using diet table), and ordering them by the date
     meals = Meal.objects.order_by('meal_date').filter(diet=request.user.diet)
+
+
+    meals_past = meals.filter(meal_date__range=["2000-01-01", datetime.today().date() - timedelta(days=1)])
+
+    if(len(meals_past) != 0):
+        for meal in list(meals_past):
+            delete_meal(request, meal.recipe.id, meal.meal_date.day, meal.meal_date.month, meal.meal_date.year,
+                        completed=False)
+
 
     # Defining dictionaries for each meal type
     breakfast = {}
