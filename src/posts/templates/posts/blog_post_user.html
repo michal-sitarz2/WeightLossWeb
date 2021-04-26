@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 
 <br>
@@ -24,6 +23,7 @@
             <p>Date: {{ post.date.date }}</p>
             <p> {{ post.content }}</p>
             <button onclick="confirmDelete({{post.id}})">Delete Post</button>
+            <a href="/post/edit/{{ post.id }}"><button>Edit Post</button></a>
         </div>
         <hr>
         <br>

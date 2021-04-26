@@ -21,7 +21,7 @@ from progress.views import progress_form_view, UpdateProgressView
 from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form, view_recipe
 from diets.views import set_preferences_form
 from meals.views import choose_meals_view, delete_meal
-from posts.views import blog_post_view, blog_post_add, blog_post_view_user, blog_delete_post
+from posts.views import blog_post_view, blog_post_add, blog_post_view_user, blog_delete_post, UpdatePostView
 
 
 urlpatterns = [
@@ -35,6 +35,7 @@ urlpatterns = [
     path('registration_progress/', progress_form_view, name='progress_form'),
     path('contact/', contact_view, name="contact"),
     path('progress/edit/<int:pk>', UpdateProgressView.as_view(), name="update_progress"),
+    path('post/edit/<int:pk>', UpdatePostView.as_view(), name="update_post"),
     path('account/dashboard/<int:pk>', dashboard_view, name='user_dashboard'),
     path('search/', spoonacular_api_search_form, name="search"),
     path('search/result', spoonacular_api_search_view, name="search_result"),

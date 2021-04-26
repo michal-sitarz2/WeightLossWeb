@@ -2,11 +2,35 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Post
 from .forms import PostsForm
+from django.views.generic import UpdateView
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    template_name = 'posts/blog_update_post.html'
+    fields = ['title', 'content', 'anonimity']
+
+    def form_valid(self, form):
+        title = form.cleaned_data["title"]
+        content = form.cleaned_data["content"]
+        anonimity = form.cleaned_data["anonimity"]
+
+        post = self.object
+        post.title = title
+        post.content = content
+        post.anonimity = anonimity
+        post.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return "/blog"
+
 
 def blog_delete_post(request, pk):
     try:
-        post = Post.objects.get(id=pk)
+        post = Post.objects.filter(user=request.user).get(id=pk)
         post.delete()
     except Exception as e:
         messages.error(request, 'Please delete a valid post')
