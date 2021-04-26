@@ -9,13 +9,13 @@ class BMITestCase(TestCase):
         self.assertEqual(calculate_BMI(weight,height), bmi_calculated)
 
     # Testing if error is indicated when height is negative
-    def test_calculate_BMI_negative_1(self):
+    def test_calculate_BMI_negative_height(self):
         height = -10
         weight = 85
         self.assertEqual(calculate_BMI(weight,height), -1)
 
     # Testing if error is indicated when weight is negative
-    def test_calculate_BMI_negative_2(self):
+    def test_calculate_BMI_negative_weight(self):
         height = 1.5
         weight = -10
         self.assertEqual(calculate_BMI(weight,height), -1)

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<a href="/blog/add"><button>Add Post</button></a>
+<a href="/blog"><button>View Other's Posts</button></a>
+<br>
+<br>
+<script>
+    function confirmDelete(id) {
+        if (confirm("Do you want to delete this post?")) {
+            url = "/post/delete/" + id
+            location.replace(url)
+        }
+    }
+</script>
+
+<div>
+{% if posts %}
+    {% for post in posts %}
+        <div>
+            <h4>{{ post.title }}</h4>
+            <p>Date: {{ post.date.date }}</p>
+            <p> {{ post.content }}</p>
+            <button onclick="confirmDelete({{post.id}})">Delete Post</button>
+        </div>
+        <hr>
+        <br>
+    {% endfor %}
+{% else %}
+    <h3>No posts</h3>
+{% endif %}
+</div>
+
+
+
+
+{% endblock %}

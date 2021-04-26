@@ -1,8 +1,5 @@
 from django import forms
-from django.contrib.auth import authenticate
-
 from .models import Progress
-from account.models import Account
 
 class InitialProgressForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

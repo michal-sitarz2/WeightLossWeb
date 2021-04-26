@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<a href="/blog/add"><button>Add Post</button></a>
+<a href="/blog/userPosts"><button>View My posts</button></a>
+<br>
+<br>
+<div>
+{% if posts %}
+    {% for post in posts %}
+        <div>
+            <h4>{{ post.title }}</h4>
+            <p>By: {{ post.getAnonymousUser }}, on: {{ post.date.date }}</p>
+            <p> {{ post.content }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <h3>No posts</h3>
+{% endif %}
+</div>
+
+
+
+
+{% endblock %}

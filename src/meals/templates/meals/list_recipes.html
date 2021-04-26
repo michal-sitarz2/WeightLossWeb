@@ -29,7 +29,6 @@
                 function confirmDelete(id, day, month, year) {
                     if (confirm("Have you completed this meal? If yes it will be deleted!")) {
                         url = "/meal/delete/" + id + "/" + day + "/" + month + "/" + year
-                        alert(url)
                         location.replace(url)
                     }
                 }

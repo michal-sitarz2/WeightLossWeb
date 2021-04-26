@@ -10,8 +10,18 @@ class Post(models.Model):
     content = models.TextField()
     # Date when the post was created
     date = models.DateTimeField(auto_now_add=True)
+    # Whether the user wants this to be anonimous
+    anonimity = models.BooleanField(default=True)
 
-    ### keywords as ENUM
+    # TODO
+    #   keywords? (enum)
+
+
+    def getAnonymousUser(self):
+        if (self.anonimity):
+            return "Anonymous"
+        else:
+            return self.user.username
 
     def __str__(self):
-        return self.user.username + " " + self.title
+        return self.user.username + " " + self.title + " " + str(self.date.date()) + " " + self.content

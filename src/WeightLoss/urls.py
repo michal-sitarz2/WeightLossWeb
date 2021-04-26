@@ -21,6 +21,7 @@ from progress.views import progress_form_view, UpdateProgressView
 from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form, view_recipe
 from diets.views import set_preferences_form
 from meals.views import choose_meals_view, delete_meal
+from posts.views import blog_post_view, blog_post_add, blog_post_view_user, blog_delete_post
 
 
 urlpatterns = [
@@ -40,5 +41,9 @@ urlpatterns = [
     path('account/dashboard/<int:pk>/set_preferences', set_preferences_form, name="set_dietary_preferences"),
     path('account/dashboard/<int:pk>/view_recipe_recommendations', choose_meals_view, name="view_recipe_recommendations"),
     path('recipe/<int:recipe_id>', view_recipe, name='recipe_view'),
-    path('meal/delete/<int:recipe_id>/<int:day>/<int:month>/<int:year>', delete_meal, name='delete_meal')
+    path('meal/delete/<int:recipe_id>/<int:day>/<int:month>/<int:year>', delete_meal, name='delete_meal'),
+    path('blog', blog_post_view, name='blog_post_board'),
+    path('blog/add', blog_post_add, name='blog_post_add'),
+    path('blog/userPosts/', blog_post_view_user, name='user_posts'),
+    path('post/delete/<int:pk>', blog_delete_post, name='delete_post')
 ]
