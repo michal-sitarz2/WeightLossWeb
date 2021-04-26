@@ -27,6 +27,8 @@ class Progress(models.Model):
     # Details last updated
     last_updated = models.DateTimeField(auto_now_add=True, blank=True)
 
+    # Streak of completing the recipes
+    streak = models.IntegerField(validators=[MinValueValidator(0)], default=0)
 
     # Method to set the current weight and height to intial weight and height
     def initial_current_set(self):

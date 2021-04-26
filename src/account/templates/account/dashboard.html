@@ -34,7 +34,7 @@
             </div>
         </nav> -->
         <div class="content-dashboard">
-            <h1 class="text-center">Wellcome User {{ request.user.username }}</h1>
+            <h1 class="text-center">Welcome User {{ request.user.username }}</h1>
 
             <br>
 
@@ -53,6 +53,9 @@
             <p style="margin-left:30px;">
                 Current BMI: {{request.user.progress.current_bmi}}<br>
                 <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
+            </p>
+            <p>
+                Streak: {{ request.user.progress.streak }}
             </p>
             {% if progress_percentage == 0 %}
             <h1 style="color:red; margin-left:10px;">CONGRATULATIONS!</h1>

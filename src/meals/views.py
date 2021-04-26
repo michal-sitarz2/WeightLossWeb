@@ -22,35 +22,14 @@ def delete_meal(request, recipe_id, day, month, year, completed=True):
         # Deleting the meal from the database
         meal.delete()
 
-        # Getting the current recipe that was being deleted
-        recipe = Recipe.objects.filter(id=recipe_id)[0]
+        # After deleting the meal, calling a method that will check how many recipes the user has for the given day
+        check_daily_completion(date, request.user)
 
-        # Getting the meal type of the recipe to be able to filter with it the last recipe in the databasae from that meal type
-        recipe_meal = recipe.meal_type
-
-        # Filtering the last recipe from that meal type saved in the database
-        last_meal = Meal.objects.filter(diet=request.user.diet).order_by('meal_date').filter(diet=request.user.diet).filter(
-            recipe__meal_type=recipe_meal)
-
-        # Checking if there are more meals other than the one that was just deleted
-        if(len(last_meal) != 0):
-            # Getting the date from the last meal saved
-            last_meal = last_meal[len(last_meal) - 1].meal_date
-        # Otherwise setting the date for the next meal to be the day after the deleted meal
-        else:
-            last_meal = date.date()
-
-        # Calculating the next day we want to save the meal on
-        next_date = last_meal + timedelta(days=1)
-
-        # Saving the new meal
-        meal = Meal(meal_date=next_date, diet=request.user.diet, recipe=recipe)
-        meal.save()
+        save_next_recipe(request.user, recipe_id, date)
 
     # In case something has been done wrong (e.g. a meal which doesn't exist is attempted to be deleted)
     except Exception as e:
         print(e)
-
         # Sets an error that will be displayed on the dashboard(saying that the meal was not deleted successfully)
         messages.error(request, "The meal couldn't be checked off.")
         # Redirects the user back to the dashboard
@@ -60,6 +39,50 @@ def delete_meal(request, recipe_id, day, month, year, completed=True):
         messages.success(request, "The meal was successfully completed!")
         # Refreshing the page and showing the recipe recommendations
         return redirect('view_recipe_recommendations', pk=request.user.pk)
+
+# A helper method which takes in the date for the user meals and checks if the user has completed all
+def check_daily_completion(date, user):
+    # Getting the meals based on the user and the date of the meal (that was just completed)
+    meals = Meal.objects.filter(diet=user.diet).filter(meal_date=date)
+
+    # If there are zero meals retrieved, it means all the meals have been completed
+    if(len(meals) == 0):
+        streak = user.progress.streak
+
+        # Incrementing the user streak by one
+        user.progress.streak = streak + 1
+        user.progress.save()
+        print(user)
+
+
+# A method that will be used to get next recipe based on the one that was deleted
+def save_next_recipe(user, recipe_id, date):
+    # Getting the current recipe that was being deleted
+    recipe = Recipe.objects.filter(id=recipe_id)[0]
+
+    # Getting the meal type of the recipe to be able to filter with it the last recipe in the databasae from that meal type
+    recipe_meal = recipe.meal_type
+
+    # Filtering the last recipe from that meal type saved in the database
+    last_meal = Meal.objects.filter(diet=user.diet).order_by('meal_date').filter(
+        diet=user.diet).filter(
+        recipe__meal_type=recipe_meal)
+
+    # Checking if there are more meals other than the one that was just deleted
+    if (len(last_meal) != 0):
+        # Getting the date from the last meal saved
+        last_meal = last_meal[len(last_meal) - 1].meal_date
+
+    # Otherwise setting the date for the next meal to be the day after the deleted meal
+    else:
+        last_meal = date.date()
+
+    # Calculating the next day we want to save the meal on
+    next_date = last_meal + timedelta(days=1)
+
+    # Saving the new meal
+    meal = Meal(meal_date=next_date, diet=user.diet, recipe=recipe)
+    meal.save()
 
 # View to show recipes recommended for the user
 def choose_meals_view(request, pk):
@@ -73,13 +96,25 @@ def choose_meals_view(request, pk):
     # Getting all the meals for the specific user (using diet table), and ordering them by the date
     meals = Meal.objects.order_by('meal_date').filter(diet=request.user.diet)
 
-
+    # Getting all the meals that were in range from some old date to yesterday
     meals_past = meals.filter(meal_date__range=["2000-01-01", datetime.today().date() - timedelta(days=1)])
 
+    # Checking if the length of those past meals is 0
     if(len(meals_past) != 0):
+        # If there were meals that needed to be deleted, streak will be set to zero again
+        request.user.progress.streak = 0
+
+        # If there are meals, they will be deleted as not completed
         for meal in list(meals_past):
-            delete_meal(request, meal.recipe.id, meal.meal_date.day, meal.meal_date.month, meal.meal_date.year,
-                        completed=False)
+            recipe_id = meal.recipe.id
+            date = meal.meal_date
+
+            # Deleting meal here
+            meal.delete()
+            # Shifting the meals to the end of the meal plan
+            save_next_recipe(request.user, recipe_id, date)
+        # Adding a message for the user to let them know the old recipes were deleted
+        messages.error(request, "The old, not completed recipe(s) were deleted.")
 
 
     # Defining dictionaries for each meal type
