@@ -2,25 +2,55 @@
 
 {% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
+<div class="wrapper">
 
-        {{ field.label_tag }}
-        {{ field }}
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Dashboard</h3>
+        </div>
 
-        {% for error in field.errors %}
-            <p style="color: red;">{{error}}</p>
-        {% endfor %}
+        <ul class="list-unstyled components">
+
+            <li>
+                <a href="{% url 'user_dashboard' request.user.pk %}">Home</a>
+            </li>
+            <li>
+                <a href="{%url 'view_recipe_recommendations' request.user.pk %}">Recipes</a>
+            </li>
+            <li>
+                <a href="{%url 'set_dietary_preferences' request.user.pk %}">Preferences</a>
+            </li>
+        </ul>
+    </nav>
 
 
-        {% if field.help_text %}
-            <p class="help"><em>{{ field.help_text|safe }}</em></p>
-        {% endif %}
+    <div id="content">
+        <div class="content-dashboard">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
 
-    {% endfor %}
-    <input type="submit" value="Submit">
-</form>
-<a href="{%url 'user_dashboard' request.user.pk %}"><button>Back</button></a>
+                {{ field.label_tag }}
+                {{ field }}
+
+                {% for error in field.errors %}
+                <p style="color: red;">{{error}}</p>
+                {% endfor %}
+
+
+                {% if field.help_text %}
+                <p class="help"><em>{{ field.help_text|safe }}</em></p>
+                {% endif %}
+
+                {% endfor %}
+                <input type="submit" value="Submit">
+            </form>
+            <a href="{%url 'user_dashboard' request.user.pk %}"><button>Back</button></a>
+        </div>
+    </div>
+</div>
+
+
 
 {% endblock %}

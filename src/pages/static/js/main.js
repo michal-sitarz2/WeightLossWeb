@@ -41,3 +41,12 @@ $('.login-reg-panel input[type="radio"]').on('change', function() {
     }
 });
   
+// Dashboard
+
+$(document).ready(function () {
+
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+});

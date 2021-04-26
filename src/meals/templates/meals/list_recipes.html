@@ -1,30 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<script>
-    function confirmDelete(id, day, month, year){
-        if(confirm("Have you completed this meal? If yes it will be deleted!")){
-            url = "/meal/delete/" + id + "/" + day + "/" + month + "/" + year
-            alert(url)
-            location.replace(url)
-        }
-    }
-</script>
 
-<br>
-<h2>Recipes for Upcoming 2 Weeks</h2>
-<br>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Dashboard</h3>
+        </div>
 
-{% for key, daily_list in days.items %}
-    <h5>{{ key.date }}</h5>
-    <p>
-        {% for recipe in daily_list %}
-            <a href="#" onclick="confirmDelete({{recipe.recipe_id}},{{key.date.day}},{{key.date.month}},{{key.date.year}})" style="font-size:135%; text-decoration: none; color:black;">&#9634;</a>
-            <strong>{{recipe.recipe.meal_type.capitalize}}:</strong>
-            <a href="{% url 'recipe_view' recipe.recipe_id %}"> {{ recipe.recipe.name }} {{ recipe.recipe_id }}</a><br>
-        {% endfor %}
-    </p> <br>
-{% endfor %}
+        <ul class="list-unstyled components">
+
+            <li>
+                <a href="{% url 'user_dashboard' request.user.pk %}">Home</a>
+            </li>
+            <li>
+                <a href="{%url 'view_recipe_recommendations' request.user.pk %}">Recipes</a>
+            </li>
+            <li>
+                <a href="{%url 'set_dietary_preferences' request.user.pk %}">Preferences</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        <div class="content-dashboard">
+            <script>
+                function confirmDelete(id, day, month, year) {
+                    if (confirm("Have you completed this meal? If yes it will be deleted!")) {
+                        url = "/meal/delete/" + id + "/" + day + "/" + month + "/" + year
+                        alert(url)
+                        location.replace(url)
+                    }
+                }
+            </script>
+
+            <br>
+            <h2>Recipes for Upcoming 2 Weeks</h2>
+            <br>
+
+            {% for key, daily_list in days.items %}
+            <h5>{{ key.date }}</h5>
+            <p>
+                {% for recipe in daily_list %}
+                <a href="#"
+                    onclick="confirmDelete({{recipe.recipe_id}},{{key.date.day}},{{key.date.month}},{{key.date.year}})"
+                    style="font-size:135%; text-decoration: none; color:black;">&#9634;</a>
+                <strong>{{recipe.recipe.meal_type.capitalize}}:</strong>
+                <a href="{% url 'recipe_view' recipe.recipe_id %}"> {{ recipe.recipe.name }}
+                    {{ recipe.recipe_id }}</a><br>
+                {% endfor %}
+            </p> <br>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
 
 
 {% endblock %}

@@ -3,6 +3,7 @@
     2. BMI page
     3. Contact page
     4. Login Page
+    5. Footer Page
 
 */
 
@@ -16,10 +17,7 @@ body {
 /* 1. Home page */
 /* ================================================================= */
 
-.about-text {
-   
-
-}
+.about-text {}
 
 
 /* 3. Contact page */
@@ -69,6 +67,7 @@ body {
     background-color: rgb(3, 104, 3);
     color: white;
 }
+
 /* 4. Login page */
 /* ================================================================= */
 
@@ -190,4 +189,131 @@ body {
 .btn-login:hover {
     color: white;
     background-color: #36c536;
+}
+
+
+/* 5. Footer page */
+/* ================================================================= */
+
+/* @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap'); */
+
+
+.footer-container {
+    overflow: hidden;
+    margin-top: 100px;
+    background: #262626;
+    color: #627482 !important;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-radius: 25px 25px 0 0;
+}
+
+.footer-container small {
+    font-size: calc(12px + (15 - 12) * ((100vw - 360px) / (1600 - 360))) !important
+}
+
+.bold-text {
+    color: #989c9e !important
+}
+
+.mt-55 {
+    margin-top: calc(50px + (60 - 50) * ((100vw - 360px) / (1600 - 360))) !important
+}
+
+.footer-container h3 {
+    font-size: calc(34px + (40 - 34) * ((100vw - 360px) / (1600 - 360))) !important
+}
+
+.social {
+    font-size: 21px !important
+}
+
+.rights {
+    font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important
+}
+
+/* 6. Dashboard */
+/* ================================================================= */
+
+/* Side Bar */
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 180px;
+    max-width: 180px;
+    min-height: 100vh;
+    background: #5abce2;
+    color: #fff;
+    transition: all 0.3s;
+    
+    text-align: center;
+}
+
+#sidebar.active {
+    margin-left: -180px;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #00a1e0;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    margin-top: 100px;    
+}
+
+
+#sidebar ul li a {
+    padding: 30px;
+    font-size: 1.1em;
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+#sidebar ul li a:hover {
+    color: #00a1e0;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -200px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+/* End of Side Bar */
+
+
+#content {
+    width: 100%;
+    
+}
+.content-dashboard {
+    width: 100%;
+    min-height: 100vh;
+    background-color: white;
+    padding-left: 50px;
 }

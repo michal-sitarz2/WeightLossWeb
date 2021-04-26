@@ -1,50 +1,88 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <br>
-    <h2>Welcome {{ request.user.username }}!</h2>
-    <br>
 
-    {% if not request.user.diet %}
-        <p>To get started, please fill in your preferences to generate recipes.</p>
-        <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Add Preferences</a></p>
-    {% else %}
-        <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Edit Preferences</a></p>
-        <p><a href="{%url 'view_recipe_recommendations' request.user.pk %}">View Recipes based on preferences</a></p>
-    {% endif %}
+<div class="wrapper">
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Dashboard</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>
+                <a href="{%url 'view_recipe_recommendations' request.user.pk %}">Recipes</a>
+            </li>
+            <li>
+                <a href="{%url 'set_dietary_preferences' request.user.pk %}">Preferences</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <div id="content">
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                
+
+            </div>
+        </nav> -->
+        <div class="content-dashboard">
+            <h1 class="text-center">Wellcome User {{ request.user.username }}</h1>
+
+            <br>
+
+            {% if not request.user.diet %}
+            <p>To get started, please fill in your preferences to generate recipes.</p>
+            <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Add Preferences</a></p>
+            {% else %}
+            <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Edit Preferences</a></p>
+            <p><a href="{%url 'view_recipe_recommendations' request.user.pk %}">View Recipes based on preferences</a>
+            </p>
+            {% endif %}
 
 
-    <h4>Current Progress</h4>
-    <br>
-    <p style="margin-left:30px;">
-        Current BMI: {{request.user.progress.current_bmi}}<br>
-        <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
-    </p>
-    {% if progress_percentage == 0 %}
-        <h1 style="color:red; margin-left:10px;">CONGRATULATIONS!</h1>
-        <p style="margin-left:10px;><strong>You have reached your goal!</strong></p>
+            <h4>Current Progress</h4>
+            <br>
+            <p style="margin-left:30px;">
+                Current BMI: {{request.user.progress.current_bmi}}<br>
+                <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
+            </p>
+            {% if progress_percentage == 0 %}
+            <h1 style="color:red; margin-left:10px;">CONGRATULATIONS!</h1>
+            <p style="margin-left:10px;><strong>You have reached your goal!</strong></p>
 
-    {% else %}
-        <span>
-            <div class="progress" style="height:40px; width:40%; margin-left:30px;">
+            {% else %}
+            <span>
+                <div class=" progress" style="height:40px; width:40%; margin-left:30px;">
                 <div class="progress-bar" style="width:{{progress_percentage}}%">
                     {{progress_width}}%
                 </div>
-            </div>
+        </div>
         </span>
-    {% endif %}
+        {% endif %}
 
-    <p style="margin-left:30px;"><a href="{%url 'update_progress' request.user.pk %}">Add Progress</a></p>
+        <p style="margin-left:30px;"><a href="{%url 'update_progress' request.user.pk %}">Add Progress</a></p>
 
-    <hr>
+        <hr>
 
-    {% if request.user.diet %}
+        {% if request.user.diet %}
         <h4>Dietary Preferences</h4>
         <p> <strong>Excluded Cuisines</strong>: {{ request.user.diet.exclude_cuisines }}
-        <br> <strong>Excluded Ingredients</strong>: {{ request.user.diet.exclude_ingredients }}
-        <br> <strong>Diet Types</strong>: {{ request.user.diet.diets }}
-        <br> <strong>Intolerances</strong>: {{ request.user.diet.intolerances }}
-        <br> <strong>Daily calories before starting the program: {{ request.user.diet.daily_calories }} calories</p>
-    {% endif %}
+            <br> <strong>Excluded Ingredients</strong>: {{ request.user.diet.exclude_ingredients }}
+            <br> <strong>Diet Types</strong>: {{ request.user.diet.diets }}
+            <br> <strong>Intolerances</strong>: {{ request.user.diet.intolerances }}
+            <br> <strong>Daily calories before starting the program: {{ request.user.diet.daily_calories }} calories</p>
+        {% endif %} -->
+    </div>
+</div>
+
+</div>
 
 {% endblock content %}
