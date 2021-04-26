@@ -7,13 +7,29 @@
 <a href="/blog/userPosts"><button>View My posts</button></a>
 <br>
 <br>
+
 <div>
 {% if posts %}
-    {% for post in posts %}
+    {% for post, comments in posts.items %}
         <div>
             <h4>{{ post.title }}</h4>
             <p>By: {{ post.getAnonymousUser }}, on: {{ post.date.date }}</p>
             <p> {{ post.content }}</p>
+            <hr>
+            <p><strong>Comments</strong><br>
+                    {% for comment in comments %}
+                        {{ comment.account.username }} ({{ comment.date.date }}): <br>{{ comment.comment }}
+                    <br><br>
+                    {% endfor %}
+            </p>
+        </div>
+
+        <hr>
+        <div>
+            <form method="post" action="/comment/add/{{ post.id }}"> {% csrf_token %}
+            <label for="comment">Comment:</label> <input id="comment" name="comment" type="text" required>
+            <input value="OK" type="submit">
+        </form>
         </div>
     {% endfor %}
 {% else %}

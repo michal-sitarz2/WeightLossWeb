@@ -15,23 +15,55 @@
     }
 </script>
 
+
 <div>
 {% if posts %}
-    {% for post in posts %}
+    {% for post, comments in posts.items %}
         <div>
             <h4>{{ post.title }}</h4>
-            <p>Date: {{ post.date.date }}</p>
+            <p>By: {{ post.getAnonymousUser }}, on: {{ post.date.date }}</p>
             <p> {{ post.content }}</p>
-            <button onclick="confirmDelete({{post.id}})">Delete Post</button>
+            <button onclick="confirmDelete({{ post.id }})">Delete Post</button>
             <a href="/post/edit/{{ post.id }}"><button>Edit Post</button></a>
+            <hr>
+            <p><strong>Comments</strong><br>
+                    {% for comment in comments %}
+                        {{ comment.account.username }} ({{ comment.date.date }}): <br>{{ comment.comment }}
+                    <br><br>
+                    {% endfor %}
+            </p>
+        </div>
+
+        <div>
+            <form method="post" action="/comment/add/{{ post.id }}"> {% csrf_token %}
+            <label for="comment">Comment:</label> <input id="comment" name="comment" type="text" required>
+            <input value="OK" type="submit">
+        </form>
         </div>
         <hr>
-        <br>
     {% endfor %}
 {% else %}
     <h3>No posts</h3>
 {% endif %}
 </div>
+
+
+<!--<div>-->
+<!--{% if posts %}-->
+<!--    {% for post in posts %}-->
+<!--        <div>-->
+<!--            <h4>{{ post.title }}</h4>-->
+<!--            <p>Date: {{ post.date.date }}</p>-->
+<!--            <p> {{ post.content }}</p>-->
+
+<!--        </div>-->
+<!--        <hr>-->
+<!--        <br>-->
+<!--    {% endfor %}-->
+<!--{% else %}-->
+<!--    <h3>No posts</h3>-->
+<!--{% endif %}-->
+<!--</div>-->
 
 
 

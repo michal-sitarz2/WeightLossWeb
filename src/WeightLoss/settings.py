@@ -33,13 +33,9 @@ AUTH_USER_MODEL = "account.Account"
 
 INSTALLED_APPS = [
     # Own
-    'pages',
-    'account',
-    'recipes',
-    'progress',
-    'posts',
-    'meals',
-    'diets',
+    'pages', 'account', 'progress',
+    'posts', 'comments',
+    'meals', 'diets', 'recipes',
 
     'django.contrib.admin',
     'django.contrib.auth',

@@ -5,6 +5,7 @@ from .forms import PostsForm
 from django.views.generic import UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
+from comments.models import Comment
 
 
 class UpdatePostView(UpdateView):
@@ -45,7 +46,17 @@ def blog_post_view_user(request):
         return redirect('/')
 
     context = {}
-    context['posts'] = Post.objects.all().order_by('-date').filter(user=request.user)
+    posts = Post.objects.all().order_by('-date').filter(user=request.user)
+
+    post_map = {}
+
+    for post in posts:
+        post_map[post] = []
+        comments = Comment.objects.filter(post=post).order_by('-date')
+        for comment in comments:
+            post_map[post].append(comment)
+
+    context['posts'] = post_map
 
     return render(request, "posts/blog_post_user.html", context)
 
@@ -55,7 +66,18 @@ def blog_post_view(request):
         return redirect('/')
 
     context = {}
-    context['posts'] = Post.objects.all().order_by('-date').filter(~Q(user=request.user))
+
+    posts = Post.objects.all().order_by('-date').filter(~Q(user=request.user))
+
+    post_map = {}
+
+    for post in posts:
+        post_map[post] = []
+        comments = Comment.objects.filter(post=post).order_by('-date')
+        for comment in comments:
+            post_map[post].append(comment)
+
+    context['posts'] = post_map
 
     return render(request, "posts/blog_post.html", context)
 

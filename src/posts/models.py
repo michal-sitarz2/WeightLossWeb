@@ -24,4 +24,4 @@ class Post(models.Model):
             return self.user.username
 
     def __str__(self):
-        return self.user.username + " " + self.title + " " + str(self.date.date()) + " " + self.content
+        return self.user.username + ": '" + self.title + "'"

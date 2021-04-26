@@ -22,7 +22,7 @@ from recipes.views import spoonacular_api_search_view, spoonacular_api_search_fo
 from diets.views import set_preferences_form
 from meals.views import choose_meals_view, delete_meal
 from posts.views import blog_post_view, blog_post_add, blog_post_view_user, blog_delete_post, UpdatePostView
-
+from comments.views import comment_add_view
 
 urlpatterns = [
     path('', homepage_view, name="home"),
@@ -46,5 +46,6 @@ urlpatterns = [
     path('blog', blog_post_view, name='blog_post_board'),
     path('blog/add', blog_post_add, name='blog_post_add'),
     path('blog/userPosts/', blog_post_view_user, name='user_posts'),
-    path('post/delete/<int:pk>', blog_delete_post, name='delete_post')
+    path('post/delete/<int:pk>', blog_delete_post, name='delete_post'),
+    path('comment/add/<int:pk>', comment_add_view, name="comment_add")
 ]
