@@ -9,12 +9,16 @@ def calculate_BMI(weight: float, height: float) -> float:
     :return: the output for the body mass index calculated by the formula below
                 Weight(kg) / Height(m)^2
     """
-    # Validating that the height and weight are not negative numbers
-    if (weight < 0 or height < 0 or height > 3):
-        return -1
+    try:
+        # Validating that the height and weight are not negative numbers
+        if (weight <= 0 or height <= 0 or height > 3):
+            return -1
 
-    # Rounding the result to 2 decimal places
-    return round((weight / pow(height, 2)), 2)
+        # Rounding the result to 2 decimal places
+        return round((weight / pow(height, 2)), 2)
+
+    except Exception as e:
+        return -1
 
 # def calculate_Imperial_BMI(weight: float, height: float) -> float:
 #     """

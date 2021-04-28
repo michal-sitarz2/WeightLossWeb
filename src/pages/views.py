@@ -11,16 +11,6 @@ from pages.forms import ContactForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
-# def api_view(request):
-#     context = {}
-#     querystring = {'q': 'obesity','apiKey': 'a7064ee7edae4d928c4e9e5a8691acc3'}
-#     response = requests.request("GET", "https://newsapi.org/v2/everything", params=querystring)
-#
-#     context['response'] = response
-#
-#     return render(request,,context)
-
-
 def homepage_view(request, *args, **kwargs):
     context = {}
     return render(request, "homepage.html", context)
