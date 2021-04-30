@@ -13,7 +13,7 @@ class PreferencesForm(forms.Form):
                                                  " Irish, Italian, Japanese, Jewish, Korean, Latin American, "
                                                  " Mediterranean, Mexican, Middle Eastern, Nordic, Southern, "
                                                  " Spanish, Thai, Vietnamese)")
-    diet = forms.CharField(required=False, help_text="Comma-Separated List of Intolerances (Gluten Free, Ketogenic, Vegeterian, "
+    diet = forms.CharField(required=False, help_text="Comma-Separated List of Intolerances (Gluten Free, Ketogenic, Vegetarian, "
                                      "Lacto-vegetarian, Vegan, Ovo-vegetarian, Pescetarian, Paleo, Primal, Whole30)")
     intolerance = forms.CharField(required=False, help_text= "Comma-Separated List of Intolerances (Dairy, Egg, Gluten, Grain, Peanut, "
                                              " Seafood, Sesame, Shellfish, Soy, Sulfite, Tree Nut, Wheat)")
@@ -40,7 +40,7 @@ class PreferencesForm(forms.Form):
                 self.add_error('exclude_cuisines', 'Please check if values match with the provided values.')
                 break
 
-        available_diets = ['gluten free', 'ketogenic', 'vegeterian', 'lacto-vegeterian', 'vegan',
+        available_diets = ['gluten free', 'ketogenic', 'vegetarian', 'lacto-vegeterian', 'vegan',
                            'ovo-vegetarian', 'pescetarian', 'paleo', 'primal', 'whole30']
         for d in diet:
             if d not in available_diets:

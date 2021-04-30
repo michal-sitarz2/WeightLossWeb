@@ -74,7 +74,7 @@ class BMIInputsTestCase(TestCase):
         self.assertEqual(calculate_BMI(weight,height), -1)
 
     # Testing if error is indicated when the inputs are not numbers
-    def test_calculate_BMI_negative_weight(self):
+    def test_calculate_BMI_not_numbers(self):
         height = "Hello World"
         weight = "Hello World"
         self.assertEqual(calculate_BMI(weight, height), -1)
@@ -86,7 +86,7 @@ class BMIInputsTestCase(TestCase):
         self.assertEqual(calculate_BMI(weight, height), -1)
 
     # Testing if error is indicated when weight is set to zero (as it cannot be zero)
-    def test_BMI_zero_height(self):
+    def test_BMI_zero_weight(self):
         height = 1.85
         weight = 0
         self.assertEqual(calculate_BMI(weight, height), -1)

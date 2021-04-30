@@ -4,8 +4,6 @@ from posts.models import Post
 
 # Create your views here.
 def comment_add_view(request, pk):
-    context = {}
-
     # Checking if the current request is post (meaning whether the form was submitted)
     if request.POST:
         try:

@@ -3,10 +3,18 @@ from django.contrib.auth import login, authenticate, logout
 from django.views.generic import DetailView
 from .forms import RegistrationForm, AccountAuthenticationForm
 from pages.scripts.bmi_calculate import calculate_BMI
+from django.contrib import messages
 
 # Dashboard view
 def dashboard_view(request, pk):
     context = {}
+
+    try:
+        if(request.user.progress):
+            pass
+    except:
+        return redirect("/registration_progress")
+    #registration_progress
 
     # Getting the progress for the current user
     user_progress = request.user.progress
@@ -64,11 +72,16 @@ def registration_view(request):
             # Logging the user in if everything is authenticated
             login(request, account)
 
+            messages.success(request, 'Well done, you have created your account. Please fill in this form to get you started.',
+                             extra_tags='alert-success')
             # Once the user is logged in they are taken to the progress form to fill in the rest of data required
             return redirect('progress_form')
         else:
-            # If the form was not valid, it will be displayed back (with errors if there were any)
+            # If the form was not valid, it will be displayed back
             context['registration_form'] = form
+            # Getting the errors from the form
+            for fields in form:
+                context['form_errors'] = fields.errors
     else:
         # If it was not submitted (hence it was GET) the form will be displayed for the user to fill in
         form = RegistrationForm()

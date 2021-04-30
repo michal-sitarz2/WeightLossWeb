@@ -60,15 +60,17 @@
                             <label for="inputConfirmPassword">Confirm password</label>
                         </div>
 
+
+                        <div>
+                            <ul>
+                                {% for error in form_errors %}
+                                    <li style="color:red;">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
                         <button class="btn btn-lg btn-login btn-block text-uppercase" type="submit">Register</button>
                         <a class="d-block text-center mt-2 small" href="/login">Sign In</a>
-
-                        <!-- Below we need to put some errors if occured any or help text -->
-
-                        {% if field.help_text %}
-                        <small style="color: grey;">{{field.help_text}}</small>
-                        {% endif %}
-
                     </form>
                 </div>
             </div>

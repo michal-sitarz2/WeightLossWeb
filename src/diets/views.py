@@ -8,6 +8,7 @@ from recipes.models import Recipe
 from meals.models import Meal
 from datetime import date, datetime, timedelta
 import datetime
+from django.contrib import messages
 
 
 def set_preferences_form(request, pk):
@@ -42,7 +43,7 @@ def set_preferences_form(request, pk):
             # Calls a method that creates meals for the user
             create_meals(request)
 
-            return redirect('/account/dashboard/{}'.format(pk))
+            return redirect('view_recipe_recommendations', pk)
     else:
         form = PreferencesForm()
 
@@ -51,7 +52,7 @@ def set_preferences_form(request, pk):
 
 
 def create_meals(request):
-    # If user has no meals allocated
+    # If user has no meals allocated yet
     if not Meal.objects.filter(diet=request.user.diet):
         context = {}
 
@@ -66,20 +67,21 @@ def create_meals(request):
         # According to research, the calorie intake per day should be at least 1200,
         # but it is relative to person's current calorie intake (hence decrease their calorie intake
         # by 500 calories to help them loose around 0.5-1.0 kg weekly)
-        if (daily_calories - 500) >= 2000:
+        if (daily_calories - 500) >= 2300:
             total_calories = daily_calories - 500
         else:
-            total_calories = 2000
+            total_calories = 2300
+
 
         breakfast_cut = total_calories * 0.2
-        main_course_cut = total_calories * 0.35
+        main_course_cut = total_calories * 0.4
         snacks_cut = total_calories * 0.1
 
         # URL to filter lunch and dinner recipes
         url = "https://api.spoonacular.com/recipes/complexSearch"
         querystring = {'excludeCuisines': exclude_cuisines, 'diet': diet, 'intolerances': intolerance,
                        'excludeIngredients': exclude_ingredients, 'type': 'main course', 'addRecipeNutrition': True,
-                       'minCalories': main_course_cut - 100, 'maxCalories': main_course_cut + 100,
+                       'minCalories': main_course_cut - 200, 'maxCalories': main_course_cut + 200,
                        'number': 28, 'apiKey': 'db078d8202d840b78592794720def365'}
 
         # Getting the response from the API
@@ -116,13 +118,13 @@ def create_meals(request):
         main_courses_dict = get_recipe_information(main_courses_data, 28)
         context['main_courses'] = main_courses_dict
 
-        # Getting the information from the API response and limiting it to 2 recipes for breakfasts
-        # For 2 weeks
+        # Getting the information from the API response and limiting it to 2 recipes for breakfasts for 2 weeks
         breakfast_dict = get_recipe_information(breakfast_data, 2)
         context['breakfast'] = breakfast_dict
 
         snack_dict = get_recipe_information(snack_data, 14)
         context['snack'] = snack_dict
+
 
         ### Save for user to the DB
         save_user_meal(context['breakfast'], user, 'breakfast')
@@ -132,7 +134,9 @@ def create_meals(request):
 
 # Method to save the recipe for the user
 def save_user_meal(recipes, diet, meal_type):
-    size = len(recipes.values())
+    lunch = 0
+    dinner = 0
+
     for i, recipe in enumerate(recipes.values()):
         title = recipe[0]
         id = recipe[1]
@@ -151,16 +155,21 @@ def save_user_meal(recipes, diet, meal_type):
         if(meal_type=='breakfast'):
             meal = 'breakfast'
         elif(meal_type=='main'):
-            if(i<size/2):
+            if(i < int(len(recipes)/2)):
                 meal = 'lunch'
-            else:
+                lunch += 1
+            elif(i >= int(len(recipes)/2) and i < 28):
                 meal = 'dinner'
+                dinner += 1
+            else:
+                pass
+
         elif(meal_type=='snack'):
             meal = 'snack'
 
         # Checking if the recipe is already in the database
         try:
-            recipe = Recipe.objects.get(recipe_id=id)
+            recipe = Recipe.objects.get(recipe_id=id).get(meal_type=meal)
         except:
             recipe = Recipe(name=title, recipe_id=id, meal_type=meal, image_link=image, ingredients=ingredients,
                             servings=servings, summary=summary, source_link=source_url, calories=calories, fats=fats,
@@ -168,15 +177,20 @@ def save_user_meal(recipes, diet, meal_type):
             recipe.save()
 
         if (meal_type == 'snack'):
-            delta = (i % 14) + 1
+            delta = i + 1
             date = datetime.date.today() + timedelta(days=delta)
             meal = Meal(meal_date=date, diet=diet, recipe=recipe)
             meal.save()
 
         ### Saving Lunches and Dinners
         if(meal_type=='main'):
-            delta = (i % 14) + 1
-            date = datetime.date.today() + timedelta(days=delta)
+            if(meal=='lunch'):
+                counter = lunch
+            else:
+                counter = dinner
+
+            date = datetime.date.today() + timedelta(days=counter)
+            #print(meal, " Counter:", counter, "Date: ", date)
             meal = Meal(meal_date=date, diet=diet, recipe=recipe)
             meal.save()
 
@@ -199,54 +213,60 @@ def save_user_meal(recipes, diet, meal_type):
 
 def get_recipe_information(data, limit):
     recipes = []
-    for i, recipe in enumerate(data['results']):
-        if(i == limit):
-            break
+    # Doing try-catch as there might not be results when daily quota is exceeded
+    try:
+        for i, recipe in enumerate(data['results']):
+            if(i == limit):
+                break
 
-        recipes.append([])
-        recipes[i].append(recipe['title'])
-        recipes[i].append(recipe['id'])
-        recipes[i].append(recipe['healthScore'])
-        recipes[i].append(recipe['servings'])
+            recipes.append([])
+            recipes[i].append(recipe['title'])
+            recipes[i].append(recipe['id'])
+            recipes[i].append(recipe['healthScore'])
+            recipes[i].append(recipe['servings'])
 
-        # Calories
-        recipes[i].append(
-            str(recipe['nutrition']['nutrients'][0]['amount']) + " " + recipe['nutrition']['nutrients'][0]['unit'])
-        # Fats
-        recipes[i].append(
-            str(recipe['nutrition']['nutrients'][1]['amount']) + " " + recipe['nutrition']['nutrients'][1]['unit'])
-        # Saturated Fats
-        recipes[i].append(
-            str(recipe['nutrition']['nutrients'][2]['amount']) + " " + recipe['nutrition']['nutrients'][2]['unit'])
-        # Carbs
-        recipes[i].append(
-            str(recipe['nutrition']['nutrients'][3]['amount']) + " " + recipe['nutrition']['nutrients'][3]['unit'])
-        # Sugar
-        recipes[i].append(
-            str(recipe['nutrition']['nutrients'][5]['amount']) + " " + recipe['nutrition']['nutrients'][5]['unit'])
-        # Protein
-        recipes[i].append(
-            str(recipe['nutrition']['nutrients'][8]['amount']) + " " + recipe['nutrition']['nutrients'][8]['unit'])
+            # Calories
+            recipes[i].append(
+                str(recipe['nutrition']['nutrients'][0]['amount']) + " " + recipe['nutrition']['nutrients'][0]['unit'])
+            # Fats
+            recipes[i].append(
+                str(recipe['nutrition']['nutrients'][1]['amount']) + " " + recipe['nutrition']['nutrients'][1]['unit'])
+            # Saturated Fats
+            recipes[i].append(
+                str(recipe['nutrition']['nutrients'][2]['amount']) + " " + recipe['nutrition']['nutrients'][2]['unit'])
+            # Carbs
+            recipes[i].append(
+                str(recipe['nutrition']['nutrients'][3]['amount']) + " " + recipe['nutrition']['nutrients'][3]['unit'])
+            # Sugar
+            recipes[i].append(
+                str(recipe['nutrition']['nutrients'][5]['amount']) + " " + recipe['nutrition']['nutrients'][5]['unit'])
+            # Protein
+            recipes[i].append(
+                str(recipe['nutrition']['nutrients'][8]['amount']) + " " + recipe['nutrition']['nutrients'][8]['unit'])
 
-        recipes[i].append(recipe['image'])
-        recipes[i].append(recipe['sourceUrl'])
+            recipes[i].append(recipe['image'])
+            recipes[i].append(recipe['sourceUrl'])
 
-        recipes[i].append(recipe['summary'])
+            recipes[i].append(recipe['summary'])
 
-        ingredient_str = ""
-        for ingredient in recipe['nutrition']['ingredients']:
-            ingredient_str += "{} ({} {}), ".format(ingredient['name'], str(ingredient['amount']), ingredient['unit'])
+            ingredient_str = ""
+            for ingredient in recipe['nutrition']['ingredients']:
+                ingredient_str += "{} ({} {}), ".format(ingredient['name'], str(ingredient['amount']), ingredient['unit'])
 
-        ingredient_str = ingredient_str[:-2].capitalize()
+            ingredient_str = ingredient_str[:-2].capitalize()
 
-        recipes[i].append(ingredient_str)
+            recipes[i].append(ingredient_str)
 
-    # Shuffling the recipes
-    random.shuffle(recipes)
+        # Shuffling the recipes
+        random.shuffle(recipes)
 
-    recipes_dict = {}
-    for i, recipe in enumerate(recipes):
-        i = str(i)
-        recipes_dict[i] = recipe
+        recipes_dict = {}
+        for i, recipe in enumerate(recipes):
+            i = str(i)
+            recipes_dict[i] = recipe
+
+    except:
+        messages.error("There are no more recipes available today.")
+        return redirect('/')
 
     return recipes_dict

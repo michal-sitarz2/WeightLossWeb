@@ -26,7 +26,7 @@ class UpdatePostView(UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return "/blog"
+        return "/blog/userPosts"
 
 
 def blog_delete_post(request, pk):
@@ -52,7 +52,7 @@ def blog_post_view_user(request):
 
     for post in posts:
         post_map[post] = []
-        comments = Comment.objects.filter(post=post).order_by('-date')
+        comments = Comment.objects.filter(post=post).order_by('date')
         for comment in comments:
             post_map[post].append(comment)
 
@@ -73,7 +73,7 @@ def blog_post_view(request):
 
     for post in posts:
         post_map[post] = []
-        comments = Comment.objects.filter(post=post).order_by('-date')
+        comments = Comment.objects.filter(post=post).order_by('date')
         for comment in comments:
             post_map[post].append(comment)
 
@@ -96,7 +96,7 @@ def blog_post_add(request):
 
         if (form.is_valid()):
             form.save()
-            return redirect('blog_post_board')
+            return redirect('/blog/userPosts')
         else:
             context['posts_form'] = form
 

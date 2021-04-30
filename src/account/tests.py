@@ -1,4 +1,3 @@
-from django.test import TestCase
 from django.db.utils import IntegrityError
 
 from django.test import Client
@@ -6,7 +5,7 @@ from django.test import Client
 import unittest
 from django.test import RequestFactory
 from .models import Account
-from .forms import RegistrationForm, AccountAuthenticationForm
+from .forms import RegistrationForm
 from .views import dashboard_view
 from progress.models import Progress
 

@@ -91,6 +91,13 @@ def choose_meals_view(request, pk):
         # If not, redirect to homepage
         return redirect("/")
 
+    try:
+        if(request.user.diet):
+            pass
+    except:
+        # If not, redirect to homepage
+        return redirect("set_dietary_preferences", request.user.id)
+
     context = {}
 
     # Getting all the meals for the specific user (using diet table), and ordering them by the date
@@ -98,6 +105,7 @@ def choose_meals_view(request, pk):
 
     # Getting all the meals that were in range from some old date to yesterday
     meals_past = meals.filter(meal_date__range=["2000-01-01", datetime.today().date() - timedelta(days=1)])
+
 
     # Checking if the length of those past meals is 0
     if(len(meals_past) != 0):
@@ -123,6 +131,7 @@ def choose_meals_view(request, pk):
     dinner = {}
     snack = {}
 
+
     # Sorting the meals into their respecitve dictionaries based on meal type
     for meal in meals:
         i = meal.meal_date
@@ -134,7 +143,6 @@ def choose_meals_view(request, pk):
             dinner[i] = meal
         if meal.recipe.meal_type.lower() == "snack":
             snack[i] = meal
-
     # Defining days dictionary which will use date as a key, and values will be arrays of meals for that day
     days = {}
 
