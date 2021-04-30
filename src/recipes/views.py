@@ -11,21 +11,23 @@ from .models import Recipe
 def view_recipe(request, recipe_id):
     context = {}
 
+    # Getting the recipe based on the recipe id (passed in the url)
     recipe = Recipe.objects.filter(id=recipe_id)
+    # Checking if the recipe exists
     try:
+        # Getting the recipe returned (if exists)
         context['recipe'] = recipe[0]
+    # If does not exist redirect the user based on whether they are logged in or not
     except IndexError:
         if(request.user.is_authenticated):
             return redirect('/account/dashboard/{}'.format(request.user.pk))
         else:
             return redirect('/')
 
-
     return render(request, 'recipes/view_recipe.html', context)
 
 # The following two methods are for a search input that looks through the API and list recepies based on a search.
 # The Goal is to make it look better!
-
 def spoonacular_api_search_form(request):
     if request.method == 'POST':
         form = SearchRecipeForm(request.POST)

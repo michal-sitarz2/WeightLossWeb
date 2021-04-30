@@ -101,6 +101,7 @@ def bmi_calculator_view(request, *args, **kwargs):
     except ValueError:
         pass
 
+    # Getting the range in which the user is
     _range = ""
     if BMI != 0:
         if BMI < 18.5:
