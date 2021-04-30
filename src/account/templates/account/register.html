@@ -6,24 +6,6 @@
 
 {% block content %}
 
-<!-- <h2 class="register-title">Register</h2>
-<form method="post">{% csrf_token %}
-    {% for field in registration_form %}
-    <p>
-        {% if field.help_text %}
-        <small style="color: grey;">{{field.help_text}}</small>
-        {% endif %}
-
-        {% for error in field.errors %}
-        <p style="color: red;">{{error}}</p>
-        {% endfor %}
-    </p>
-
-    {% endfor %}
-    <button class="test-button" type="submit">Continue</button>
-</form> -->
-
-
 <div class="container">
     <div class="row">
         <div class="col-lg-10 col-xl-9 mx-auto">
@@ -67,6 +49,13 @@
                                     <li style="color:red;">{{ error }}</li>
                                 {% endfor %}
                             </ul>
+                        </div>
+
+                        <div>
+                            <p>
+                                <strong>Disclaimer:</strong> the system should not be used by people under 18,
+                                pregnant women and people with serious medical/health conditions.
+                            </p>
                         </div>
 
                         <button class="btn btn-lg btn-login btn-block text-uppercase" type="submit">Register</button>

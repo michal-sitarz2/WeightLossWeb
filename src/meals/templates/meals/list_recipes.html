@@ -1,8 +1,6 @@
 {% extends 'base_dashboard.html' %}
 {% block content %}
 
-
-
 <div class="content-dashboard">
     <!-- Alerts -->
     {% for message in messages %}
@@ -20,6 +18,15 @@
 
     <br>
     <h2>Recipes for Upcoming 2 Weeks</h2>
+    <br>
+
+    <ul>
+    <p><strong>Reminders:</strong></p>
+        <li>Try not eating anything outside of the meal plan (as that would result in increase of calorie intake, slowing the weight loss)</li>
+        <li>Before and with every meal drink water (<a href="https://www.healthline.com/nutrition/drinking-water-helps-with-weight-loss">Benefits of Water</a>)</li>
+        <li>Exercise regularly (even fast walking) <strong>2.5 - 5</strong> hours per week</li>
+    </ul>
+
     <br>
 
     {% for key, daily_list in days.items %}
