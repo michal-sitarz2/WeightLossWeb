@@ -1,18 +1,21 @@
 /* Side Bar */
 .wrapper {
-    display: flex;
+    
     width: 100%;
     align-items: stretch;
 }
 
 #sidebar {
+    position: fixed;
+    z-index: 1;
     min-width: 180px;
     max-width: 180px;
     min-height: 100vh;
-    background: #5abce2;
+    /* background: #5abce2; */
+    background: #37b837;
     color: #fff;
     transition: all 0.3s;
-    
+
     text-align: center;
 }
 
@@ -31,12 +34,13 @@
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #00a1e0;
+    /* background: #00a1e0; */
+    background: #06a006;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    margin-top: 100px;    
+    margin-top: 100px;
 }
 
 
@@ -47,12 +51,14 @@
     color: white;
     text-decoration: none;
 }
+
 #sidebar ul li a:hover {
-    color: #00a1e0;
+    color: #06a006;
     background: #fff;
 }
 
-#sidebar ul li.active > a, a[aria-expanded="true"] {
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
     color: #fff;
     background: #6d7fcc;
 }
@@ -62,6 +68,7 @@
     #sidebar {
         margin-left: -200px;
     }
+
     #sidebar.active {
         margin-left: 0;
     }
@@ -72,9 +79,10 @@
 
 #content {
     width: 100%;
-    
-    
+    padding-left: 180px;
+
 }
+
 .content-dashboard {
     width: 100%;
     min-height: 100vh;
@@ -91,4 +99,33 @@
     position: absolute;
     top: -2px;
     right: -1px;
+}
+
+/* Recipe page */
+
+.ingredients ul {
+    list-style: none;
+    /* Remove default bullets */
+}
+
+.ingredients ul li::before {
+    content: "\2022";
+    /* Add content: \2022 is the CSS Code/unicode for a bullet */
+    color: #00ff9d;
+    /* Change the color */
+    font-weight: bold;
+    /* If you want it to be bold */
+    display: inline-block;
+    /* Needed to add space between the bullet and the text */
+    width: 1em;
+    /* Also needed for space (tweak if needed) */
+    margin-left: -1em;
+    /* Also needed for space (tweak if needed) */
+}
+
+.card-recipe {
+    border-radius: 35px;
+    background-color: #48c448;
+    color: white;
+
 }

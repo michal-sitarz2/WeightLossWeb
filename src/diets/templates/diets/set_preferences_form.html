@@ -25,6 +25,8 @@
 
 
 <div class="content-dashboard">
+    <h1 class="text-center pt-3">Your Preferences</h1>
+    <hr>
 
     <form method="post">
         {% csrf_token %}
@@ -48,30 +50,44 @@
             <div class="col-4">
                 <div class="form-group">
                     <label for="exclude_ingredients">Exclude Cuisines</label>
-                    <input type="text" class="form-control" id="ingredients" name="exclude_cuisines">
+                    <input type="text" class="form-control" id="cuisines_input" name="exclude_cuisines">
                 </div>
             </div>
             <div class="col-4">
-                <p>Choose from the list</p>
+                <div class="pt-4 text-center"><span style="color: #0ecfff; font-size: 45px;"><i
+                            class="fas fa-long-arrow-alt-right"></i></span></div>
             </div>
-            <div class="col-4">
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton3"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                        <a class="dropdown-item" href="#">African</a>
-                        <a class="dropdown-item" href="#">American</a>
-                        <a class="dropdown-item" href="#">British</a>
-                        <a class="dropdown-item" href="#">Cajun</a>
-                        <a class="dropdown-item" href="#">Caribbean</a>
-                        <a class="dropdown-item" href="#">Chinese</a>
-                        <a class="dropdown-item" href="#">Eastern European</a>
-                        <a class="dropdown-item" href="#">European</a>
-                        <a class="dropdown-item" href="#">French</a>
-                    </div>
-                </div>
+            <div class="col-4 pt-4">
+                <select class="form-control" id="select-cuisines" onchange="myFunction()">
+                    <option disabled selected>Choose Cuisines</option>
+                    <option value="African">African</option>
+                    <option value="American">American</option>
+                    <option value="British">British</option>
+                    <option value="Cajun">Cajun</option>
+                    <option value="Caribbean">Caribbean</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Eastern European">Eastern European</option>
+                    <option value="European">European</option>
+                    <option value="French">French</option>
+                    <option value="German">German</option>
+                    <option value="Greek">Greek</option>
+                    <option value="Indian">Indian</option>
+                    <option value="Irish">Irish</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Jewish">Jewish</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Latin America">Latin America</option>
+                    <option value="Mediterranean">Mediterranean</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Middle Eastern">Middle Eastern</option>
+                    <option value="Nordic">Nordic</option>
+                    <option value="Southern">Southern</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="Thai">Thai</option>
+                    <option value="Vietnamese">Vietnamese</option>
+
+                </select>
             </div>
         </div>
         <!-- Dropdown 2 -->
@@ -83,26 +99,24 @@
                 </div>
             </div>
             <div class="col-4">
-                <p>Choose from the list</p>
+                <div class="pt-4 text-center"><span style="color: #0ecfff; font-size: 45px;"><i
+                            class="fas fa-long-arrow-alt-right"></i></span></div>
             </div>
-            <div class="col-4">
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton3"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                        <a class="dropdown-item" href="#">African</a>
-                        <a class="dropdown-item" href="#">American</a>
-                        <a class="dropdown-item" href="#">British</a>
-                        <a class="dropdown-item" href="#">Cajun</a>
-                        <a class="dropdown-item" href="#">Caribbean</a>
-                        <a class="dropdown-item" href="#">Chinese</a>
-                        <a class="dropdown-item" href="#">Eastern European</a>
-                        <a class="dropdown-item" href="#">European</a>
-                        <a class="dropdown-item" href="#">French</a>
-                    </div>
-                </div>
+            <div class="col-4 pt-4">
+                <select class="form-control" id="select-cuisines" onchange="myFunction()">
+                    <option disabled selected>Choose Diet</option>
+                    <option value="Gluten Free">Gluten Free</option>
+                    <option value="Ketogenic">Ketogenic</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Lacto-vegetarian">Lacto-vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Ovo-vegetarian">Ovo-vegetarian</option>
+                    <option value="Pescetarian">Pescetarian</option>
+                    <option value="Paleo">Paleo</option>
+                    <option value="Primal">Primal</option>
+                    <option value="Whole30">Whole30</option>
+            
+                </select>
             </div>
         </div>
         <!-- Dropdown 3 -->
@@ -114,40 +128,46 @@
                 </div>
             </div>
             <div class="col-4">
-                <p>Choose from the list</p>
+                <div class="pt-4 text-center"><span style="color: #0ecfff; font-size: 45px;"><i
+                            class="fas fa-long-arrow-alt-right"></i></span></div>
             </div>
-            <div class="col-4">
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton3"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                        <a class="dropdown-item" href="#">African</a>
-                        <a class="dropdown-item" href="#">American</a>
-                        <a class="dropdown-item" href="#">British</a>
-                        <a class="dropdown-item" href="#">Cajun</a>
-                        <a class="dropdown-item" href="#">Caribbean</a>
-                        <a class="dropdown-item" href="#">Chinese</a>
-                        <a class="dropdown-item" href="#">Eastern European</a>
-                        <a class="dropdown-item" href="#">European</a>
-                        <a class="dropdown-item" href="#">French</a>
-                    </div>
-                </div>
+            <div class="col-4 pt-4">
+                <select class="form-control" id="select-cuisines" onchange="myFunction()">
+                    <option disabled selected>Choose Intolerance</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Egg">Egg</option>
+                    <option value="Gluten">Gluten</option>
+                    <option value="Peanut">Peanut</option>
+                    <option value="Seafood">Seafood</option>
+                    <option value="Sesame">Sesame</option>
+                    <option value="Shellfish">Shellfish</option>
+                    <option value="Soy">Soy</option>
+                    <option value="Sulfite">Sulfite</option>
+                    <option value="Tree Nut">Tree Nut</option>
+                    <option value="Wheat">Wheat</option>
+                </select>
             </div>
         </div>
-        <p>Don't forget to separate each word with a comma</p>
+        <p>Selection box still not work so we need to type in the textarea manually for now!</p>
         <div class="mt-3"></div>
         <hr>
         <div class="mt-3"></div>
         <div class="text-center">
-            <input type="submit" value="Submit" class="btn btn-primary">
+            <input type="submit" value="Submit" class="btn btn-success">
         </div>
     </form>
-    <a href="{%url 'user_dashboard' request.user.pk %}" class="btn btn-danger">Back</a>
+    <a href="{%url 'user_dashboard' request.user.pk %}" class="btn" style="background-color: #0ecfff; color: white;">Back</a>
+    <!-- {% for field in form %}
+    <p>{{ exclude_cuisines.help_text|safe }}</p>
+    {% endfor %} -->
 </div>
 
 
-
+<script>
+    function myFunction() {
+        var x = document.getElementById("select-cuisines").value;
+        document.getElementById("#cuisines_input").value = x;
+    }
+</script>
 
 {% endblock %}

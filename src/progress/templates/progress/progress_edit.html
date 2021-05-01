@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Add Your Progress</h1>
+<!-- <h1>Add Your Progress</h1>
 <br><br>
 
 <div>
@@ -10,6 +10,37 @@
         {{ form.as_p }}
         <input type="submit" value="Update">
     </form>
+</div>
+ -->
+
+
+<div class="container" style="padding-bottom: 100px;">
+    <div class="card mt-3">
+        <h2 class="text-center">Add Your Progress</h2>
+        <div class="card-body">
+            <form method="post">{% csrf_token %}
+
+                <div class="form-group">
+                    <!-- <label for="starting_weight">Current Weight (kg)</label>
+                    <input type="text" id="current_weight" name="current_weight" class="form-control"
+                        placeholder="80.0" required autofocus> -->
+
+                    {{ form.as_p }}
+                </div>
+                <!-- 
+                <div class="form-group">
+                    <label for="starting_height">Current Height (m)</label>
+                    <input type="text" id="current_height" name="current_height" class="form-control"
+                        placeholder="1.80" required autofocus>
+
+                </div> -->
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

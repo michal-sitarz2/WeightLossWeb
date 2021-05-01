@@ -32,43 +32,112 @@
     <p><a href="{%url 'view_recipe_recommendations' request.user.pk %}">View Recipes based on preferences</a>
     </p> -->
 
-
-
-    <h4>Current Progress</h4>
-    <br>
-    <p style="margin-left:30px;">
-        Current BMI: {{request.user.progress.current_bmi}}<br>
-        <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
-    </p>
-    <p>
+    <!-- <p>
         Streak: {{ request.user.progress.streak }}
-    </p>
-    {% if progress_percentage == 0 %}
-    <h1 style="color:red; margin-left:10px;">CONGRATULATIONS!</h1>
-    <p style="margin-left:10px;"><strong>You have reached your goal!</strong></p>
+    </p> -->
 
-    {% else %}
-    <span>
-        <div class="progress" style="height:40px; width:40%; margin-left:30px;">
-            <div class="progress-bar" style="width:{{progress_percentage}}%">
-                {{progress_width}}%
+    <h3 class="pt-3">Dashboard</h3>
+
+    <hr style="border-top: 1px solid #0ecfff;">
+    <br>
+    {% if progress_percentage != 0 %}
+    <div class="text-center" style="font-size: 30px;">Your progress</div>
+    <div class="text-center mb-3"><span style="font-size: 30px; color: #48c448;"><i
+                class="fas fa-arrow-down"></i></span></div>
+    <div class="card shadow border-success" style="border-radius: 25px;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4">
+                    <p>
+                        Current BMI: {{request.user.progress.current_bmi}}<br>
+                        <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
+                    </p>
+                    <p><a href="{%url 'update_progress' request.user.pk %}" class="btn btn-success">Add Progress</a></p>
+                </div>
+                <div class="col-8">
+
+                    <span>
+                        <div class="progress" style="height:40px;">
+                            <div class="progress-bar" style="width:{{progress_percentage}}%">
+                                {{progress_width}}%
+                            </div>
+                        </div>
+                    </span>
+
+                </div>
             </div>
         </div>
-    </span>
+    </div>
     {% endif %}
 
-    <p style="margin-left:30px;"><a href="{%url 'update_progress' request.user.pk %}">Add Progress</a></p>
+    {% if progress_percentage == 0 %}
+    <!-- Activate the model -->
+    <script>
+        $(document).ready(function () {
 
-    <hr>
+            $('#myModal').modal('show')
+
+        });
+    </script>
+    <h4>Nice work!</h4>
+    <p><a href="{%url 'update_progress' request.user.pk %}" class="btn btn-success">Set New Goal</a></p>
+
+    {% endif %}
+    <!-- Modal for Congratulations -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body text-center"> <img src="https://img.icons8.com/bubbles/200/000000/trophy.png">
+                        <h4>CONGRATULATIONS!</h4>
+                        <p>You have reached your goal. Keep it up - set a new goal!</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-center"><a href="{%url 'update_progress' request.user.pk %}"
+                                class="btn btn-success">Set New Goal</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <hr style="border-top: 1px solid #0ecfff;">
     {% endif %}
 
     {% if request.user.diet %}
-    <h4>Dietary Preferences</h4>
-    <p> <strong>Excluded Cuisines</strong>: {{ request.user.diet.exclude_cuisines }}
-        <br> <strong>Excluded Ingredients</strong>: {{ request.user.diet.exclude_ingredients }}
-        <br> <strong>Diet Types</strong>: {{ request.user.diet.diets }}
-        <br> <strong>Intolerances</strong>: {{ request.user.diet.intolerances }}
-        <br> <strong>Daily calories before starting the program: {{ request.user.diet.daily_calories }} calories</p>
+    <div style="font-size: 20px; display: inline;">See your dietary</div>
+    <div class="badge badge-primary" data-toggle="modal" data-target="#model_2" style="cursor: pointer;">Preferences</div>
+
+    <div class="modal fade" id="model_2" tabindex="-1" role="dialog" aria-labelledby="model_2_label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="model_2_label">Dietary Preferences</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> <strong>Excluded Cuisines</strong>: {{ request.user.diet.exclude_cuisines }}
+                        <br> <strong>Excluded Ingredients</strong>: {{ request.user.diet.exclude_ingredients }}
+                        <br> <strong>Diet Types</strong>: {{ request.user.diet.diets }}
+                        <br> <strong>Intolerances</strong>: {{ request.user.diet.intolerances }}
+                        <br> <strong>Daily calories before starting the program: {{ request.user.diet.daily_calories }}
+                            calories</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p style="font-size: 20px; display: inline;">Set your food preferences from</p>
+    <a href="{%url 'set_dietary_preferences' request.user.pk %}" class="badge badge-primary">HERE</a>
     {% endif %}
 </div>
 
