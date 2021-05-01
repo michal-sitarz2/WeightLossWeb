@@ -113,7 +113,8 @@
 
     {% if request.user.diet %}
     <div style="font-size: 20px; display: inline;">See your dietary</div>
-    <div class="badge badge-primary" data-toggle="modal" data-target="#model_2" style="cursor: pointer;">Preferences</div>
+    <div class="badge badge-primary" data-toggle="modal" data-target="#model_2" style="cursor: pointer;">Preferences
+    </div>
 
     <div class="modal fade" id="model_2" tabindex="-1" role="dialog" aria-labelledby="model_2_label" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -136,8 +137,7 @@
         </div>
     </div>
     {% else %}
-    <p style="font-size: 20px; display: inline;">Set your food preferences from</p>
-    <a href="{%url 'set_dietary_preferences' request.user.pk %}" class="badge badge-primary">HERE</a>
+
     {% endif %}
 </div>
 
