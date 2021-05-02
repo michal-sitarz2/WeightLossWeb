@@ -106,11 +106,16 @@ def choose_meals_view(request, pk):
     # Getting all the meals that were in range from some old date to yesterday
     meals_past = meals.filter(meal_date__range=["2000-01-01", datetime.today().date() - timedelta(days=1)])
 
-
     # Checking if the length of those past meals is 0
     if(len(meals_past) != 0):
+        print(meals_past)
+
+        # Getting the current user's progress
+        account_progress = request.user.progress
+
         # If there were meals that needed to be deleted, streak will be set to zero again
-        request.user.progress.streak = 0
+        account_progress.streak = 0
+        account_progress.save()
 
         # If there are meals, they will be deleted as not completed
         for meal in list(meals_past):
@@ -121,8 +126,10 @@ def choose_meals_view(request, pk):
             meal.delete()
             # Shifting the meals to the end of the meal plan
             save_next_recipe(request.user, recipe_id, date)
+
         # Adding a message for the user to let them know the old recipes were deleted
         messages.error(request, "The old, not completed recipe(s) were deleted.")
+
 
 
     # Defining dictionaries for each meal type

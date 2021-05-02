@@ -41,8 +41,10 @@
 </head>
 
 <body>
-
-
+    <!-- Messages -->
+    {% for message in messages %}
+        <div class=" mt-2 alert {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
 
     <div class="wrapper">
 

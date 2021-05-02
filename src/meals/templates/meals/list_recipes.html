@@ -3,10 +3,6 @@
 
 <div class="content-dashboard">
     <!-- Alerts -->
-    {% for message in messages %}
-    <div class=" mt-2 alert {{ message.tags }}">{{ message }}</div>
-    {% endfor %}
-
     <script>
         function confirmDelete(id, day, month, year) {
             if (confirm("Have you completed this meal? If yes it will be deleted!")) {

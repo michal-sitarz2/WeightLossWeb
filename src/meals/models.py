@@ -7,7 +7,6 @@ class Meal(models.Model):
     meal_date = models.DateTimeField(blank=False)
     
     # Many to one relationship with the Diet and Recipe tables
-
     # The diet that the meal is part of.
     diet = models.ForeignKey(Diet, on_delete=models.CASCADE)
 
@@ -16,10 +15,6 @@ class Meal(models.Model):
 
     def __str__(self):
         return "Recipe: {}\nDiet: {}\nMeal Date: {}".format(self.recipe, self.diet, self.meal_date.date())
-
-
-    # TODO:
-    #   function which will verify if the date is in the future, + test
 
     def verify_date_not_past(self):
         pass
