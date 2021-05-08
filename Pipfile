@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 django = "==3.0.2"
+django-brutebuster2 = "*"
 
 [dev-packages]
 pylint = "*"
