@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'posts', 'comments',
     'meals', 'diets', 'recipes',
     # Used for Login limits
-    'BruteBuster',
+    #'BruteBuster',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'BruteBuster.middleware.RequestMiddleware',
+    #'BruteBuster.middleware.RequestMiddleware',
 ]
 
 
