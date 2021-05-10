@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from pages.views import homepage_view, bmi_calculator_view, contact_view
+from pages.views import homepage_view, bmi_calculator_view, contact_view, articles_view
 from account.views import registration_view, logout_view, login_view, dashboard_view
 from progress.views import progress_form_view, UpdateProgressView
 from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form, view_recipe
@@ -48,4 +48,5 @@ urlpatterns = [
     path('blog/userPosts/', blog_post_view_user, name='user_posts'),
     path('post/delete/<int:pk>', blog_delete_post, name='delete_post'),
     path('comment/add/<int:pk>', comment_add_view, name="comment_add"),
+    path('articles/', articles_view, name="articles"), 
 ]

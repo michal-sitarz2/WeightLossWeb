@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     # Used for Login limits
     #'BruteBuster',
 
+    'channels',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,6 +60,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'BruteBuster.middleware.RequestMiddleware',
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        },
+        "ROUTING": "WeighLoss.routing.channel_routing",
+    },
+}
 
 
 ROOT_URLCONF = 'WeightLoss.urls'
@@ -144,3 +156,5 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 EMAIL_PORT = 1025
+
+ASGI_APPLICATION = 'WeightLoss.routing.application'

@@ -6,6 +6,7 @@ import requests
 import json
 
 from .scripts.bmi_calculate import calculate_BMI
+from .scripts.twitter import stream_tweets, fetch_tweets
 # These are for the contact page
 from pages.forms import ContactForm
 from django.core.mail import EmailMessage
@@ -118,3 +119,10 @@ def bmi_calculator_view(request, *args, **kwargs):
         bmi['range'] = _range
 
     return render(request, "bmi_calculator.html", bmi)
+
+# Doesn't stream tweets right now, just fetches them.
+def articles_view(request, *args, **kwargs):
+    tweets = fetch_tweets('potus') # using potus as test right now
+    stream_tweets()
+    context = {'tweets': tweets}
+    return render(request, "articles.html", context)
