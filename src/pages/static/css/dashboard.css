@@ -7,7 +7,7 @@
 
 #sidebar {
     position: fixed;
-    z-index: 1;
+    z-index: 9999;
     min-width: 180px;
     max-width: 180px;
     min-height: 100vh;
@@ -66,7 +66,7 @@ a[aria-expanded="true"] {
 
 @media (max-width: 768px) {
     #sidebar {
-        margin-left: -200px;
+        margin-left: -180px;
     }
 
     #sidebar.active {
@@ -77,10 +77,34 @@ a[aria-expanded="true"] {
 /* End of Side Bar */
 
 
+
 #content {
     width: 100%;
     padding-left: 180px;
+    transition: all 0.3s;
 
+}
+
+#sidebarCollapse {
+    background-color: #0ecfff;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s;
+    
+}
+
+
+#sidebarCollapse.active {
+    padding-left: 180px;
+}
+
+@media (max-width: 768px) {
+    #content {
+        padding-left: 0px;
+    }
+    #sidebarCollapse {
+        opacity: 100%;
+    }
 }
 
 .content-dashboard {
@@ -97,7 +121,7 @@ a[aria-expanded="true"] {
 
 .widget-header span {
     position: absolute;
-    top: -2px;
+    top: -12px;
     right: -1px;
 }
 

@@ -2,144 +2,143 @@
 {% block content %}
 
 
-<div class="content-dashboard">
-
-    {% if not request.user.diet %}
-    <h1 class="text-center">Welcome</h1>
-    <h3 class="text-center">This is your Dashboard</h3>
-    <div class="alert alert-success">From here you can manage your recipes, preferences and your progress</div>
-    <br>
 
 
-    <div class="row">
-        <div class="col-8">
-            <p>To get started, please fill in your preferences to generate recipes.</p>
-        </div>
-        <div class="col-4">
-            <a href="{%url 'set_dietary_preferences' request.user.pk %}" class="btn btn-primary"
-                style="border-radius: 15px;">Add Preferences</a>
-        </div>
+{% if not request.user.diet %}
+<h1 class="text-center">Welcome</h1>
+<h3 class="text-center">This is your Dashboard</h3>
+<div class="alert alert-success">From here you can manage your recipes, preferences and your progress</div>
+<br>
+
+
+<div class="row">
+    <div class="col-8">
+        <p>To get started, please fill in your preferences to generate recipes.</p>
     </div>
-    <div style="height: 50px;"></div>
-    <hr>
-    <p style="margin-top: 50px;">This is your side bar. From here you can navigate through your Dashboard</p>
-    <span style="color: orange; font-size: 80px;"><i class="fas fa-level-down-alt fa-rotate-90"></i></span>
+    <div class="col-4">
+        <a href="{%url 'set_dietary_preferences' request.user.pk %}" class="btn btn-primary"
+            style="border-radius: 15px;">Add Preferences</a>
+    </div>
+</div>
+<div style="height: 50px;"></div>
+<hr>
+<p style="margin-top: 50px;">This is your side bar. From here you can navigate through your Dashboard</p>
+<span style="color: orange; font-size: 80px;"><i class="fas fa-level-down-alt fa-rotate-90"></i></span>
 
 
 
-    {% else %}
-    <!-- <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Edit Preferences</a></p>
+{% else %}
+<!-- <p><a href="{%url 'set_dietary_preferences' request.user.pk %}">Edit Preferences</a></p>
     <p><a href="{%url 'view_recipe_recommendations' request.user.pk %}">View Recipes based on preferences</a>
     </p> -->
 
-    <!-- <p>
+<!-- <p>
         Streak: {{ request.user.progress.streak }}
     </p> -->
 
-    <h3 class="pt-3">Dashboard</h3>
+<h3 class="pt-3">Dashboard</h3>
 
-    <hr style="border-top: 1px solid #0ecfff;">
-    <br>
-    {% if progress_percentage != 0 %}
-    <div class="text-center" style="font-size: 30px;">Your progress</div>
-    <div class="text-center mb-3"><span style="font-size: 30px; color: #48c448;"><i
-                class="fas fa-arrow-down"></i></span></div>
-    <div class="card shadow border-success" style="border-radius: 25px;">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-4">
-                    <p>
-                        Current BMI: {{request.user.progress.current_bmi}}<br>
-                        <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
-                    </p>
-                    <p><a href="{%url 'update_progress' request.user.pk %}" class="btn btn-success">Add Progress</a></p>
-                </div>
-                <div class="col-8">
-
-                    <span>
-                        <div class="progress" style="height:40px;">
-                            <div class="progress-bar" style="width:{{progress_percentage}}%">
-                                {{progress_width}}%
-                            </div>
-                        </div>
-                    </span>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-
-    {% if progress_percentage == 0 %}
-    <!-- Activate the model -->
-    <script>
-        $(document).ready(function () {
-
-            $('#myModal').modal('show')
-
-        });
-    </script>
-    <h4>Nice work!</h4>
-    <p><a href="{%url 'update_progress' request.user.pk %}" class="btn btn-success">Set New Goal</a></p>
-
-    {% endif %}
-    <!-- Modal for Congratulations -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body text-center"> <img src="https://img.icons8.com/bubbles/200/000000/trophy.png">
-                        <h4>CONGRATULATIONS!</h4>
-                        <p>You have reached your goal. Keep it up - set a new goal!</p>
-
-                    </div>
-                    <div class="modal-footer">
-                        <div class="text-center"><a href="{%url 'update_progress' request.user.pk %}"
-                                class="btn btn-success">Set New Goal</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <hr style="border-top: 1px solid #0ecfff;">
-    {% endif %}
-
-    {% if request.user.diet %}
-    <div style="font-size: 20px; display: inline;">See your dietary</div>
-    <div class="badge badge-primary" data-toggle="modal" data-target="#model_2" style="cursor: pointer;">Preferences
-    </div>
-
-    <div class="modal fade" id="model_2" tabindex="-1" role="dialog" aria-labelledby="model_2_label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="model_2_label">Dietary Preferences</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p> <strong>Excluded Cuisines</strong>: {{ request.user.diet.exclude_cuisines }}
-                        <br> <strong>Excluded Ingredients</strong>: {{ request.user.diet.exclude_ingredients }}
-                        <br> <strong>Diet Types</strong>: {{ request.user.diet.diets }}
-                        <br> <strong>Intolerances</strong>: {{ request.user.diet.intolerances }}
-                        <br> <strong>Daily calories before starting the program: {{ request.user.diet.daily_calories }}
-                            calories</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% else %}
-
-    {% endif %}
+<hr style="border-top: 1px solid #0ecfff;">
+<br>
+{% if progress_percentage != 0 %}
+<div class="text-center" style="font-size: 30px;">Your progress</div>
+<div class="text-center mb-3"><span style="font-size: 30px; color: #48c448;"><i class="fas fa-arrow-down"></i></span>
 </div>
+<div class="card shadow border-success" style="border-radius: 25px;">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-4">
+                <p>
+                    Current BMI: {{request.user.progress.current_bmi}}<br>
+                    <strong>Target BMI</strong>: {{request.user.progress.target_bmi}}
+                </p>
+                <p><a href="{%url 'update_progress' request.user.pk %}" class="btn btn-success">Add Progress</a></p>
+            </div>
+            <div class="col-8">
+
+                <span>
+                    <div class="progress" style="height:40px;">
+                        <div class="progress-bar" style="width:{{progress_percentage}}%">
+                            {{progress_width}}%
+                        </div>
+                    </div>
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if progress_percentage == 0 %}
+<!-- Activate the model -->
+<script>
+    $(document).ready(function () {
+
+        $('#myModal').modal('show')
+
+    });
+</script>
+<h4>Nice work!</h4>
+<p><a href="{%url 'update_progress' request.user.pk %}" class="btn btn-success">Set New Goal</a></p>
+
+{% endif %}
+<!-- Modal for Congratulations -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body text-center"> <img src="https://img.icons8.com/bubbles/200/000000/trophy.png">
+                    <h4>CONGRATULATIONS!</h4>
+                    <p>You have reached your goal. Keep it up - set a new goal!</p>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center"><a href="{%url 'update_progress' request.user.pk %}"
+                            class="btn btn-success">Set New Goal</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr style="border-top: 1px solid #0ecfff;">
+{% endif %}
+
+{% if request.user.diet %}
+<div style="font-size: 20px; display: inline;">See your dietary</div>
+<div class="badge badge-primary" data-toggle="modal" data-target="#model_2" style="cursor: pointer;">Preferences
+</div>
+
+<div class="modal fade" id="model_2" tabindex="-1" role="dialog" aria-labelledby="model_2_label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="model_2_label">Dietary Preferences</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> <strong>Excluded Cuisines</strong>: {{ request.user.diet.exclude_cuisines }}
+                    <br> <strong>Excluded Ingredients</strong>: {{ request.user.diet.exclude_ingredients }}
+                    <br> <strong>Diet Types</strong>: {{ request.user.diet.diets }}
+                    <br> <strong>Intolerances</strong>: {{ request.user.diet.intolerances }}
+                    <br> <strong>Daily calories before starting the program: {{ request.user.diet.daily_calories }}
+                        calories</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+
+{% endif %}
 
 
 {% endblock content %}

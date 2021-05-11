@@ -6,6 +6,9 @@
     <title>Weight Loss Website</title>
     <link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
 
+    <!-- Mobile responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="{% static '/js/main.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
@@ -43,7 +46,7 @@
 <body>
     <!-- Messages -->
     {% for message in messages %}
-        <div class=" mt-2 alert {{ message.tags }}">{{ message }}</div>
+    <div class=" mt-2 alert {{ message.tags }}">{{ message }}</div>
     {% endfor %}
 
     <div class="wrapper">
@@ -53,11 +56,17 @@
 
         <!-- Page Content -->
         <div id="content">
+            <div class="content-dashboard">
+                <div id="sidebarCollapse" class="btn mt-2">
+                    <i class="fas fa-align-left"></i>
+                    <span>Menu</span>
+                </div>
+                {% block content %}
 
-            {% block content %}
-
-            {% endblock %}
+                {% endblock %}
+            </div>
         </div>
+
     </div>
 
     </div>

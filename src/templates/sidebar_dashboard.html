@@ -1,7 +1,8 @@
 <nav id="sidebar">
     <div class="sidebar-header">
         <div class="widget-header">
-            <h3>{{ request.user.username }}</h3>
+            <h5>{{ request.user.username }}</h5>
+
             <span class="badge badge-pill notify"
                 style="background-color: #0ecfff; color: white;">{{ request.user.progress.streak }}</span>
         </div>
@@ -10,15 +11,18 @@
     <ul class="list-unstyled components">
 
         <li>
-            <a href="{% url 'user_dashboard' request.user.pk %}"><span class="mr-2"><i class="fas fa-home"></i></span>Home</a>
+            <a href="{% url 'user_dashboard' request.user.pk %}"><span class="mr-2"><i
+                        class="fas fa-home"></i></span>Home</a>
         </li>
         {% if request.user.diet %}
         <li>
-            <a href="{%url 'view_recipe_recommendations' request.user.pk %}"><span class="mr-2"><i class="fas fa-utensils"></i></span>Recipes</a>
+            <a href="{%url 'view_recipe_recommendations' request.user.pk %}"><span class="mr-2"><i
+                        class="fas fa-utensils"></i></span>Recipes</a>
         </li>
         {% endif %}
         <li>
-            <a href="{%url 'set_dietary_preferences' request.user.pk %}"><span class="mr-2"><i class="fas fa-user"></i></span>Preferences</a>
+            <a href="{%url 'set_dietary_preferences' request.user.pk %}"><span class="mr-2"><i
+                        class="fas fa-user"></i></span>Preferences</a>
         </li>
         <li>
             <a href="/"><span class="mr-2"><i class="fas fa-globe"></i></span>Website</a>

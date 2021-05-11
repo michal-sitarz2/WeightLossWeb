@@ -17,8 +17,8 @@
                     <h5 class="card-title text-center">Register</h5>
                     <form class="form-signin" method="post">{% csrf_token %}
                         <div class="form-label-group">
-                            <input type="text" id="inputUserame" name="username" class="form-control"
-                                placeholder="Username" required autofocus>
+                            <input type="text" id="inputUsername" name="username" class="form-control"
+                                placeholder="Username" maxlenght="12" required autofocus>
                             <label for="inputUserame">Username</label>
                         </div>
 
@@ -46,7 +46,7 @@
                         <div>
                             <ul>
                                 {% for error in form_errors %}
-                                    <li style="color:red;">{{ error }}</li>
+                                <li style="color:red;">{{ error }}</li>
                                 {% endfor %}
                             </ul>
                         </div>
@@ -66,5 +66,14 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $("#inputUsername").on('input', function () {
+        if ($(this).val().length > 11) {
+            alert('Username cannot be more than 12 letters long');
+        }
+    });
+</script>
 
 {% endblock content %}
