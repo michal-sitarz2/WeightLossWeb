@@ -9,6 +9,7 @@ django-brutebuster2 = "*"
 channels = "*"
 requests = "*"
 tweepy = "*"
+micawber = "*"
 
 [dev-packages]
 pylint = "*"

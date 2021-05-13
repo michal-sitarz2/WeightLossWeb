@@ -18,7 +18,8 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, status):
         # This should probably return the link so that it can be displayed, right now it just prints the tweet link to the console.
-        print('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
+        pass
+        #print('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
 
 
 def stream_tweets():
@@ -49,4 +50,4 @@ def fetch_tweets(username):
     for status in tweets:
         tweet_ids.append('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
 
-    return tweet_ids
+    return tweet_ids[:10] # Limit the tweet count

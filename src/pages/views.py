@@ -122,7 +122,6 @@ def bmi_calculator_view(request, *args, **kwargs):
 
 # Doesn't stream tweets right now, just fetches them.
 def articles_view(request, *args, **kwargs):
-    tweets = fetch_tweets('potus') # using potus as test right now
-    stream_tweets()
+    tweets = fetch_tweets('FitBottomedGirl ') # Using one example diet account
     context = {'tweets': tweets}
     return render(request, "articles.html", context)

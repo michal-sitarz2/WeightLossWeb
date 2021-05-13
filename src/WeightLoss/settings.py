@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     #'BruteBuster',
 
     'channels',
-
+    'micawber.contrib.mcdjango',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
