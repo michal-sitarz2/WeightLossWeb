@@ -11,7 +11,7 @@
 		{% for tweet in tweets %}
 			<!-- need to iterate through the tweets -->
 			<center>
-			{{ tweet|oembed_html:"600x600" }}
+			{{ tweet|oembed:"600x600" }}
 			</center>
 		
       {% endfor %}
