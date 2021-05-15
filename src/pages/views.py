@@ -6,7 +6,7 @@ import requests
 import json
 
 from .scripts.bmi_calculate import calculate_BMI
-from .scripts.twitter import stream_tweets, fetch_tweets
+from .twitter import *
 # These are for the contact page
 from pages.forms import ContactForm
 from django.core.mail import EmailMessage
@@ -124,4 +124,4 @@ def bmi_calculator_view(request, *args, **kwargs):
 def articles_view(request, *args, **kwargs):
     tweets = fetch_tweets('FitBottomedGirl ') # Using one example diet account
     context = {'tweets': tweets}
-    return render(request, "articles.html", context)
+    return render(request, "articles.html", {'text': 'Hello World'})

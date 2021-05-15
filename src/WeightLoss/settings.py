@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'channels',
     'micawber.contrib.mcdjango',
+    'channels_redis',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,13 +65,12 @@ MIDDLEWARE = [
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "asgi_redis.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        },
-        "ROUTING": "WeighLoss.routing.channel_routing",
-    },
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
+
+WSGI_APPLICATION = 'WeightLoss.wsgi.application'
+ASGI_APPLICATION = 'WeightLoss.asgi.application'
 
 
 ROOT_URLCONF = 'WeightLoss.urls'
@@ -93,8 +93,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'WeightLoss.wsgi.application'
 
 
 # Database
@@ -157,5 +155,3 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 EMAIL_PORT = 1025
-
-ASGI_APPLICATION = 'WeightLoss.routing.application'

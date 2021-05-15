@@ -48,5 +48,5 @@ urlpatterns = [
     path('blog/userPosts/', blog_post_view_user, name='user_posts'),
     path('post/delete/<int:pk>', blog_delete_post, name='delete_post'),
     path('comment/add/<int:pk>', comment_add_view, name="comment_add"),
-    path('articles/', articles_view, name="articles"), 
+    path('', include('pages.urls'))
 ]

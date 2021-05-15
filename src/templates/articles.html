@@ -6,14 +6,23 @@
         <h2>Articles</h2>
     </div>
 
-    <div id="tweets" style="display: block;">
+    <div class="container">
+		<div class="row">
+			<div class="col-6 mx-auto mt-5">
+				<div id="app" style="display: block;">
+					{{ text|oembed:"600x600" }}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
 		
-		{% for tweet in tweets %}
-			<!-- need to iterate through the tweets -->
-			<center>
-			{{ tweet|oembed:"600x600" }}
-			</center>
-		
-      {% endfor %}
-    </div>
+		socket.onmessage = function(event){
+			var data = JSON.parse(event.data);
+			console.log(data);
+			document.querySelector('#app').innerHTML = data.message
+		}
+	</script>
 {% endblock %}
