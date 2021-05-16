@@ -13,6 +13,7 @@ from .twitter import *
 from pages.forms import ContactForm
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
+from micawber.contrib.mcdjango import oembed_html
 
 def homepage_view(request, *args, **kwargs):
     # Creating a dictionary to pass to the HTML view
@@ -170,6 +171,9 @@ def data_privacy_view(request, *args, **kwargs):
 
 # Doesn't stream tweets right now, just fetches them.
 def articles_view(request, *args, **kwargs):
-    tweets = fetch_tweets('FitBottomedGirl ') # Using one example diet account
+    tweets = fetch_tweets(twitter_accounts)
+    for i in range(len(tweets)):
+        tweets[i] = oembed_html(tweets[i])
+    
     context = {'tweets': tweets}
-    return render(request, "articles.html", {'text': 'Hello World'})
+    return render(request, "articles.html", context)

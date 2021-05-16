@@ -10,7 +10,9 @@
 		<div class="row">
 			<div class="col-6 mx-auto mt-5">
 				<div id="app" style="display: block;">
-					{{ text|oembed:"600x600" }}
+					{% for tweet in tweets %}
+						{{ tweet|oembed_html:"600x600" }}
+					{% endfor %}
 				</div>
 			</div>
 		</div>

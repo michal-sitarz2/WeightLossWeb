@@ -13,7 +13,7 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 
 # Initialise the tweet stack
-tweets = fetch_tweets('FitBottomedGirl')
+tweets = fetch_tweets(twitter_accounts)
 for i in range(len(tweets)):
     tweets[i] = oembed_html(tweets[i])
 
@@ -27,8 +27,6 @@ class WSConsumer(WebsocketConsumer):
         )
         self.accept()
         stream_tweets()
-        #self.send(json.dumps({'message': tweet_callback()}))
-        #sleep(1)
 
     def update_tweets(self, data):
         self.send(json.dumps({'message': data['tweets']}))
