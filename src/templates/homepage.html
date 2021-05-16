@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script>
+
+</script>
+
 <div class="homepage-background">
     <h1 class="text-center">The Nutrionists - Website</h1>
 
@@ -16,87 +20,45 @@
                         <hr>
                         <p>Enter details here</p>
                         <hr>
-                        <p><!DOCTYPE html>
-                            <html>
-                            
-                            <head>
-                                <!-- Include JS files -->
-                                <script>window.onload = () => {
-                                    let button = document.querySelector("#btn");
-                                
-                                    // Function for calculating BMI
-                                    button.addEventListener("click", calculateBMI);
-                                };
-                                
-                                function calculateBMI() {
-                                
-                                    /* Getting input from user into height variable.
-                                    Input is string so typecasting is necessary. */
-                                    let height = parseInt(document
-                                            .querySelector("#height").value);
-                                
-                                    /* Getting input from user into weight variable.
-                                    Input is string so typecasting is necessary.*/
-                                    let weight = parseInt(document
-                                            .querySelector("#weight").value);
-                                
-                                    let result = document.querySelector("#result");
-                                
-                                    // Checking the user providing a proper
-                                    // value or not
-                                    if (height === "" || isNaN(height))
-                                        result.innerHTML = "Provide a valid Height!";
-                                
-                                    else if (weight === "" || isNaN(weight))
-                                        result.innerHTML = "Provide a valid Weight!";
-                                
-                                    // If both input is valid, calculate the bmi
-                                    else {
-                                
-                                        // Fixing upto 2 decimal places
-                                        let bmi = (weight / ((height * height)
-                                                            / 10000)).toFixed(2);
-                                
-                                        // Dividing as per the bmi conditions
-                                        if (bmi < 18.6) result.innerHTML =
-                                            `Under Weight : <span>${bmi}</span>`;
-                                
-                                        else if (bmi >= 18.6 && bmi < 24.9)
-                                            result.innerHTML =
-                                                `Normal : <span>${bmi}</span>`;
-                                
-                                        else {result.innerHTML =
-                                           `Over Weight : <span>${bmi}</span>`;
-                                            setTimeout(function(){location.replace("http://127.0.0.1:8000/register/");}, 3000);}
-                                    }
-                                }
-                                
-                                </script>
-                            </head>
-                            
-                            <body>
-                                <div class="container">
-                                    <h1>BMI Calculator</h1>
-                            
-                                    <!-- Option for providing height
-                                        and weight to the user-->
-                                    <p>Height (in cm)</p>
-                            
-                                    <input type="text" id="height">
-                            
-                                    <p>Weight (in kg)</p>
-                            
-                                    <input type="text" id="weight">
-                            
-                                    <button id="btn">Calculate</button>
-                            
-                                    <div id="result"></div>
-                                </div>
-                            </body>
-                            
-                            </html>
-                            
+
+                            <div>
+                                <h2>BMI Calculator</h2>
+                            </div>
+
+                            <div id="metric_bmi_form" style="display: block;">
+                                <form method="get" action="/">
+                                        <label>Weight(kg) </label>
+                                        <input name="weight_metric" value={{weight_metric}}><br><br>
+                                        <label>Height(m) </label>
+                                        <input name="height_metric" value={{height_metric}}><br>
+                                    <p><a href="/">Reset</a></p>
+                                    <input type="submit" value="Calculate">
+                                </form>
+                            </div>
+
+
+                            <p id="bmi_output_message">
+                            {% if bmi == -2 %}
+                                Please enter your details to calculate your BMI.
+                            {% elif bmi == -1 %}
+                                Please enter correct inputs. This includes using positive numbers and checking whether kilograms and meters were used.
+                            {% else %}
+                                <strong>BMI</strong>: {{ bmi }}
+                            {% endif %}
                             </p>
+
+                            {% if range %}
+                                <p>You are in the <strong> {{ range }} </strong> range.</p>
+                                <h3>BMI range</h3>
+                                <p>
+                                    BMI < 18.5 = Underweight<br>
+                                    BMI in range 18.5 - 25 = Healthy Weight<br>
+                                    BMI in range 25 - 30 = Overweight<br>
+                                    BMI in range 30 - 40 = Obese<br>
+                                    BMI > 40 = Extremely Obese
+                                </p>
+                            {% endif %}
+
                     </div>
                 </div>
                 <br>
@@ -141,3 +103,6 @@
 <!-- {{ api_data }} -->
 
 {% endblock %}
+
+
+

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+
+</script>
+<br>
+<div class="homepage-background">
+    <h1 class="text-center">Data Privacy</h1>
+    <p>
+        <strong>Before setting up an account, please view below on how we use the data you give us.</strong><br>
+        <strong>This website follows GDPR guidelines to protect your data as best as we can!</strong>
+    </p>
+    <ul>
+        <li>This website collects data from users which are username, password and email.
+            We try to minimize the amount of data we need.</li>
+        <li>We currently do not use your user email for anything, it is just
+            used as an identifier of your account. In the future we might aim to add email reminders with regards to
+            streaks.</li>
+        <li>In addition, you will also need to provide some personal information that we will use to
+            create your progress and your meal plan. Without it the website cannot be used. </li>
+        <li>However, we can ensure all the users that the data given is not used for anything other than generating
+            the meal plan and keeping track of the progress. The data that the users give is safely stored in our
+            database. </li>
+        <li> Nobody outside of the user has access to that data. The data is NOT given to any 3rd parties for any
+            purposes. </li>
+        <li>The only people who have access to the database are developers just for maintaining purposes, and
+            nobody else is given the privileges.</li>
+        <li>For passwords, we are using encryption, so that nobody can view the password, even in the database.</li>
+        <li> We do not have any cookies saving the details, outside of session cookies, and cookies used to keep the
+            user logged in.</li>
+        <li>Outside of the data being stored, when it is transported over the Internet, the best we can
+            do is provide CSRF tokens which minimize the possibility of retrieving that data. </li>
+        <li>Finally, to prevent the website from brute attacks we have enforced a limit on the number of log ins that the user
+            can make, and then the account will be blocked. </li>
+
+    </ul>
+</div>
+
+
+{% endblock %}

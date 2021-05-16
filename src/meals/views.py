@@ -130,8 +130,6 @@ def choose_meals_view(request, pk):
         # Adding a message for the user to let them know the old recipes were deleted
         messages.error(request, "The old, not completed recipe(s) were deleted.")
 
-
-
     # Defining dictionaries for each meal type
     breakfast = {}
     lunch = {}

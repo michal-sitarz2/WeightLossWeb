@@ -14,7 +14,7 @@ class PreferencesForm(forms.Form):
                                                  " Mediterranean, Mexican, Middle Eastern, Nordic, Southern, "
                                                  " Spanish, Thai, Vietnamese)")
     diet = forms.CharField(required=False, help_text="Comma-Separated List of Intolerances (Gluten Free, Ketogenic, Vegetarian, "
-                                     "Lacto-vegetarian, Vegan, Ovo-vegetarian, Pescetarian, Paleo, Primal, Whole30)")
+                                     "Lacto-Vegetarian, Vegan, Ovo-Vegetarian, Pescetarian, Paleo, Primal, Whole30)")
     intolerance = forms.CharField(required=False, help_text= "Comma-Separated List of Intolerances (Dairy, Egg, Gluten, Grain, Peanut, "
                                              " Seafood, Sesame, Shellfish, Soy, Sulfite, Tree Nut, Wheat)")
     exclude_ingredients = forms.CharField(required=False, help_text="Comma-Separated List of Ingredients to Exclude")

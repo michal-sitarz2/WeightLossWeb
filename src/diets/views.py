@@ -75,7 +75,7 @@ def create_meals(request):
         # According to research, the calorie intake per day should be at least 1200,
         # but it is relative to person's current calorie intake (hence decrease their calorie intake
         # by 500 calories to help them loose around 0.5-1.0 kg weekly)
-        if (daily_calories - 500) >= 2300:
+        if (daily_calories - 500) >= 2100:
             total_calories = daily_calories - 500
         else:
             total_calories = 2300
@@ -88,13 +88,14 @@ def create_meals(request):
         # Setting the snacks to be only 10% of the daily calories intake
         snacks_cut = total_calories * 0.1
 
-        # URL to filter lunch and dinner recipes
-        url = "https://api.spoonacular.com/recipes/complexSearch"
         # Creating a request for main courses which will return a JSON file of recipes matching this query
         querystring = {'excludeCuisines': exclude_cuisines, 'diet': diet, 'intolerances': intolerance,
                        'excludeIngredients': exclude_ingredients, 'type': 'main course', 'addRecipeNutrition': True,
                        'minCalories': main_course_cut - 200, 'maxCalories': main_course_cut + 200,
                        'number': 28, 'apiKey': 'db078d8202d840b78592794720def365'}
+
+        # URL to filter lunch and dinner recipes
+        url = "https://api.spoonacular.com/recipes/complexSearch"
 
         # Getting the response from the API
         response = requests.request("GET", url, params=querystring)
@@ -233,25 +234,26 @@ def save_user_meal(recipes, diet, meal_type):
                 # Getting the date a week after tomorrow
                 end_date = current_date + timedelta(days=7)
                 # Looping through the range of those days (that week)
-                while current_date < end_date:
-                    # Saving the breakfast for that week
-                    meal = Meal(meal_date=current_date, diet=diet, recipe=recipe)
-                    meal.save()
-                    # Incrementing the current date
-                    current_date += timedelta(days=1)
+                #TODO remove to make DRY
+                #while current_date < end_date:
+                #     # Saving the breakfast for that week
+                #     meal = Meal(meal_date=current_date, diet=diet, recipe=recipe)
+                #     meal.save()
+                #     # Incrementing the current date
+                #     current_date += timedelta(days=1)
             # If there are two breakfasts, second will be put for the week after the first one
             else:
                 # Getting the date that is after the first week of the meal plan
                 current_date = datetime.date.today() + timedelta(days=8)
                 # Getting the week after the above date
                 end_date = current_date + timedelta(days=7)
-                # Looping through the range of those dates, i.e. the 2 week of the meal plan.
-                while current_date < end_date:
-                    # Saving the meal into the database
-                    meal = Meal(meal_date=current_date, diet=diet, recipe=recipe)
-                    meal.save()
-                    # Incrementing the date
-                    current_date += timedelta(days=1)
+            # Looping through the range of those dates, i.e. the 2 week of the meal plan.
+            while current_date < end_date:
+                # Saving the meal into the database
+                meal = Meal(meal_date=current_date, diet=diet, recipe=recipe)
+                meal.save()
+                # Incrementing the date
+                current_date += timedelta(days=1)
 
 # Helper method used to get the information from the json file returned by the API
 def get_recipe_information(data, limit):

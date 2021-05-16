@@ -10,7 +10,7 @@ class BMIHomePage(TestCase):
 
 
     # TODO
-    #   this will change pages
+    #   this will change pages to homepage
     def test_BMI_inputs(self):
         # Calling the bmi calculator without any parameters
         response = self.client.get('/bmi/', follow=True)

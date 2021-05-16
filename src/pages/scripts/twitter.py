@@ -14,23 +14,31 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 
 listening_thread = threading.Thread()
 
-class MyStreamListener(tweepy.StreamListener):
 
+class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         # This should probably return the link so that it can be displayed, right now it just prints the tweet link to the console.
         print('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
 
 
-def stream_tweets():
+
+    def on_error(self, status_code):
+        if status_code == 420:
+            return False
+        return True
+
+
+def stream_tweets(request, tweets):
+
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener, thread=listening_thread)
+
     # Trump is just used here to test the streaming as it's a very high traffic term
-    myStream.filter(track=['Diet','Trump','Nutrition'], is_async=True) # track= for keywords, follow= for the specific users.
+    myStream.filter(track=['Diet', 'Trump', 'Nutrition'], is_async=True)# track= for keywords, follow= for the specific users.
 
 
 # Function to extract tweets
 def fetch_tweets(username):
-    
     tweets = api.user_timeline(screen_name=username, exclude_replies=True)
   
     # Empty Array

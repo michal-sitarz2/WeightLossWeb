@@ -1,12 +1,38 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
     <div>
-        <h2>Articles</h2>
+        <h2>Tweets</h2>
     </div>
 
-    <div id="tweets" style="display: block;">
-		<p> This is a test, these tweets are in an embeddable format as we just need the links, I just can't get that to work right now - Oliver </p>
-        <strong>tweets</strong>: {{ tweets }}
-    </div>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script>
+        var endpoint = 'ws://' + window.location.host + '/articles/'
+        var socket = new WebSocket(endpoint);
+
+        socket.onmessage = function(e){
+            console.low("open", e)
+        }
+
+        socket.onerror = function(e){
+            console.log("error", e)
+        }
+
+        socket.onopen = function open() {
+          console.log('WebSockets connection created.');
+        };
+
+        socket.onclose = function(e){
+            console.log("close", e)
+        }
+
+        if (socket.readyState == WebSocket.OPEN) {
+          socket.onopen();
+        }
+
+
+    </script>
+
 {% endblock %}

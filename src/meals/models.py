@@ -16,5 +16,3 @@ class Meal(models.Model):
     def __str__(self):
         return "Recipe: {}\nDiet: {}\nMeal Date: {}".format(self.recipe, self.diet, self.meal_date.date())
 
-    def verify_date_not_past(self):
-        pass

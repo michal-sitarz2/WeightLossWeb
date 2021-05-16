@@ -5,9 +5,6 @@ from django.utils import timezone
 from account.models import Account
 from pages.scripts.bmi_calculate import calculate_BMI
 
-###### Raise error if the height is smaller than current
-
-
 class Progress(models.Model):
     # One-to-one relationship with the Users Account
     user = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
@@ -48,10 +45,7 @@ class Progress(models.Model):
     # Method to update the current weight and height, based on user input
     def update_current_set(self, height, weight):
         self.current_weight = weight
-
-        # If the new height is smaller than the current height don't change it
-        if height >= self.current_height:
-            self.current_height = height
+        self.current_height = height
 
         self.update_bmi()
         self.last_updated = timezone.now()
