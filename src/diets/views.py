@@ -294,23 +294,25 @@ def get_recipe_information(data, limit):
 
             # Getting the important nutritional information from the json given by the api
             # Calories
+            r = recipe['nutrition']['nutrients']
+
             recipes[i].append(
-                str(recipe['nutrition']['nutrients'][0]['amount']) + " " + recipe['nutrition']['nutrients'][0]['unit'])
+                str(r[0]['amount']) + " " + r[0]['unit'])
             # Fats
             recipes[i].append(
-                str(recipe['nutrition']['nutrients'][1]['amount']) + " " + recipe['nutrition']['nutrients'][1]['unit'])
+                str(r[1]['amount']) + " " + r[1]['unit'])
             # Saturated Fats
             recipes[i].append(
-                str(recipe['nutrition']['nutrients'][2]['amount']) + " " + recipe['nutrition']['nutrients'][2]['unit'])
+                str(r[2]['amount']) + " " + r[2]['unit'])
             # Carbs
             recipes[i].append(
-                str(recipe['nutrition']['nutrients'][3]['amount']) + " " + recipe['nutrition']['nutrients'][3]['unit'])
+                str(r[3]['amount']) + " " +r[3]['unit'])
             # Sugar
             recipes[i].append(
-                str(recipe['nutrition']['nutrients'][5]['amount']) + " " + recipe['nutrition']['nutrients'][5]['unit'])
+                str(r[5]['amount']) + " " + r[5]['unit'])
             # Protein
             recipes[i].append(
-                str(recipe['nutrition']['nutrients'][8]['amount']) + " " + recipe['nutrition']['nutrients'][8]['unit'])
+                str(r[8]['amount']) + " " + r[8]['unit'])
 
             # Getting the image link
             recipes[i].append(recipe['image'])

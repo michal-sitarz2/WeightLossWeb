@@ -54,6 +54,8 @@ def dashboard_view(request, pk):
             return render(request, 'account/dashboard.html', context)
     # Otherwise they will be taken to the progress form to complete the registration
     except Exception as e:
+        print("hello")
+        print(e)
         return redirect('progress_form')
 
 # Registration form for the user
