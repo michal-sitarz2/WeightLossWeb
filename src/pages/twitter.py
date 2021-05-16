@@ -36,8 +36,7 @@ class MyStreamListener(tweepy.StreamListener):
         return True
 
 
-def stream_tweets(request, tweets):
-
+def stream_tweets():
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener, thread=listening_thread)
 
@@ -66,4 +65,4 @@ def fetch_tweets(username):
     for status in tweets:
         tweet_ids.append('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
 
-    return tweet_ids[:10] # Limit the tweet count
+    return tweet_ids # Limit the tweet count

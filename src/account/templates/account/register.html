@@ -42,13 +42,11 @@
                             <label for="inputConfirmPassword">Confirm password</label>
                         </div>
 
-
+                        <!-- Displaying errors -->
                         <div>
-                            <ul>
-                                {% for error in form_errors %}
-                                <li style="color:red;">{{ error }}</li>
-                                {% endfor %}
-                            </ul>
+                            {% for field in form_errors %}
+                                <p style="color:red;">{{field}}</p>
+                            {% endfor %}
                         </div>
 
                         <div>

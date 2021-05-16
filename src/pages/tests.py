@@ -8,41 +8,38 @@ class BMIHomePage(TestCase):
     def setUp(self):
         self.client = Client()
 
-
-    # TODO
-    #   this will change pages to homepage
     def test_BMI_inputs(self):
         # Calling the bmi calculator without any parameters
-        response = self.client.get('/bmi/', follow=True)
+        response = self.client.get('/', follow=True)
         # Confirming that the bmi is set to -2 (indicating that a value was not set yet)
         self.assertEqual(response.context['bmi'], -2)
 
         # Calling the bmi page with get and required parameters (indicating inputs)
-        response = self.client.get('/bmi/', {
+        response = self.client.get('/', {
             'weight_metric': 100, 'height_metric': 1.85}, follow=True)
         # Confirming that the bmi was calculated correctly
         self.assertEqual(response.context['bmi'], 29.22)
 
         # Calling the bmi page with get and invalid parameters (indicating inputs)
-        response = self.client.get('/bmi/', {
+        response = self.client.get('/', {
             'weight_metric': -1, 'height_metric': 1.85}, follow=True)
         # Confirm that the error flag was set due to invalid input
         self.assertEqual(response.context['bmi'], -1)
 
     def test_BMI_messages(self):
         # Calling the bmi calculator without any parameters
-        response = self.client.get('/bmi/', follow=True)
+        response = self.client.get('/', follow=True)
         # Checking that a message is given to a user to enter inputs to get their BMI (hence flag is set to -2)
         self.assertTrue(b"Please enter your details to calculate your BMI." in response.content)
 
         # Calling the bmi page with get and required parameters (indicating inputs)
-        response = self.client.get('/bmi/', {
+        response = self.client.get('/', {
             'weight_metric': 100, 'height_metric': 1.85}, follow=True)
         # Checking that a message is given to a user to enter inputs to get their BMI
         self.assertTrue(b"<strong>BMI</strong>: 29.22" in response.content)
 
         # Calling the bmi page with get and invalid parameters (indicating inputs)
-        response = self.client.get('/bmi/', {
+        response = self.client.get('/', {
             'weight_metric': -1, 'height_metric': 1.85}, follow=True)
         # Checking that a message is given to a user that there was an error (hence flag is set to -1)
         self.assertTrue(b"Please enter correct inputs. This includes using positive numbers and checking whether "

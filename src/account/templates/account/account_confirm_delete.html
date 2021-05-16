@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}User Account Delete{% endblock title %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete your account?</p>
+            <input type="submit" value="Confirm">
+        </form>
+        {% else %}
+            <p><a href="/login">Login</a></p>
+        {% endif %}
+
+        <a href="/account/dashboard/{{request.user.pk}}"><button>Return</button></a>
+    <br><br>
+{% endblock content %}

@@ -10,6 +10,7 @@ channels = "*"
 requests = "*"
 tweepy = "*"
 micawber = "*"
+beautifulsoup4 = "*"
 
 [dev-packages]
 pylint = "*"

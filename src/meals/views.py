@@ -163,6 +163,31 @@ def choose_meals_view(request, pk):
     # Saving the days into the context dictionary, which will be passed to the template
     context['days'] = days
 
+    # Getting the number of user streaks
+    streaks = request.user.progress.streak
+
+    # Checking if there are any streaks that the user has
+    if streaks > 0:
+        # Using sessions to check the completion of recipes and when to show the streak congratulations message
+        try:
+            # Trying to get the streak number from the session to see if the user's streak changed
+            if request.session.get("streak") == str(streaks):
+                # If it is the same as in the session, no congratulations message will be shown
+                context["streak_new"] = False
+            else:
+                # Adding the streaks to the context to display how big the streak is
+                context['streaks'] = streaks
+                # Setting the streak_new to True to display the congratulations message
+                context["streak_new"] = True
+                # Setting the new streak to the session variable
+                request.session["streak"] = str(streaks)
+        # Checking if the session exists
+        except:
+            # Defining session to the streak number
+            request.session['streak'] = str(streaks)
+            # Not displaying the streak number (as it was not completed)
+            context["streak_new"] = False
+
     # Returning the template with all the recipes for each specific day
     return render(request, "meals/list_recipes.html", context)
 

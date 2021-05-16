@@ -22,8 +22,13 @@
                             <input type="password" id="password" name="password" class="form-control"
                                 placeholder="Password" required>
                             <label for="password">Password</label>
-
                         </div>
+                        <div>
+                            {% for field in form_errors %}
+                                <p style="color:red;">{{field}}</p>
+                            {% endfor %}
+                        </div>
+
                         {% if login_form.non_field_errors %}
                         <div style="color:red;">
                             <p>{{login_form.non_field_errors}}</p>

@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from pages.views import homepage_view, bmi_calculator_view, contact_view, data_privacy_view, articles_view
-from account.views import registration_view, logout_view, login_view, dashboard_view
+from pages.views import homepage_view, contact_view, data_privacy_view, articles_view
+from account.views import registration_view, logout_view, login_view, dashboard_view, user_delete
 from progress.views import progress_form_view, UpdateProgressView
 from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form, view_recipe
 from diets.views import set_preferences_form
@@ -24,10 +24,11 @@ from meals.views import choose_meals_view, delete_meal
 from posts.views import blog_post_view, blog_post_add, blog_post_view_user, blog_delete_post, UpdatePostView
 from comments.views import comment_add_view
 
+
 urlpatterns = [
     path('', homepage_view, name="home"),
     path('home/', homepage_view, name="home"),
-    path('bmi/', bmi_calculator_view, name="bmi"),
+    #path('bmi/', bmi_calculator_view, name="bmi"),
     path('admin/', admin.site.urls),
     path('register/', registration_view, name="register"),
     path('logout/', logout_view, name="logout"),
@@ -48,6 +49,8 @@ urlpatterns = [
     path('blog/userPosts/', blog_post_view_user, name='user_posts'),
     path('post/delete/<int:pk>', blog_delete_post, name='delete_post'),
     path('comment/add/<int:pk>', comment_add_view, name="comment_add"),
-    path('articles/', articles_view, name="articles"),
+    #path('articles/', articles_view, name="articles"),
     path('data_privacy/', data_privacy_view, name="data_privacy"),
+    path('<int:user>/delete', user_delete, name='user_confirm_delete'),
+    path('', include('pages.urls')),
 ]

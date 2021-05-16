@@ -31,6 +31,11 @@ def progress_form_view(request):
             else:
                 context['progress_form'] = form
 
+                context['form_errors'] = []
+                for fields in form:
+                    if fields.errors:
+                        context['form_errors'].append(fields.errors)
+
         else:
             # Displaying the form on the page with the current user
             form = InitialProgressForm(request.POST, user=user)

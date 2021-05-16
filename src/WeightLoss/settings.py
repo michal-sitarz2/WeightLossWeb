@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     #'BruteBuster',
 
     'channels',
+    'micawber.contrib.mcdjango',
+    'channels_redis',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,12 +64,15 @@ MIDDLEWARE = [
 ]
 
 CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
         #"BACKEND": "asgi_redis.RedisChannelLayer",
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-        "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        },
-        "ROUTING": "WeighLoss.routing.channel_routing",
+        # "BACKEND": "channels.layers.InMemoryChannelLayer",
+        # "CONFIG": {
+        #     "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+        # },
+        # "ROUTING": "WeighLoss.routing.channel_routing",
 
 }
 
@@ -94,7 +99,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'WeightLoss.wsgi.application'
-
+ASGI_APPLICATION = 'WeightLoss.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -157,4 +162,3 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 EMAIL_PORT = 1025
 
-ASGI_APPLICATION = 'WeightLoss.routing.application'

@@ -41,23 +41,23 @@
                             {% if bmi == -2 %}
                                 Please enter your details to calculate your BMI.
                             {% elif bmi == -1 %}
-                                Please enter correct inputs. This includes using positive numbers and checking whether kilograms and meters were used.
+                                <strong>Please enter correct inputs. This includes using positive numbers and checking whether kilograms and meters were used.</strong>
                             {% else %}
                                 <strong>BMI</strong>: {{ bmi }}
+
+                                {% if range %}
+                                    <p>You are in the <strong> {{ range }} </strong> range.</p>
+                                    <h3>BMI range</h3>
+                                    <p>
+                                        BMI < 18.5 = Underweight<br>
+                                        BMI in range 18.5 - 25 = Healthy Weight<br>
+                                        BMI in range 25 - 30 = Overweight<br>
+                                        BMI in range 30 - 40 = Obese<br>
+                                        BMI > 40 = Extremely Obese
+                                    </p>
+                                {% endif %}
                             {% endif %}
                             </p>
-
-                            {% if range %}
-                                <p>You are in the <strong> {{ range }} </strong> range.</p>
-                                <h3>BMI range</h3>
-                                <p>
-                                    BMI < 18.5 = Underweight<br>
-                                    BMI in range 18.5 - 25 = Healthy Weight<br>
-                                    BMI in range 25 - 30 = Overweight<br>
-                                    BMI in range 30 - 40 = Obese<br>
-                                    BMI > 40 = Extremely Obese
-                                </p>
-                            {% endif %}
 
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         <div class="_3UCvU"><div id="Containercdf0" class="_1Cfot"><div data-mesh-id="Containercdf0inlineContent" data-testid="inline-content" class=""><div data-mesh-id="Containercdf0inlineContent-gridContainer" data-testid="mesh-container-content"><div id="FvGrdLn1-ihe" class="_10k60"></div><div id="WRchTxt3-13zh" class="_2bafp" data-testid="richTextElement"><h2 class="font_2" style="line-height:1em;font-size:60px"><span style="line-height:1em;"><span class="color_17">What is</span></span></h2>
 
                             <h2 class="font_2" style="line-height:1em;font-size:60px"><span style="line-height:1em;">The Plan?</span></h2>
-                            </div><div id="WRchTxt4-42j" class="_2bafp" data-testid="richTextElement"><p class="font_4" style="font-size:26px">Jennifer K’s doctor-designed plan features dozens of great tasting and easy-to-make recipes, all designed especially to help you kick start your life,&nbsp;lose weight, and get hold of your health, starting today!</p>
+
                             </div><div id="FvGrdLn0-t2v" class="_10k60"></div><div id="WRchTxt5-l8x" class="_2bafp" data-testid="richTextElement"><p class="font_8" style="font-size:15px">This website aims to create an automated meal plan based on user preferences
                                 to aid with the weight loss. The premise of the system is for the user to try and lose
                                 around 1 kg per week by decreasing their calorie intake.<br>

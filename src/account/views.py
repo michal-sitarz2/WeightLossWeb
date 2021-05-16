@@ -4,6 +4,10 @@ from django.views.generic import DetailView
 from .forms import RegistrationForm, AccountAuthenticationForm
 from pages.scripts.bmi_calculate import calculate_BMI
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
+from django.views.generic.edit import DeleteView
+from account.models import Account
 
 # Dashboard view
 def dashboard_view(request, pk):
@@ -43,7 +47,8 @@ def dashboard_view(request, pk):
     context['progress_width'] = int(progress_width)
     context['progress_percentage'] = int(progress)
 
-    # Returning the dashboard if the user was registered and progress was created for them (i.e. the progress form was filled)
+    # Returning the dashboard if the user was registered and progress was created for them
+    # (i.e. the progress form was filled)
     try:
         if request.user.progress:
             return render(request, 'account/dashboard.html', context)
@@ -80,8 +85,10 @@ def registration_view(request):
             # If the form was not valid, it will be displayed back
             context['registration_form'] = form
             # Getting the errors from the form
+            context['form_errors'] = []
             for fields in form:
-                context['form_errors'] = fields.errors
+                if fields.errors:
+                    context['form_errors'].append(fields.errors)
     else:
         # If it was not submitted (hence it was GET) the form will be displayed for the user to fill in
         form = RegistrationForm()
@@ -129,6 +136,12 @@ def login_view(request):
                     return redirect('/admin')
                 else:
                     return redirect('user_dashboard', user.pk)
+        else:
+            # Getting the errors from the form
+            context['form_errors'] = []
+            for fields in form:
+                if fields.errors:
+                    context['form_errors'].append(fields.errors)
     # If the request is GET display the form
     else:
         form = AccountAuthenticationForm()
@@ -136,3 +149,32 @@ def login_view(request):
     # Sending the form if the user was not redirected
     context['login_form'] = form
     return render(request, 'account/login.html', context)
+
+
+# Method which deletes the user account
+def user_delete(request, user):
+    # Checking if the user confirmed
+    if request.POST:
+        # Checking if the user is deleting their own account
+        if request.user.pk == user:
+            try:
+                # Trying to get the user
+                delete_user = Account.objects.get(pk=request.user.pk)
+                # Deleting the user
+                delete_user.delete()
+            except Exception as e:
+                pass
+
+            # Adding a message which will ensure the user that the account was deleted
+            messages.success(request, 'Your account was permanently deleted, along with all of your data. ',
+                             extra_tags='alert-success')
+
+            # Redirecting the user to the home page
+            return redirect("/")
+        else:
+            # If the user is trying to delete someone elses account, they will be redirected back to the
+            # Dashboard
+            messages.error(request, 'This account cannot be deleted!')
+            return redirect('/account/dashboard/{}'.format(request.user.pk))
+    # Returning the page with the confirmation form if the GET request is ade
+    return render(request, "account/account_confirm_delete.html", {})

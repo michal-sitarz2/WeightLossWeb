@@ -41,7 +41,7 @@ class PreferencesForm(forms.Form):
         for cuisine in exclude_cuisines:
             # If it is not we stop iterating, and add an error to the exclcude cuisines field
             if cuisine not in available_cuisines:
-                self.add_error('exclude_cuisines', 'Please check if values match with the provided values.')
+                self.add_error('exclude_cuisines', 'Please check if values match with the provided values for the Available Cuisines.')
                 break
 
         # List of available diets (provided by the Spoonacular API)
@@ -52,7 +52,7 @@ class PreferencesForm(forms.Form):
         for d in diet:
             # If it is not we stop iterating, and add an error to the diets field
             if d not in available_diets:
-                self.add_error('diet', 'Please check if values match with the provided values.')
+                self.add_error('diet', 'Please check if values match with the provided values for the Available Diets.')
                 break
 
         # List of available intolerances (provided by the Spoonacular API)
@@ -63,7 +63,7 @@ class PreferencesForm(forms.Form):
         for i in intolerance:
             if i not in available_intolerances:
                 # If it is not we stop iterating, and add an error to the intolerances field
-                self.add_error('intolerance', 'Please check if values match with the provided values.')
+                self.add_error('intolerance', 'Please check if values match with the provided values for the Available Intolerances.')
                 break
 
         return data

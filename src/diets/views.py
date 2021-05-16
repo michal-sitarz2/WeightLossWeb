@@ -12,6 +12,7 @@ from django.contrib import messages
 
 # View which is used to set preferences and display the form
 def set_preferences_form(request, pk):
+    context = {}
     # Checking if the request to the page was POST
     if request.method == 'POST':
         # If it was POST, we want to get the form that was submitted
@@ -51,11 +52,22 @@ def set_preferences_form(request, pk):
 
             # Redirecting the user to the meal plan
             return redirect('view_recipe_recommendations', pk)
+        else:
+            context['form'] = form
 
-    # If the GET request was made, setting the form
-    form = PreferencesForm()
+            context['form_errors'] = []
+            for fields in form:
+                if fields.errors:
+                    context['form_errors'].append(fields.errors)
+
+
+    else:
+        # If the GET request was made, setting the form
+        form = PreferencesForm()
+        context['form'] = form
+
     # Returning the template for setting the preferences with the form
-    return render(request, 'diets/set_preferences_form.html', {'form': form})
+    return render(request, 'diets/set_preferences_form.html', context)
 
 
 # Function used to create the meals for the user

@@ -1,38 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+    {% load micawber_tags %}
     <div>
         <h2>Tweets</h2>
     </div>
 
-    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+        <div class="container">
+		<div class="row">
+			<div class="col-6 mx-auto mt-5">
+				<div id="app" style="display: block;">
+					{{ text|oembed:"600x600" }}
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <script>
-        var endpoint = 'ws://' + window.location.host + '/articles/'
-        var socket = new WebSocket(endpoint);
+	<script>
+		var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
 
-        socket.onmessage = function(e){
-            console.low("open", e)
-        }
-
-        socket.onerror = function(e){
-            console.log("error", e)
-        }
-
-        socket.onopen = function open() {
-          console.log('WebSockets connection created.');
-        };
-
-        socket.onclose = function(e){
-            console.log("close", e)
-        }
-
-        if (socket.readyState == WebSocket.OPEN) {
-          socket.onopen();
-        }
-
-
-    </script>
+        socket.onmessage = function(event){
+			var data = JSON.parse(event.data);
+			console.log(data);
+			document.querySelector('#app').innerHTML = data.message
+		}
+	</script>
 
 {% endblock %}

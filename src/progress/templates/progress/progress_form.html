@@ -1,43 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
-
-
-<!---
-# TODO
-ADD a table of bmi ranges, allows users to know
-what BMI they might want to aim for!
-
-Add cookies, so if users already filled in the height and weight
-in the BMI calculator, set to those.
-
-Target BMI or Target weight (easier for users?)
--->
-
-
-<!-- <form method="post">{% csrf_token %}
-    {% for field in progress_form %}
-    <p>
-        {{ field.label_tag }}
-        {{ field }}
-
-        {% if field.help_text %}
-        <small style="color: grey;">{{field.help_text}}</small>
-        {% endif %}
-
-        {% for error in field.errors %}
-        <p style="color: red;">{{error}}</p>
-        {% endfor %}
-    </p>
-
-    {% endfor %}
-    <button type="submit">Register</button>
-</form> -->
-
-
-
-
 <div class="container" style="padding-bottom: 100px;">
     <div class="card mt-3">
         <h2 class="text-center">Personal Information</h2>
@@ -64,17 +27,12 @@ Target BMI or Target weight (easier for users?)
                         autofocus>
                     
                 </div>
-                <!-- 
-                {% for field in progress_form %}
-                <p>
 
-
-                    {% for error in field.errors %}
-                    <p style="color: red;">{{error}}</p>
+                <div>
+                    {% for field in form_errors %}
+                        <p style="color:red;">{{field}}</p>
                     {% endfor %}
-                </p>
-
-                {% endfor %} -->
+                </div>
 
 
                 <div class="text-center">
