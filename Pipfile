@@ -11,6 +11,7 @@ requests = "*"
 tweepy = "*"
 micawber = "*"
 beautifulsoup4 = "*"
+redis = "*"
 
 [dev-packages]
 pylint = "*"
