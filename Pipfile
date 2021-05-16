@@ -6,14 +6,10 @@ name = "pypi"
 [packages]
 django = "==3.0.2"
 django-brutebuster2 = "*"
-tweepy = "*"
 channels = "*"
-asgi-redis = "==1.0.0"
-channels-redis = "*"
-rq = "*"
-redis = "*"
-websocket = "*"
-websockets = "*"
+requests = "*"
+tweepy = "*"
+micawber = "*"
 
 [dev-packages]
 pylint = "*"

@@ -1,6 +1,7 @@
 import requests
 import tweepy
 import threading
+import django.dispatch
 
 consumer_key = 'Lx4vGoV6UaaBaXsfGAkDIDoDn'
 consumer_secret_key = 'KgQecSB0X7wpiG0abEZF79zmIkcKzZRy2naAXjxNbDeGdmHnIO'
@@ -13,13 +14,20 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit=True)
 
 listening_thread = threading.Thread()
+'''
+We define a signal type to be raised when the stream receives a new tweet. This
+lets us be notified in other parts of the application. For more on signals see
+https://docs.djangoproject.com/en/3.2/topics/signals
+'''
+tweet_received = django.dispatch.Signal()
 
 
 class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        # This should probably return the link so that it can be displayed, right now it just prints the tweet link to the console.
-        print('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
-
+        self.send_signal('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
+        
+    def send_signal(self, url):
+        tweet_received.send(sender=self.__class__, url=url)
 
 
     def on_error(self, status_code):
@@ -33,8 +41,9 @@ def stream_tweets(request, tweets):
     myStreamListener = MyStreamListener()
     myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener, thread=listening_thread)
 
-    # Trump is just used here to test the streaming as it's a very high traffic term
-    myStream.filter(track=['Diet', 'Trump', 'Nutrition'], is_async=True)# track= for keywords, follow= for the specific users.
+    # I think we should be tracking these from accounts not keywords. Twitter content is mostly irrelevant to us with keywords
+    myStream.filter(track=['Diet','Nutrition'], is_async=True) # track= for keywords, follow= for the specific users.
+
 
 
 # Function to extract tweets
@@ -57,4 +66,4 @@ def fetch_tweets(username):
     for status in tweets:
         tweet_ids.append('https://twitter.com/' + status.user.screen_name + '/status/' + str(status.id))
 
-    return tweet_ids
+    return tweet_ids[:10] # Limit the tweet count
