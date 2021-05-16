@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from pages.views import homepage_view, contact_view, data_privacy_view, articles_view
 from account.views import registration_view, logout_view, login_view, dashboard_view, user_delete
-from progress.views import progress_form_view, UpdateProgressView
+from progress.views import progress_form_view, UpdateProgressView, progress_form_edit
 from recipes.views import spoonacular_api_search_view, spoonacular_api_search_form, view_recipe
 from diets.views import set_preferences_form
 from meals.views import choose_meals_view, delete_meal
@@ -28,7 +28,6 @@ from comments.views import comment_add_view
 urlpatterns = [
     path('', homepage_view, name="home"),
     path('home/', homepage_view, name="home"),
-    #path('bmi/', bmi_calculator_view, name="bmi"),
     path('admin/', admin.site.urls),
     path('register/', registration_view, name="register"),
     path('logout/', logout_view, name="logout"),
@@ -36,6 +35,7 @@ urlpatterns = [
     path('registration_progress/', progress_form_view, name='progress_form'),
     path('contact/', contact_view, name="contact"),
     path('progress/edit/<int:pk>', UpdateProgressView.as_view(), name="update_progress"),
+    path('progress/set_goal/<int:pk>', progress_form_edit, name='set_new_goal'),
     path('post/edit/<int:pk>', UpdatePostView.as_view(), name="update_post"),
     path('account/dashboard/<int:pk>', dashboard_view, name='user_dashboard'),
     path('search/', spoonacular_api_search_form, name="search"),

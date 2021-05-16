@@ -18,9 +18,9 @@ class Progress(models.Model):
     # Goal for the user to reach
     target_bmi = models.FloatField(validators=[MinValueValidator(10), MaxValueValidator(50)], blank=False)
     # Current Height
-    current_height = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(3)], default=0)
+    current_height = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(3)])
     # Current Weight
-    current_weight = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(400)], default=0)
+    current_weight = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(400)])
     # Details last updated
     last_updated = models.DateTimeField(auto_now_add=True, blank=True)
 
@@ -43,9 +43,13 @@ class Progress(models.Model):
         self.current_bmi = calculate_BMI(self.current_weight, self.current_height)
 
     # Method to update the current weight and height, based on user input
-    def update_current_set(self, height, weight):
+    def update_current_set(self, height, weight, *args, **kwargs):
         self.current_weight = weight
         self.current_height = height
+        try:
+            self.target_bmi = kwargs.pop("target_bmi")
+        except:
+            pass
 
         self.update_bmi()
         self.last_updated = timezone.now()

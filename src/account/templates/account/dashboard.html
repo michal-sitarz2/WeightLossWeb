@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-8">
-        <p>To get started, please fill in your preferences to generate recipes.</p>
+        <p><strong>To get started, please fill in your preferences to generate recipes.</strong></p>
     </div>
     <div class="col-4">
         <a href="{%url 'set_dietary_preferences' request.user.pk %}" class="btn btn-primary"
@@ -88,7 +88,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <div class="text-center"><a href="{%url 'update_progress' request.user.pk %}"
+                    <div class="text-center"><a href="{%url 'set_new_goal' request.user.pk %}"
                             class="btn btn-success">Set New Goal</a></div>
                 </div>
             </div>
