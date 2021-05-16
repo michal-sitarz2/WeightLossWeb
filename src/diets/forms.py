@@ -3,7 +3,6 @@ from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 
 class PreferencesForm(forms.Form):
-
     daily_calorie_intake = forms.FloatField(required=True, validators=[MinValueValidator(0)],
                                             help_text='Please provide approximate daily calorie intake')
 

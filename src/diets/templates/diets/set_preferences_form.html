@@ -3,6 +3,7 @@
 {% block content %}
 
 
+
 <h1 class="text-center pt-3">Your Preferences</h1>
 <hr>
 
@@ -23,6 +24,12 @@
             </div>
         </div>
     </div>
+    <hr>
+    <div>
+        <p><strong>For the following fields, make a comma separated list of the inputs provided in the drop down menus!</strong></p>
+        <p>(e.g. Exclude cuisines: Chinese, Italian) -> Inputs not from the list will cause an error.</p>
+    </div>
+    <hr>
     <!-- Dropdown 1 -->
     <div class="row">
         <div class="col-4">
@@ -35,6 +42,7 @@
             <div class="pt-4 text-center"><span style="color: #0ecfff; font-size: 45px;"><i
                         class="fas fa-long-arrow-alt-right"></i></span></div>
         </div>
+
         <div class="col-4 pt-4">
             <select class="form-control" id="select-cuisines" onchange="myFunction()">
                 <option disabled selected>Choose Cuisines</option>
@@ -140,14 +148,5 @@
 <a href="{%url 'user_dashboard' request.user.pk %}" class="btn"
     style="background-color: #0ecfff; color: white;">Back</a>
 
-
-
-
-<script>
-    function myFunction() {
-        var x = document.getElementById("select-cuisines").value;
-        document.getElementById("#cuisines_input").value = x;
-    }
-</script>
 
 {% endblock %}
