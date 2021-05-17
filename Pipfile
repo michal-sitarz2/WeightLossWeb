@@ -12,6 +12,9 @@ tweepy = "*"
 micawber = "*"
 beautifulsoup4 = "*"
 redis = "*"
+gunicorn = "*"
+whitenoise = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 pylint = "*"
