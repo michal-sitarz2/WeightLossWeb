@@ -14,20 +14,26 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="calories_intake">Daily Calories Intake</label>
-                <input type="number" class="form-control" id="calories" name="daily_calorie_intake">
+                <input type="number" class="form-control" id="calories" name="daily_calorie_intake" placeholder="2300">
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="exclude_ingredients">Exclude Ingredients</label>
-                <input type="text" class="form-control" id="ingredients" name="exclude_ingredients">
+                <input type="text" class="form-control" id="ingredients" name="exclude_ingredients" placeholder="Comma-separated list">
             </div>
         </div>
     </div>
     <hr>
     <div>
-        <p><strong>For the following fields, make a comma separated list of the inputs provided in the drop down menus!</strong></p>
-        <p>(e.g. Exclude cuisines: Chinese, Italian) -> Inputs not from the list will cause an error.</p>
+        <p style="color: red;">For the following fields, make a comma separated list of the inputs provided in the drop down menus!</p>
+        <p>
+            <strong>Disclaimer!</strong> The lower threshold for the calorie intake is 2100 calories, which is recommeded healthy intake (for males).
+            We know that for example recommeded amount for women is less than that. The way that this system works is that it decreases daily calorie intake 
+            by 500. If the value will be below the threshold it will be set to the threshold. <strong>Please be aware</strong> if your recommended daily intake
+            is different than that.
+        </p>
+        <p>The inputs could be empty. Inputs not from the list will cause an error.</p>
     </div>
     <hr>
     <!-- Dropdown 1 -->
@@ -35,7 +41,7 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="exclude_ingredients">Exclude Cuisines</label>
-                <input type="text" class="form-control" id="cuisines_input" name="exclude_cuisines">
+                <input type="text" class="form-control" id="cuisines_input" name="exclude_cuisines" placeholder="Indian, African, ...">
             </div>
         </div>
         <div class="col-4">
@@ -81,7 +87,7 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="exclude_ingredients">Diet</label>
-                <input type="text" class="form-control" id="ingredients" name="diet">
+                <input type="text" class="form-control" id="ingredients" name="diet" placeholder="Vegan">
             </div>
         </div>
         <div class="col-4">
@@ -110,7 +116,7 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="exclude_ingredients">Intolerance</label>
-                <input type="text" class="form-control" id="ingredients" name="intolerance">
+                <input type="text" class="form-control" id="ingredients" name="intolerance" placeholder="Dairy, Gluten">
             </div>
         </div>
         <div class="col-4">

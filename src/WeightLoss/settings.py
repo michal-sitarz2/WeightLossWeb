@@ -25,7 +25,7 @@ SECRET_KEY = '6=&d*u!5&qb5_fy7!g+@n!!%!83z10+yqj1mx^lum%&q%tl8=j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['thenutritionist.herokuapp.com', '127.0.0.1']
 
 AUTH_USER_MODEL = "account.Account"
 
@@ -61,11 +61,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'BruteBuster.middleware.RequestMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer"
+        # "BACKEND": "channels.layers.InMemoryChannelLayer"
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
     }
         #"BACKEND": "asgi_redis.RedisChannelLayer",
         # "BACKEND": "channels.layers.InMemoryChannelLayer",
@@ -73,6 +78,9 @@ CHANNEL_LAYERS = {
         #     "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
         # },
         # "ROUTING": "WeighLoss.routing.channel_routing",
+
+        
+    
 
 }
 
@@ -106,8 +114,12 @@ ASGI_APPLICATION = 'WeightLoss.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd3f9e8127ie0gp',
+        'HOST' : 'ec2-3-217-219-146.compute-1.amazonaws.com',
+        'PORT' : 5432,
+        'USER' : 'fsmbdzzvvftjhf',
+        'PASSWORD': '1eaa74729e406f49a562fe1215df84676cb7e21ae0aa72313395f01022eae2bc'
     }
 }
 
@@ -149,11 +161,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_URL = '/images/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# MEDIA_URL = '/images/'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'testing@example.com'
