@@ -66,22 +66,11 @@ MIDDLEWARE = [
 
 CHANNEL_LAYERS = {
     "default": {
-        # "BACKEND": "channels.layers.InMemoryChannelLayer"
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [("localhost", 6379)],
         },
-    }
-        #"BACKEND": "asgi_redis.RedisChannelLayer",
-        # "BACKEND": "channels.layers.InMemoryChannelLayer",
-        # "CONFIG": {
-        #     "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        # },
-        # "ROUTING": "WeighLoss.routing.channel_routing",
-
-        
-    
-
+    },
 }
 
 
