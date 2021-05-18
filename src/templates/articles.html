@@ -19,7 +19,7 @@
 	</div>
 
 	<script>
-		var socket = new WebSocket('ws://localhost:6379/ws/some_url/');
+		var socket = new WebSocket('ws://localhost:8000/ws/some_url/');
 
         socket.onmessage = function(event){
 			var data = JSON.parse(event.data);
