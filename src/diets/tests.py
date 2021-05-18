@@ -207,32 +207,28 @@ class DietViewTests(unittest.TestCase):
 #TODO
 #   Tests
 
-    # # Testing whether the form saves the diet for the user
-    # def test_preferences_form_submit_valid(self):
-    #
-    #     # Logging the client in as the account defined above
-    #     response = self.client.post('/login/', {'username': 'userusername1', 'password': 'passwordSecret'}, follow=True)
-    #
-    #     # Defining the url that the client will access (url to the form)
-    #     url = "/account/dashboard/{}/set_preferences".format(self.a1.id)
-    #
-    #     # Checking that the account does not have any diets at the moment
-    #     diet = Diet.objects.filter(user=self.a1)
-    #     self.assertEqual(len(diet), 0)
-    #
-    #     # Getting the response when the user submits the form with valid data
-    #     response = self.client.post(url, {'daily_calorie_intake': 1200, 'exclude_cuisines': 'British'}, follow=True)
-    #
-    #     self.assertEqual(response.redirect_chain[0][0], '/account/dashboard/{}'.format(self.a1.id))
-    #
-    #     # Trying to get the diet for the current user, to verify it was saved into the database through the form
-    #     diet = Diet.objects.get(user=self.a1)
-    #     self.assertEqual(diet.daily_calories, 1200)
-    #     self.assertEqual(diet.exclude_cuisines, 'british')
-
-
-    def test_create_meals(self):
-        pass
+    # Testing whether the form saves the diet for the user
+    def test_preferences_form_submit_valid(self):
+    
+        # Logging the client in as the account defined above
+        response = self.client.post('/login/', {'username': 'userusername1', 'password': 'passwordSecret'}, follow=True)
+    
+        # Defining the url that the client will access (url to the form)
+        url = "/account/dashboard/{}/set_preferences".format(self.a1.id)
+    
+        # Checking that the account does not have any diets at the moment
+        diet = Diet.objects.filter(user=self.a1)
+        self.assertEqual(len(diet), 0)
+    
+        # Getting the response when the user submits the form with valid data
+        response = self.client.post(url, {'daily_calorie_intake': 1200, 'exclude_cuisines': 'British'}, follow=True)
+    
+        self.assertEqual(response.redirect_chain[0][0], '/account/dashboard/{}'.format(self.a1.id))
+    
+        # Trying to get the diet for the current user, to verify it was saved into the database through the form
+        diet = Diet.objects.get(user=self.a1)
+        self.assertEqual(diet.daily_calories, 1200)
+        self.assertEqual(diet.exclude_cuisines, 'british')
 
 
 
