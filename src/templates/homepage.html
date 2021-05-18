@@ -21,43 +21,44 @@
                         <p>Enter details here</p>
                         <hr>
 
-                            <div>
-                                <h2>BMI Calculator</h2>
-                            </div>
+                        <div>
+                            <h2>BMI Calculator</h2>
+                        </div>
 
-                            <div id="metric_bmi_form" style="display: block;">
-                                <form method="get" action="/">
-                                        <label>Weight(kg) </label>
-                                        <input name="weight_metric" value={{weight_metric}}><br><br>
-                                        <label>Height(m) </label>
-                                        <input name="height_metric" value={{height_metric}}><br>
-                                    <p><a href="/">Reset</a></p>
-                                    <input type="submit" value="Calculate">
-                                </form>
-                            </div>
+                        <div id="metric_bmi_form" style="display: block;">
+                            <form method="get" action="/">
+                                <label>Weight(kg) </label>
+                                <input name="weight_metric" value={{weight_metric}}><br><br>
+                                <label>Height(m) </label>
+                                <input name="height_metric" value={{height_metric}}><br>
+                                <p><a href="/">Reset</a></p>
+                                <input type="submit" value="Calculate">
+                            </form>
+                        </div>
 
 
-                            <p id="bmi_output_message">
+                        <p id="bmi_output_message">
                             {% if bmi == -2 %}
-                                Please enter your details to calculate your BMI.
+                            Please enter your details to calculate your BMI.
                             {% elif bmi == -1 %}
-                                <strong>Please enter correct inputs. This includes using positive numbers and checking whether kilograms and meters were used.</strong>
+                            <strong>Please enter correct inputs. This includes using positive numbers and checking
+                                whether kilograms and meters were used.</strong>
                             {% else %}
-                                <strong>BMI</strong>: {{ bmi }}
+                            <strong>BMI</strong>: {{ bmi }}
 
-                                {% if range %}
-                                    <p>You are in the <strong> {{ range }} </strong> range.</p>
-                                    <h3>BMI range</h3>
-                                    <p>
-                                        BMI < 18.5 = Underweight<br>
-                                        BMI in range 18.5 - 25 = Healthy Weight<br>
-                                        BMI in range 25 - 30 = Overweight<br>
-                                        BMI in range 30 - 40 = Obese<br>
-                                        BMI > 40 = Extremely Obese
-                                    </p>
-                                {% endif %}
-                            {% endif %}
+                            {% if range %}
+                            <p>You are in the <strong> {{ range }} </strong> range.</p>
+                            <h3>BMI range</h3>
+                            <p>
+                                BMI < 18.5=Underweight<br>
+                                    BMI in range 18.5 - 25 = Healthy Weight<br>
+                                    BMI in range 25 - 30 = Overweight<br>
+                                    BMI in range 30 - 40 = Obese<br>
+                                    BMI > 40 = Extremely Obese
                             </p>
+                            {% endif %}
+                            {% endif %}
+                        </p>
 
                     </div>
                 </div>
@@ -72,26 +73,25 @@
                 </div>
                 <hr style="border-top: 2px solid green;">
                 <div class="row">
-                    <div class="col-4">
-                        <div class="_3UCvU"><div id="Containercdf0" class="_1Cfot"><div data-mesh-id="Containercdf0inlineContent" data-testid="inline-content" class=""><div data-mesh-id="Containercdf0inlineContent-gridContainer" data-testid="mesh-container-content"><div id="FvGrdLn1-ihe" class="_10k60"></div><div id="WRchTxt3-13zh" class="_2bafp" data-testid="richTextElement"><h2 class="font_2" style="line-height:1em;font-size:60px"><span style="line-height:1em;"><span class="color_17">What is</span></span></h2>
-
-                            <h2 class="font_2" style="line-height:1em;font-size:60px"><span style="line-height:1em;">The Plan?</span></h2>
-
-                            </div><div id="FvGrdLn0-t2v" class="_10k60"></div><div id="WRchTxt5-l8x" class="_2bafp" data-testid="richTextElement"><p class="font_8" style="font-size:15px">This website aims to create an automated meal plan based on user preferences
-                                to aid with the weight loss. The premise of the system is for the user to try and lose
-                                around 1 kg per week by decreasing their calorie intake.<br>
-                                To access a meal plan, please create an account.<br>
-                                Having a BMI above healthy weight can be a cause to different health conditions, and the
-                                issue can be caused by many things. <a href="https://www.nhs.uk/conditions/obesity/">
-                                (More on Obesity)</a>. To check what range you are in, user the BMI calculator above.<br>
-                                Main course of action to decrease obesity is to eat a healthier, calorie-reduced diet,
-                                and exercise regularly (any form of activity 2.5 to 5 hours a week should be sufficient).
-</p>
-                            
-                            <p class="font_8" style="font-size:15px">&nbsp;</p>
-                            </div><div id="WPht0-9m0" class="Ued3M" title=""><div data-testid="linkElement" class="_2edl5"><wix-image id="img_WPht0-9m0" class="rca7A _2ztx1" data-image-info="{&quot;containerId&quot;:&quot;WPht0-9m0&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;imageData&quot;:{&quot;width&quot;:3882,&quot;height&quot;:2832,&quot;uri&quot;:&quot;b2c0a7_67db47fe9101443091feaf257b9c75c2.jpg&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}" data-bg-effect-name="" data-is-svg="false" data-is-svg-mask="false" data-image-zoomed="" data-has-ssr-src="" data-src="https://static.wixstatic.com/media/b2c0a7_67db47fe9101443091feaf257b9c75c2.jpg/v1/fill/w_1214,h_850,al_c,q_85,usm_0.66_1.00_0.01/b2c0a7_67db47fe9101443091feaf257b9c75c2.jpg"><img src="https://static.wixstatic.com/media/b2c0a7_67db47fe9101443091feaf257b9c75c2.jpg/v1/fill/w_1214,h_850,al_c,q_85,usm_0.66_1.00_0.01/b2c0a7_67db47fe9101443091feaf257b9c75c2.jpg" alt="" style="width: 607px; height: 425px; object-fit: cover; object-position: 50%;"></wix-image></div></div><div id="FvGrdLn0-1d5a" class="_10k60"></div><div data-mesh-id="Containercdf0inlineContent-wedge-4"></div></div></div></div></div>
+                    <div class="col-5">
+                        <p class="font_8" style="font-size:15px">This website aims to create an
+                            automated meal plan based on user preferences
+                            to aid with the weight loss. The premise of the system is for the user
+                            to try and lose
+                            around 1 kg per week by decreasing their calorie intake.<br>
+                            To access a meal plan, please create an account.<br>
+                            Having a BMI above healthy weight can be a cause to different health
+                            conditions, and the
+                            issue can be caused by many things. <a href="https://www.nhs.uk/conditions/obesity/">
+                                (More on Obesity)</a>. To check what range you are in, user the BMI
+                            calculator above.<br>
+                            Main course of action to decrease obesity is to eat a healthier,
+                            calorie-reduced diet,
+                            and exercise regularly (any form of activity 2.5 to 5 hours a week
+                            should be sufficient).
+                        </p>
                     </div>
-                    <div class="col-8">
+                    <div class="col-7">
                         <img src="/static/images/nutrition_cut.jpg" alt="" class="img-fluid">
                     </div>
                 </div>
@@ -103,6 +103,3 @@
 <!-- {{ api_data }} -->
 
 {% endblock %}
-
-
-

@@ -25,7 +25,7 @@ SECRET_KEY = '6=&d*u!5&qb5_fy7!g+@n!!%!83z10+yqj1mx^lum%&q%tl8=j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['thenutritionist.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['the-nutritionist.herokuapp.com', '127.0.0.1']
 
 AUTH_USER_MODEL = "account.Account"
 
